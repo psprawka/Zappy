@@ -6,7 +6,7 @@
 #    By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/09 23:21:55 by psprawka          #+#    #+#              #
-#    Updated: 2018/05/26 18:46:53 by psprawka         ###   ########.fr        #
+#    Updated: 2018/05/29 23:11:24 by psprawka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,14 +16,30 @@ FLAGS = -g -Wall -Wextra -Werror
 
 HEADERS = includes/
 SRCS_DIR = srcs/
+COMMANDS = commands/
 
 SRCS_CLIENT =	$(SRCS_DIR)client.c \
 		$(SRCS_DIR)parse.c \
 		$(SRCS_DIR)opt.c 
 	
-SRCS_SERVER =	$(SRCS_DIR)server.c \
+SRCS_SERVER = $(SRCS_DIR)$(COMMANDS)connect_nbr.c \
+		$(SRCS_DIR)$(COMMANDS)broadcast.c \
+		$(SRCS_DIR)$(COMMANDS)inventory.c \
+		$(SRCS_DIR)$(COMMANDS)advance.c \
+		$(SRCS_DIR)$(COMMANDS)levelup.c \
+		$(SRCS_DIR)$(COMMANDS)death.c \
+		$(SRCS_DIR)$(COMMANDS)right.c \
+		$(SRCS_DIR)$(COMMANDS)left.c \
+		$(SRCS_DIR)$(COMMANDS)kick.c \
+		$(SRCS_DIR)$(COMMANDS)fork.c \
+		$(SRCS_DIR)$(COMMANDS)take.c \
+		$(SRCS_DIR)$(COMMANDS)put.c \
+		$(SRCS_DIR)$(COMMANDS)see.c \
 		$(SRCS_DIR)server_process.c \
 		$(SRCS_DIR)init_structs.c \
+		$(SRCS_DIR)randomize.c \
+		$(SRCS_DIR)server.c \
+		$(SRCS_DIR)teams.c \
 		$(SRCS_DIR)parse.c \
 		$(SRCS_DIR)opt.c 
 

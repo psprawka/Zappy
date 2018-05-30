@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zappy_server.h                                     :+:      :+:    :+:   */
+/*   teams.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/18 18:30:53 by psprawka          #+#    #+#             */
-/*   Updated: 2018/05/29 23:06:27 by psprawka         ###   ########.fr       */
+/*   Created: 2018/05/29 20:57:59 by psprawka          #+#    #+#             */
+/*   Updated: 2018/05/29 23:11:45 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ZAPPY_SERVER_H
-# define ZAPPY_SERVER_H
-
 #include "zappy.h"
 
-
-typedef struct s_team t_team;
-
-typedef struct	s_server
+void	get_team_name(t_player *player, t_server *serv, char *msg)
 {
-	t_player	**players;
-	t_map		*map;
-	t_team		**teams;
-	float		time;
-	int			min_players;
-	int			players_nb;
+	int		i;
 	
-}				t_server;
-
-#endif
+	i = 0;
+	// msg = ft_trim_whitespaces(msg);
+	while (serv->teams[i])
+	{
+		if (!ft_strcmp(serv->teams[i]->name, msg))
+		{
+			player->team = serv->teams[i];
+			player->team->players += 1;
+		}
+		i++;
+	}
+	if (!player->team)
+		ft_printf("Team [%s] doesn't exist. Reenter your team name.\n");
+}

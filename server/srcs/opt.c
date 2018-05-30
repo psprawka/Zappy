@@ -6,11 +6,11 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/26 18:09:01 by psprawka          #+#    #+#             */
-/*   Updated: 2018/05/26 19:07:12 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/05/29 21:44:32 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "zappy_server.h"
+#include "zappy.h"
 
 int 	opt_dimentions(char **av, int *i)
 {

@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zappy_server.h                                     :+:      :+:    :+:   */
+/*   randomize.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/18 18:30:53 by psprawka          #+#    #+#             */
-/*   Updated: 2018/05/29 23:06:27 by psprawka         ###   ########.fr       */
+/*   Created: 2018/05/29 17:54:20 by psprawka          #+#    #+#             */
+/*   Updated: 2018/05/29 17:56:42 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ZAPPY_SERVER_H
-# define ZAPPY_SERVER_H
+#include "zappy_server.h"
 
-#include "zappy.h"
-
-
-typedef struct s_team t_team;
-
-typedef struct	s_server
+int rand_direction(void)
 {
-	t_player	**players;
-	t_map		*map;
-	t_team		**teams;
-	float		time;
-	int			min_players;
-	int			players_nb;
-	
-}				t_server;
 
-#endif
+	return (0); 
+}
+
+int rand_position(void)
+{
+	
+	return (0);
+}

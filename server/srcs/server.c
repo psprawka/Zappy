@@ -6,31 +6,34 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:25:37 by psprawka          #+#    #+#             */
-/*   Updated: 2018/05/26 19:08:55 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/05/29 23:08:00 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "zappy_server.h"
+#include "zappy.h"
 
-void	check_select_fds(fd_set *client_fds, int sockfd)
+void	check_select_fds(t_server *server, fd_set *client_fds, int sockfd)
 {
 	// static t_client	*clients[FD_SETSIZE];
+	// static t_player			*players[FD_SETSIZE];
 	int 					connfd;
 	struct sockaddr_in		temp;
 	socklen_t				socklen;
 
 	ft_bzero(&temp, sizeof(struct sockaddr_in));
 	socklen = sizeof(struct sockaddr_in);
+
 	if ((connfd = accept(sockfd, (struct sockaddr *)&temp, &socklen)) == -1)
 		ft_printf("Accept error\n");
 	else
 	{
 		ft_printf("New player joined [%d]\n", connfd);
 		FD_SET(connfd, client_fds);
+		server->players[connfd] = init_player(connfd);
 	}
 }
 
-void	runserver(fd_set client_fds, int sockfd)
+void	runserver(fd_set client_fds, t_server *server, int sockfd)
 {
 	int		i;
 	fd_set	select_fds;
@@ -46,9 +49,9 @@ void	runserver(fd_set client_fds, int sockfd)
 			if (FD_ISSET(i, &select_fds))
 			{
 				if (i == sockfd)
-					check_select_fds(&client_fds, sockfd);
+					check_select_fds(server, &client_fds, sockfd);
 				else
-					process_data(i, sockfd, &client_fds);
+					process_data(server->players[i], server, &client_fds);
 			}
 			i++;
 		}
@@ -83,12 +86,12 @@ int		main(int ac, char **av)
 	t_server				server;
 	
 	init_server(&server);
-	parse_args_serv(ac, av, &server);
+	// parse_args_serv(ac, av, &server);
 	sockfd = server_socket(ft_atoi(av[2]));
-	if (listen(sockfd, MAX_CLIENT_FD) == -1)
+	if (listen(sockfd, FD_SETSIZE) == -1)
 		error(0, "Listen", true);
 	ft_bzero(&client_fds, sizeof(fd_set));
 	FD_SET(sockfd, &client_fds);
-	runserver(client_fds, sockfd);
+	runserver(client_fds, &server, sockfd);
 	return (0);
 }

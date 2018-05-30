@@ -6,11 +6,11 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:29:16 by psprawka          #+#    #+#             */
-/*   Updated: 2018/05/26 18:39:08 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/05/29 21:44:35 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "zappy_server.h"
+#include "zappy.h"
 
 void	parse_args_client(int ac, char **av)
 {

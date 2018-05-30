@@ -6,11 +6,11 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/20 17:24:12 by psprawka          #+#    #+#             */
-/*   Updated: 2018/05/26 19:07:22 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/05/29 21:46:23 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "zappy_server.h"
+#include "zappy.h"
 
 void	error(int errnb, char *msg, bool ifexit)
 {
