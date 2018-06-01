@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:30:53 by psprawka          #+#    #+#             */
-/*   Updated: 2018/05/29 23:06:27 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/05/31 13:28:12 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef struct	s_server
 	float		time;
 	int			min_players;
 	int			players_nb;
-	
 }				t_server;
 
 #endif

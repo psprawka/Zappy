@@ -6,7 +6,7 @@
 #    By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/09 23:21:55 by psprawka          #+#    #+#              #
-#    Updated: 2018/05/29 23:11:24 by psprawka         ###   ########.fr        #
+#    Updated: 2018/05/31 13:23:19 by psprawka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,8 +38,10 @@ SRCS_SERVER = $(SRCS_DIR)$(COMMANDS)connect_nbr.c \
 		$(SRCS_DIR)server_process.c \
 		$(SRCS_DIR)init_structs.c \
 		$(SRCS_DIR)randomize.c \
+		$(SRCS_DIR)player.c \
 		$(SRCS_DIR)server.c \
 		$(SRCS_DIR)teams.c \
+		$(SRCS_DIR)tools.c \
 		$(SRCS_DIR)parse.c \
 		$(SRCS_DIR)opt.c 
 

@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:29:16 by psprawka          #+#    #+#             */
-/*   Updated: 2018/05/29 21:44:35 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/05/31 12:31:41 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,10 @@ int main(int ac, char **av)
 			{
 				if (i == 1)
 				{
+					sendbuff = ft_strnew(100);
+					ft_memset(sendbuff, '\0', 100);
 					gnl(1, &sendbuff);
-					sendbuff = ft_strjoin(me->color, sendbuff, 0);
-					sendbuff = ft_strjoin(": ", sendbuff, 0);
-					sendbuff = ft_strjoin(me->name, sendbuff, 0);
-					sendbuff = ft_strjoin(sendbuff, NORMAL, 0);
+					sendbuff = ft_strjoin(sendbuff, "", 0);
 					if (send(me->sockfd, sendbuff, ft_strlen(sendbuff), 0) == -1)
 						error(0, "Send", false);
 					free(sendbuff);

@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/26 18:45:10 by psprawka          #+#    #+#             */
-/*   Updated: 2018/05/29 21:44:38 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/05/31 16:04:17 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_inv		*init_inv(void)
 	return (inventory);
 }
 
-t_player	*init_player(int sockfd)
+t_player	*init_player(int sockfd, t_server *server)
 {
 	t_player *new;
 
@@ -50,8 +50,9 @@ t_player	*init_player(int sockfd)
 	new->direction = rand_direction();
 	new->inv = init_inv();
 	new->see_range = 1;
-	new->position = rand_position();
+	new->position = rand_position(server->map);
 	new->lifetime = 1260;
+	new->requests = 0;
 	return (new);
 }
 

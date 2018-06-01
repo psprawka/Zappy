@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   right.c                                            :+:      :+:    :+:   */
+/*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/29 21:49:16 by psprawka          #+#    #+#             */
-/*   Updated: 2018/05/31 17:11:03 by psprawka         ###   ########.fr       */
+/*   Created: 2018/05/31 13:23:45 by psprawka          #+#    #+#             */
+/*   Updated: 2018/05/31 16:55:57 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-void	command_right(t_player *player, t_server *serv)
+void	tools_world_dimensions(t_player *player, t_server *server)
 {
-	player->direction = (player->direction * 2 == 8) ? NORTH : player->direction * 2;
-	send(player->fd, MSG_OK, ft_strlen(MSG_OK), 0);
+	char *msg;
+
+	// msg = ft_strjoin("\n", ft_itoa(server->map->x), 0);
+	// msg = ft_strjoin(msg, " ", 0);
+	msg = ft_strjoin(ft_itoa(server->map->x), " ", 0);
+	
+	msg = ft_strjoin(msg, ft_itoa(server->map->y), 0);
+	send (player->fd, msg, ft_strlen(msg), 0);
+	free(msg);
 }

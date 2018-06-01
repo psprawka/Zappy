@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:39:21 by psprawka          #+#    #+#             */
-/*   Updated: 2018/05/29 22:18:28 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/05/31 17:14:02 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,20 @@
 # include "zappy_server.h"
 
 # define	BUFF_SIZE		64
-# define 	DEF_COLOR		CYAN
+# define	DEF_COLOR		CYAN
+
+# define	MSG_WELCOME		"WELCOME!"
+# define	MSG_NOCOMMAND	"This command doesn't exist!"
+# define	MSG_FULLTEAM	"0"
+# define	MSG_NOTEAM		"This team doesn't exist. Reenter your team name."
+# define	MSG_OK			"ok"
+# define	MSG_KO			"ko"
+# define	MSG_DEATH		"death"
+
+# define	NORTH			1
+# define	EAST			2
+# define	SOUTH			4
+# define	WEST			8
 
 typedef struct	s_client
 {
@@ -72,6 +85,7 @@ typedef struct	s_player
 	int			see_range;
 	int			position;
 	int			lifetime;
+	int			requests;
 	
 }				t_player;
 
@@ -80,19 +94,29 @@ typedef struct	s_player
 */
 t_map		*init_map(void);
 t_inv		*init_inv(void);
-t_player	*init_player(int sockfd);
+t_player	*init_player(int sockfd, t_server *server);
 void		init_server(t_server *serv);
 
 /*
 **	randomize.c
 */
 int rand_direction(void);
-int rand_position(void);
+int rand_position(t_map *map);
 
 /*
 **	teams.c
 */
 void	get_team_name(t_player *player, t_server *serv, char *msg);
+
+/*
+**	player.c
+*/
+void	player_quit(t_player *player, t_server *serv);
+
+/*
+**	tools.c
+*/
+void	tools_world_dimensions(t_player *player, t_server *server);
 
 /*
 **	server_parse.c

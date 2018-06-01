@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:25:37 by psprawka          #+#    #+#             */
-/*   Updated: 2018/05/29 23:08:00 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/05/31 16:11:45 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	check_select_fds(t_server *server, fd_set *client_fds, int sockfd)
 {
-	// static t_client	*clients[FD_SETSIZE];
-	// static t_player			*players[FD_SETSIZE];
 	int 					connfd;
 	struct sockaddr_in		temp;
 	socklen_t				socklen;
@@ -29,7 +27,8 @@ void	check_select_fds(t_server *server, fd_set *client_fds, int sockfd)
 	{
 		ft_printf("New player joined [%d]\n", connfd);
 		FD_SET(connfd, client_fds);
-		server->players[connfd] = init_player(connfd);
+		server->players[connfd] = init_player(connfd, server);
+		send(connfd, MSG_WELCOME, ft_strlen(MSG_WELCOME), 0);
 	}
 }
 
@@ -86,7 +85,7 @@ int		main(int ac, char **av)
 	t_server				server;
 	
 	init_server(&server);
-	// parse_args_serv(ac, av, &server);
+	parse_args_serv(ac, av, &server);
 	sockfd = server_socket(ft_atoi(av[2]));
 	if (listen(sockfd, FD_SETSIZE) == -1)
 		error(0, "Listen", true);
