@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   zappy.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:39:21 by psprawka          #+#    #+#             */
-/*   Updated: 2018/05/31 17:14:02 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/02 03:07:48 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define	BUFF_SIZE		64
 # define	DEF_COLOR		CYAN
 
-# define	MSG_WELCOME		"WELCOME!"
+# define	MSG_WELCOME		"WELCOME!\n"
 # define	MSG_NOCOMMAND	"This command doesn't exist!"
 # define	MSG_FULLTEAM	"0"
 # define	MSG_NOTEAM		"This team doesn't exist. Reenter your team name."
@@ -60,7 +60,6 @@ typedef struct	s_team
 	char		*name;
 	int			hlvl;	//the highest lvl
 	int			players;
-	
 }				t_team;
 
 typedef struct s_inventory
@@ -72,30 +71,28 @@ typedef struct s_inventory
 	int			phiras;
 	int			thystame;
 	int 		food;
-	
-}				t_inv;
+}				t_inventory;
 
 typedef struct	s_player
 {
-	int			fd;
-	t_team		*team;
-	int			level;
-	int			direction;
-	t_inv		*inv;
-	int			see_range;
-	int			position;
-	int			lifetime;
-	int			requests;
-	
+	int				fd;
+	t_team			*team;
+	int				level;
+	int				direction;
+	t_inventory		inv;
+	int				see_range;
+	int				position;
+	int				lifetime;
+	int				requests;
 }				t_player;
 
 /*
 **	init_structs.c
 */
 t_map		*init_map(void);
-t_inv		*init_inv(void);
+t_inventory	*init_inv(void);
 t_player	*init_player(int sockfd, t_server *server);
-void		init_server(t_server *serv);
+int			init_server(t_server *serv);
 
 /*
 **	randomize.c
@@ -106,7 +103,7 @@ int rand_position(t_map *map);
 /*
 **	teams.c
 */
-void	get_team_name(t_player *player, t_server *serv, char *msg);
+int		get_team_name(t_player *player, t_server *serv, char *msg);
 
 /*
 **	player.c
@@ -121,7 +118,7 @@ void	tools_world_dimensions(t_player *player, t_server *server);
 /*
 **	server_parse.c
 */
-void	error(int errnb, char *msg, bool ifexit);
+int		error(int errnb, char *msg, bool ifexit);
 void	parse_args_serv(int ac, char **av, t_server *serv);
 
 /*
@@ -135,13 +132,14 @@ t_team	**opt_teams(char **av, int *i);
 /*
 **	server_process.c
 */
-void	process_data(t_player *player, t_server *serv, fd_set *client_fds);
+int		process_data(t_player *player, t_server *serv);
 
 /*
 **	server.c
 */
 void	check_select_fds(t_server *server, fd_set *client_fds, int sockfd);
-void	runserver(fd_set client_fds, t_server *server, int sockfd);
+// void	runserver(fd_set client_fds, t_server *server, int sockfd);
+int		runserver(int server_fd, t_server *server);
 int		server_socket(int port);
 int		main(int ac, char **av);
 

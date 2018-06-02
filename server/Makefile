@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+         #
+#    By: asyed <asyed@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/09 23:21:55 by psprawka          #+#    #+#              #
-#    Updated: 2018/05/31 13:23:19 by psprawka         ###   ########.fr        #
+#    Updated: 2018/06/02 03:11:38 by asyed            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ $(LIBFT):
 
 %.o: %.c
 	$(BUILD_PRINT)
-	@gcc $(CFLAGS) -I $(HEADERS) -c $< -o $@
+	@gcc -g $(CFLAGS) -I $(HEADERS) -c $< -o $@
 
 clean:
 	@$(MAKE) -C libft/ clean

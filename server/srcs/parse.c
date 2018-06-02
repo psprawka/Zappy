@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/20 17:24:12 by psprawka          #+#    #+#             */
-/*   Updated: 2018/05/29 21:46:23 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/02 01:01:42 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-void	error(int errnb, char *msg, bool ifexit)
+int		error(int errnb, char *msg, bool ifexit)
 {
 	if (errnb == 1)
 		ft_printf("Usage: server -p <port> -x <width> -y <height> -n <team> [<team>] [<team>] ... -c <nb> -t <t>\n");
@@ -27,7 +27,8 @@ void	error(int errnb, char *msg, bool ifexit)
 	else 
 		ft_printf("%s%s: %s%s\n", RED, msg, strerror(errno), NORMAL);	
 	if (ifexit == true)
-		exit(1);
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 void	parse_args_serv(int ac, char **av, t_server *serv)

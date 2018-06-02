@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   zappy_server.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:30:53 by psprawka          #+#    #+#             */
-/*   Updated: 2018/05/31 13:28:12 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/02 01:42:11 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ typedef struct	s_server
 	t_player	**players;
 	t_map		*map;
 	t_team		**teams;
+	fd_set		server_fds;
+	int			max;	
 	float		time;
 	int			min_players;
 	int			players_nb;

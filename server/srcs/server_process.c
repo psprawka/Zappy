@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server_process.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/20 17:26:09 by psprawka          #+#    #+#             */
-/*   Updated: 2018/05/31 16:41:31 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/02 03:15:03 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,33 +42,36 @@ int		parse_recv(t_player *player, t_server *server, char *msg)
 		}
 		i++;
 	}
-	return (0);
+	return (EXIT_FAILURE);
 }
 
-void	process_data(t_player *player, t_server *serv, fd_set *client_fds)
+int		process_data(t_player *player, t_server *server)
 {
 	int		ret;
 	char	buff[BUFF_SIZE];
-	int 	i;
 
-	ft_bzero(buff, BUFF_SIZE);
 	if ((ret = recv(player->fd, buff, BUFF_SIZE, 0)) > 0)
 	{
-		ft_printf("recv msg if [%s]\n", buff);
+		buff[ret] = '\0';
+		ft_printf("recv msg of [%s]\n", buff);
 		if (!player->team)
-			get_team_name(player, serv, buff);
-		else if (parse_recv(player, serv, buff))
+		{
+			if (get_team_name(player, server, buff) == EXIT_FAILURE)
+				player_quit(player, server);
+		}
+		else if (parse_recv(player, server, buff))
 		{
 			;
 			// push_priority_queue(player, recv);
 		}
-		else send(player->fd, MSG_NOCOMMAND, ft_strlen(MSG_NOCOMMAND), 0);
+		else
+			send(player->fd, MSG_NOCOMMAND, ft_strlen(MSG_NOCOMMAND), 0);
 	}
 	else
 	{
 		ft_printf("recv msg else [%s]\n", buff);
-		ret == 0 ? player_quit(player, serv) : error(0, "Ret", false);
-		FD_CLR(player->fd, client_fds);
-		close(player->fd);
+		player_quit(player, server);
+		// ret == 0 ? player_quit(player, server) : error(0, "Ret", false);
 	}
+	return (EXIT_SUCCESS);
 }

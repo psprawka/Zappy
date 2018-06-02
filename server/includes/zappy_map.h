@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   zappy_map.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:39:30 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/01 15:00:58 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/01 23:12:57 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,9 @@ typedef struct	s_square
 
 typedef struct	s_map
 {
-	int			height;
-	int			width;
+	int			x;
+	int			y;
 	t_square	**map;
-	
 }				t_map;
 
 #endif
