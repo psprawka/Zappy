@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:25:37 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 16:07:36 by asyed            ###   ########.fr       */
+/*   Updated: 2018/06/02 16:48:29 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static int	init_kqueue(int server_fd, t_server *server)
 		return (EXIT_FAILURE);
 	}
 	ft_bzero(&evSet, sizeof(struct kevent));
-	EV_SET(&evSet, 1, EVFILT_TIMER, EV_ADD, NOTE_USECONDS, server->time.tv_usec, NULL);
+	EV_SET(&evSet, -1, EVFILT_TIMER, EV_ADD, NOTE_USECONDS, server->time.tv_usec, NULL);
 	printf("%d microseconds\n", server->time.tv_usec);
 	if (kevent(kfd, &evSet, 1, NULL, 0, NULL) == -1 || evSet.flags & EV_ERROR)
 	{
@@ -153,6 +153,7 @@ int		runserver(int server_fd, t_server *server)
 	while ((ret = kevent(server->kfd, NULL, 0, events, max, NULL)) > 0)
 	{
 		i = 0;
+		printf("woke up! %d < %d\n", i, ret);
 		while (i < ret)
 		{
 			if (i >= max)
@@ -160,12 +161,11 @@ int		runserver(int server_fd, t_server *server)
 				printf("wtf? Error! \"%s\"\n", strerror(errno));
 				exit(42);
 			}
-			if (events[i].filter & EVFILT_TIMER)
+			if (events[i].ident == -1)
 			{
+				printf("Tick woke up\n");
 				if (events[i].data > 1)
 					printf("Lagging, tick delayed %ld\n", events[i].data);
-				//timer
-				// printf("Timer elapsed! %ld times\n", events[i].data);
 				check_queue(server);
 			}
 			else if (process_fd(&(events[i]), server) == EXIT_FAILURE) //Handle return value.

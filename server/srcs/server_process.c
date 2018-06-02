@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server_process.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/20 17:26:09 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 15:41:41 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/02 16:15:05 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,7 @@ int		process_data(t_player *player, t_server *server)
 				player_quit(player, server);
 		}
 		else if (parse_recv(player, server, buff))
-		{
-			printf("Pushed to queue!\n");
-			// push_priority_queue(player, recv);
-		}
+			;
 		else
 			send(player->fd, MSG_NOCOMMAND, ft_strlen(MSG_NOCOMMAND), 0);
 	}
