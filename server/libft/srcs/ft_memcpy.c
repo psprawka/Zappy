@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   death.c                                            :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/29 21:51:22 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 15:39:28 by psprawka         ###   ########.fr       */
+/*   Created: 2017/09/18 12:26:21 by asyed             #+#    #+#             */
+/*   Updated: 2018/06/02 04:27:58 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "zappy.h"
+#include "libft.h"
 
-int		command_death(t_player *player, t_server *serv)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	if (player->team)
-		player->team->players--;
-	send(player->fd, MSG_DEATH, ft_strlen(MSG_DEATH), 0);
-	return (0);
+	while (n--)
+		((char *)dest)[n] = ((const char *)src)[n];
+	return (dest);
 }

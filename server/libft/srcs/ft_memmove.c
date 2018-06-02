@@ -1,34 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player.c                                           :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/31 12:03:58 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 02:29:32 by asyed            ###   ########.fr       */
+/*   Created: 2017/09/18 13:44:57 by asyed             #+#    #+#             */
+/*   Updated: 2018/06/02 03:56:43 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "zappy.h"
+#include "libft.h"
 
-void	player_quit(t_player *player, t_server *server)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	int	i;
-	int	local_max;
+	char	*save;
+	size_t	i;
 
-	ft_printf("Player [%d] quit\n", player->fd);
-	command_death(player, server);
-	close(player->fd);
-	FD_CLR(player->fd, &(server->server_fds));
+	save = NULL;
 	i = 0;
-	local_max = 0;
-	while (i < server->max)
+	if (dest < src)
 	{
-		if (FD_ISSET(i, &(server->server_fds)) && i >= local_max)
-			local_max = i + 1;
-		i++;
+		save = dest;
+		while (i < n)
+		{
+			*(char *)dest++ = *(char *)src++;
+			i++;
+		}
+		return (save);
 	}
-	server->max = local_max;
-	free(player);
+	else
+	{
+		save = dest;
+		ft_memcpy(dest, src, n);
+	}
+	return (save);
 }
