@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:30:53 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 04:17:42 by asyed            ###   ########.fr       */
+/*   Updated: 2018/06/02 15:34:29 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ typedef struct	s_server
 	t_map			*map;
 	t_team			**teams;
 	t_pqueue		*events;
-	fd_set			server_fds;
-	int				max;
+	int 			teamcount;
+	int				socket_fd; //Set me!
+	int				kfd;
 	struct timeval	time;
-	// float		time;
 	int				min_players;
 	int				players_nb;
 }				t_server;

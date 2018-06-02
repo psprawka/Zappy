@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:39:21 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 04:18:18 by asyed            ###   ########.fr       */
+/*   Updated: 2018/06/02 15:35:02 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@
 # include <term.h>
 # include <curses.h>
 # include "libft.h"
+# include <sys/types.h>
+# include <sys/event.h>
+# include <sys/time.h>
+
 
 # include "zappy_commands.h"
 # include "zappy_map.h"
@@ -127,7 +131,7 @@ void	parse_args_serv(int ac, char **av, t_server *serv);
 int 			opt_dimentions(char **av, int *i);
 int				opt_min_players(char **av, int *i);
 struct timeval	opt_time(char **av, int *i);
-t_team			**opt_teams(char **av, int *i);
+t_team			**opt_teams(char **av, int *i, t_server *server);
 
 /*
 **	server_process.c

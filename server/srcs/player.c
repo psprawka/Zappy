@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/31 12:03:58 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 02:29:32 by asyed            ###   ########.fr       */
+/*   Updated: 2018/06/02 15:36:08 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,14 @@
 
 void	player_quit(t_player *player, t_server *server)
 {
-	int	i;
-	int	local_max;
+	int				i;
+	struct kevent	evDel;
 
 	ft_printf("Player [%d] quit\n", player->fd);
 	command_death(player, server);
 	close(player->fd);
-	FD_CLR(player->fd, &(server->server_fds));
-	i = 0;
-	local_max = 0;
-	while (i < server->max)
-	{
-		if (FD_ISSET(i, &(server->server_fds)) && i >= local_max)
-			local_max = i + 1;
-		i++;
-	}
-	server->max = local_max;
+	EV_SET(&evDel, player->fd, EVFILT_READ, EV_DELETE, 0, 0, NULL);
+	if (kevent(server->kfd, &evDel, 1, NULL, 0, NULL) == -1)
+		error(6, "kevent error", false);
 	free(player);
 }

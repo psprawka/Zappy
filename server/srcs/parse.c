@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/20 17:24:12 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 01:01:42 by asyed            ###   ########.fr       */
+/*   Updated: 2018/06/02 15:32:57 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		error(int errnb, char *msg, bool ifexit)
 	return (EXIT_SUCCESS);
 }
 
-void	parse_args_serv(int ac, char **av, t_server *serv)
+void	parse_args_serv(int ac, char **av, t_server *server)
 {
 	int		i;
 
@@ -45,15 +45,15 @@ void	parse_args_serv(int ac, char **av, t_server *serv)
 		if (av[i][0] != '-' || !av[i][1] || !av[i + 1])
 			error(1, NULL, true);
 		if (av[i][1] == 'x')
-			serv->map->x = opt_dimentions(av, &i);
+			server->map->x = opt_dimentions(av, &i);
 		else if (av[i][1] == 'y')
-			serv->map->y = opt_dimentions(av, &i);
+			server->map->y = opt_dimentions(av, &i);
 		else if (av[i][1] == 'n')
-			serv->teams = opt_teams(av, &i);
+			server->teams = opt_teams(av, &i, server);
 		else if (av[i][1] == 'c')
-			serv->min_players = opt_min_players(av, &i);
+			server->min_players = opt_min_players(av, &i);
 		else if (av[i][1] == 't')
-			serv->time = opt_time(av, &i);
+			server->time = opt_time(av, &i);
 		else error(1, NULL, true);
 	}
 }
