@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   see.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
+/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:49:36 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 02:10:35 by asyed            ###   ########.fr       */
+/*   Updated: 2018/06/02 15:44:25 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 	// return (ft_strjoin(msg, message_see(player, serv, next_squere(player, serv, squere), leftsq - 1)))
 // }
 
-void	command_see(t_player *player, t_server *serv)
+int	command_see(t_player *player, t_server *serv)
 {
 	// char	*msg;
 	

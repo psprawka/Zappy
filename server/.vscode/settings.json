@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "zappy.h": "c",
+        "zappy_server.h": "c"
+    }
+}

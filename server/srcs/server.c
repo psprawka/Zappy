@@ -6,11 +6,32 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:25:37 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 15:55:06 by asyed            ###   ########.fr       */
+/*   Updated: 2018/06/02 16:07:36 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
+
+void	print_map(int x, int y)
+{
+	int i = 0, j = 0;
+
+	ft_printf("\nMAP:%s\n", ORANGE);
+	while (i < y)
+	{
+		while (j < x)
+		{
+			ft_printf("%d", j + (i * x) + 1);
+			ft_printf("%s",  j + (i * x) + 1 < 10 ? "   " : (j + (i * x) + 1 < 100 ? "  " : " "));
+			j++;
+		}
+		j = 0;
+		ft_printf("\n");
+		i++;
+	}
+	ft_printf("\n%s", NORMAL);
+}
+
 
 static int	new_player(t_server *server)
 {
@@ -201,6 +222,7 @@ int		main(int ac, char **av)
 	if (init_server(&server) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	parse_args_serv(ac, av, &server);
+	print_map(server.map->width, server.map->height);
 	sockfd = server_socket(ft_atoi(av[2]));
 	if (listen(sockfd, FD_SETSIZE) == -1)
 		return (error(0, "Listen", true));

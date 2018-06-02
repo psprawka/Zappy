@@ -12,7 +12,8 @@
 
 #include "zappy.h"
 
-void	command_put(t_player *player, t_server *serv)
+int		command_put(t_player *player, t_server *serv)
 {
 	ft_printf("putting!\n");
+	return (1);
 }
