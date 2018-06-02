@@ -6,11 +6,33 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:25:37 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/01 15:01:10 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/02 00:18:40 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
+
+
+void	print_map(int x, int y)
+{
+	int i = 0, j = 0;
+
+	ft_printf("\nMAP:%s\n", ORANGE);
+	while (i < y)
+	{
+		while (j < x)
+		{
+			ft_printf("%d", j + (i * x) + 1);
+			ft_printf("%s",  j + (i * x) + 1 < 10 ? "   " : (j + (i * x) + 1 < 100 ? "  " : " "));
+			j++;
+		}
+		j = 0;
+		ft_printf("\n");
+		i++;
+	}
+	ft_printf("\n%s", NORMAL);
+}
+
 
 void	check_select_fds(t_server *server, fd_set *client_fds, int sockfd)
 {
@@ -86,6 +108,9 @@ int		main(int ac, char **av)
 	
 	init_server(&server);
 	parse_args_serv(ac, av, &server);
+	
+	print_map(server.map->width, server.map->height); //to remove eventually
+	
 	sockfd = server_socket(ft_atoi(av[2]));
 	if (listen(sockfd, FD_SETSIZE) == -1)
 		error(0, "Listen", true);

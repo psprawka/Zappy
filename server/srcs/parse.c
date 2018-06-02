@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/20 17:24:12 by psprawka          #+#    #+#             */
-/*   Updated: 2018/05/29 21:46:23 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/01 23:46:46 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	parse_args_serv(int ac, char **av, t_server *serv)
 		if (av[i][0] != '-' || !av[i][1] || !av[i + 1])
 			error(1, NULL, true);
 		if (av[i][1] == 'x')
-			serv->map->x = opt_dimentions(av, &i);
+			serv->map->width = opt_dimentions(av, &i);
 		else if (av[i][1] == 'y')
-			serv->map->y = opt_dimentions(av, &i);
+			serv->map->height = opt_dimentions(av, &i);
 		else if (av[i][1] == 'n')
 			serv->teams = opt_teams(av, &i);
 		else if (av[i][1] == 'c')

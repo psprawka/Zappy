@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/26 18:45:10 by psprawka          #+#    #+#             */
-/*   Updated: 2018/05/31 16:04:17 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/02 04:37:45 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,23 @@ t_map	*init_map(void)
 	t_map	*map;
 
 	map = (t_map *)ft_strnew(sizeof(t_map));
-	map->x = 10;
-	map->y = 10;
+	map->width = 10;
+	map->height = 10;
 	map->map = NULL;
+	max_food = 0;
+	max_linemate = 0;
+	max_deraumere = 0;
+	max_sibur = 0;
+	max_mendiane = 0;
+	max_phiras = 0;
+	max_thystame = 0;
+	current_food = 0;
+	current_linemate = 0;
+	current_deraumere = 0;
+	current_sibur = 0;
+	current_mendiane = 0;
+	current_phiras = 0;
+	current_thystame = 0;
 	return (map);
 }
 
@@ -28,7 +42,6 @@ t_inv		*init_inv(void)
 	t_inv	*inventory;
 
 	inventory = (t_inv *)ft_strnew(sizeof(t_inv));
-
 	inventory->linemate = 0;
 	inventory->deraumere = 0;
 	inventory->sibur = 0;

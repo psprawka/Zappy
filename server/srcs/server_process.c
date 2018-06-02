@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/20 17:26:09 by psprawka          #+#    #+#             */
-/*   Updated: 2018/05/31 16:41:31 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/02 00:58:31 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int		parse_recv(t_player *player, t_server *server, char *msg)
 	{
 		if (!ft_strcmp(g_commands[i].msg, msg))
 		{
-			g_commands[i].fct(player, server);
+			if (g_commands[i].fct(player, server))
+				send(player->fd, MSG_OK, ft_strlen(MSG_OK), 0);
 			return (1);
 		}
 		i++;
@@ -54,7 +55,6 @@ void	process_data(t_player *player, t_server *serv, fd_set *client_fds)
 	ft_bzero(buff, BUFF_SIZE);
 	if ((ret = recv(player->fd, buff, BUFF_SIZE, 0)) > 0)
 	{
-		ft_printf("recv msg if [%s]\n", buff);
 		if (!player->team)
 			get_team_name(player, serv, buff);
 		else if (parse_recv(player, serv, buff))
@@ -66,7 +66,6 @@ void	process_data(t_player *player, t_server *serv, fd_set *client_fds)
 	}
 	else
 	{
-		ft_printf("recv msg else [%s]\n", buff);
 		ret == 0 ? player_quit(player, serv) : error(0, "Ret", false);
 		FD_CLR(player->fd, client_fds);
 		close(player->fd);
