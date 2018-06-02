@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/26 18:45:10 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 02:28:59 by asyed            ###   ########.fr       */
+/*   Updated: 2018/06/02 04:22:47 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,22 @@ t_player	*init_player(int sockfd, t_server *server)
 	return (new);
 }
 
-int			init_server(t_server *serv)
+int			init_server(t_server *server)
 {
-	if (!(serv->players = ft_memalloc(sizeof(t_player *) * FD_SETSIZE)))
+	if (!(server->players = ft_memalloc(sizeof(t_player *) * FD_SETSIZE)))
 		return (EXIT_FAILURE);
-	if (!(serv->map = ft_memalloc(sizeof(t_map))))
+	if (!(server->map = ft_memalloc(sizeof(t_map))))
 	{
-		free(serv->players);
+		free(server->players);
 		return (EXIT_FAILURE);
 	}
-	serv->time = 10;
-	serv->min_players = 1;
+	if (!(server->events = init_pqueue()))
+	{
+		free(server->map);
+		free(server->players);
+		return (EXIT_FAILURE);
+	}
+	// server->time = 10;
+	server->min_players = 1;
 	return (EXIT_SUCCESS);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   opt.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/26 18:09:01 by psprawka          #+#    #+#             */
-/*   Updated: 2018/05/30 17:08:32 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/02 04:16:58 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,21 @@ int		opt_min_players(char **av, int *i)
 	return (number);
 }
 
-int		opt_time(char **av, int *i)
+struct timeval	opt_time(char **av, int *i)
 {
-	int number;
+	int 			number;
+	struct timeval	ret;
 
 	number = ft_atoi(av[*i + 1]);
 	if (number < 0 || number > 1000)
 		error(5, NULL, true);
 	*i += 2;
-	return (1 / number);
+	// if (gettimeofday(&ret) == -1)
+		// return (NULL); //Again I don't know what to do in this case.
+	ret.tv_usec =  (1 / number) / 1000000;
+	ret.tv_sec = (1 / number);
+	return (ret);
+	// return (1 / number);
 }
 
 t_team	**opt_teams(char **av, int *i)

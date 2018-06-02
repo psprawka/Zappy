@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:25:37 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 03:07:54 by asyed            ###   ########.fr       */
+/*   Updated: 2018/06/02 04:44:54 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,33 @@ static int	new_player(t_server *server, int server_fd)
 		player_quit(server->players[connfd], server);
 	printf("Sent a welcome message\n");
 	return (EXIT_SUCCESS);
+}
+
+void	check_queue(t_server *server)
+{
+	struct timeval	curr;
+	t_node			*tmp;
+	void			*content;
+
+	if (gettimeofday(&curr, NULL) == -1)
+	{
+		error(6, "gettimeofday() failed", false);
+		return ;
+	}
+	if (server->events)
+		tmp = server->events->first;
+	while (tmp)
+	{
+		if (((t_event *)tmp->content)->delaytime.tv_usec >= curr.tv_usec)
+		{
+			tmp = tmp->next;
+			if (!(content = ft_depqueue(server->events)))
+				error(6, "Failed to ft_depqueue", false);
+			((t_event *)content)->fct(((t_event *)content)->player, server);
+			free(content);
+		}
+		break ;
+	}
 }
 
 static int	process_select(fd_set *fds, int server_fd, t_server *server)
@@ -62,8 +89,9 @@ static int	process_select(fd_set *fds, int server_fd, t_server *server)
 
 int		runserver(int server_fd, t_server *server)
 {
-	int		ret;
-	fd_set	fds;
+	int				ret;
+	fd_set			fds;
+	struct timeval	timeout;
 
 	server->max = server_fd + 1;
 	FD_SET(server_fd, &fds);
@@ -71,12 +99,9 @@ int		runserver(int server_fd, t_server *server)
 	while ((ret = select(server->max, &fds, NULL, NULL, NULL)) >= 0)
 	{
 		printf("Unblocked\n");
-		if (!ret)
-		{
-			//timeout.
-		}
-		else if (process_select(&fds, server_fd, server) == EXIT_FAILURE)
+		if (ret && process_select(&fds, server_fd, server) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
+		check_queue(server);
 		FD_COPY(&(server->server_fds), &fds);
 	}
 	return (EXIT_FAILURE);

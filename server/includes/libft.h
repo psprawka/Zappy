@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 18:35:16 by psprawka          #+#    #+#             */
-/*   Updated: 2018/05/22 17:13:47 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/02 04:22:40 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,28 @@
 # define MAROON			"\033[38;5;88m"
 # define GREY			"\033[38;5;246m"
 
+typedef struct	s_node
+{
+	void			*content;
+	struct s_node	*next;
+	struct s_node	*previous;
+}				t_node;
+
+typedef struct	s_pqueue
+{
+	t_node			*first;
+}				t_pqueue;
+
+/*
+** Priority Queue
+*/
+void			ft_enpqueue(t_pqueue *queue, void *content, size_t c_size,
+					int (*comparer)(void *, void *));
+void			*peek_pqueue(t_pqueue *queue);
+void			*ft_depqueue(t_pqueue *queue);
+t_pqueue		*init_pqueue(void);
+void			del_pqueue(t_pqueue *queue, void (*deconstruct)(void *ptr));
+
 long int		ft_atoi(char *s);
 char			*ft_ftoa(double n);
 char			*ft_itoa(int nbr);
@@ -49,14 +71,13 @@ char			*ft_strchr(char *str, char to_find);
 char			*ft_strsub(char *s, unsigned int start, size_t len);
 void			ft_putendl_fd(char *s, int fd);
 void			ft_putchar_fd(char c, int fd);
-
 int				ft_wstrlen(wchar_t *ws);
 char			*ft_strrev(char *str);
 void			*ft_memalloc(size_t size);
 char			*ft_convert_hex(unsigned long int nb, int type);
 char			*ft_convert_octal(unsigned long int nb);
 char			*ft_convert_uni(wchar_t wide);
-
+void			*ft_memmove(void *dest, const void *src, size_t n);
 int				ft_printf(const char *format, ...);
 int				gnl(const int fd, char **line);
 

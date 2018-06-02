@@ -6,7 +6,7 @@
 #    By: asyed <asyed@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/09 23:21:55 by psprawka          #+#    #+#              #
-#    Updated: 2018/06/02 03:11:38 by asyed            ###   ########.fr        #
+#    Updated: 2018/06/02 04:26:13 by asyed            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME_SERVER = server
 FLAGS = -g -Wall -Wextra -Werror
 
 HEADERS = includes/
+# HEADERS += -I libft/includes
 SRCS_DIR = srcs/
 COMMANDS = commands/
 
@@ -63,7 +64,7 @@ $(NAME_CLIENT) : $(LIBFT) $(OBJS_CLIENT) $(HEADERS)
 		$(DONE_CLIENT)
 
 $(NAME_SERVER) : $(LIBFT) $(OBJS_SERVER) $(HEADERS)
-		@gcc $(FLAGS) -I $(HEADERS) $(OBJS_SERVER) $(LIBFT) -lncurses -o $(NAME_SERVER)
+		@gcc $(FLAGS) -I $(HEADERS) -I libft/includes $(OBJS_SERVER) $(LIBFT) -lncurses -o $(NAME_SERVER)
 		$(DONE_SERVER)
 
 $(LIBFT):

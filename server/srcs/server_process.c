@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/20 17:26:09 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 03:15:03 by asyed            ###   ########.fr       */
+/*   Updated: 2018/06/02 04:40:49 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,45 @@
 
 static t_commands g_commands[] =
   {
-    {"advance", command_advance},
-    {"right", command_right},
-    {"left", command_left},
-    {"see", command_see},
-    {"inventory", command_inventory},
-    {"take", command_take},
-	{"put", command_put},
-	{"kick", command_kick},
-	{"broadcast", command_broadcast},
-	{"incantation", command_levelup},
-	{"fork", command_fork},
-	{"connect_nbr", command_connect_nbr}
+    {"advance", 7, command_advance},
+    {"right", 7, command_right},
+    {"left", 7, command_left},
+    {"see", 7, command_see},
+    {"inventory", 1, command_inventory},
+    {"take", 7, command_take},
+	{"put", 7, command_put},
+	{"kick", 7, command_kick},
+	{"broadcast", 7, command_broadcast},
+	{"incantation", 300, command_levelup},
+	{"fork", 42, command_fork},
+	{"connect_nbr", 0, command_connect_nbr}
   };
+
+int		delayComparison(t_event *first, t_event *second)
+{
+	//Return 0 on insertion. Insert earliest first.
+	return (first->delaytime.tv_usec >= second->delaytime.tv_usec);
+}
 
 int		parse_recv(t_player *player, t_server *server, char *msg)
 {
-	int i;
-	
+	int		i;
+	t_event	event;
+
 	i = 0;
 	while (i < sizeof(g_commands) / sizeof(*g_commands))
 	{
 		if (!ft_strcmp(g_commands[i].msg, msg))
 		{
-			g_commands[i].fct(player, server);
-			return (1);
+			if (gettimeofday(&(event.delaytime), NULL) == EXIT_FAILURE)
+			{
+				//Set failure in X cycles? lol
+				return (EXIT_FAILURE); //Idk what to do in this case tbh.
+			}
+			event.delaytime.tv_usec += g_commands[i].delay * server->time.tv_usec;
+			event.fct = g_commands[i].fct;
+			ft_enpqueue(server->events, &event, sizeof(t_event), (int (*)(void *, void *))&delayComparison);
+			return (EXIT_SUCCESS);
 		}
 		i++;
 	}
@@ -61,7 +75,7 @@ int		process_data(t_player *player, t_server *server)
 		}
 		else if (parse_recv(player, server, buff))
 		{
-			;
+			printf("Pushed to queue!\n");
 			// push_priority_queue(player, recv);
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:39:21 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 03:07:48 by asyed            ###   ########.fr       */
+/*   Updated: 2018/06/02 04:18:18 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,10 +124,10 @@ void	parse_args_serv(int ac, char **av, t_server *serv);
 /*
 **	options.c
 */
-int 	opt_dimentions(char **av, int *i);
-int		opt_min_players(char **av, int *i);
-int		opt_time(char **av, int *i);
-t_team	**opt_teams(char **av, int *i);
+int 			opt_dimentions(char **av, int *i);
+int				opt_min_players(char **av, int *i);
+struct timeval	opt_time(char **av, int *i);
+t_team			**opt_teams(char **av, int *i);
 
 /*
 **	server_process.c

@@ -1,35 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zappy_server.h                                     :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/18 18:30:53 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 04:17:42 by asyed            ###   ########.fr       */
+/*   Created: 2017/09/18 13:44:57 by asyed             #+#    #+#             */
+/*   Updated: 2018/06/02 03:56:43 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ZAPPY_SERVER_H
-# define ZAPPY_SERVER_H
+#include "libft.h"
 
-#include "zappy.h"
-
-
-typedef struct s_team t_team;
-
-typedef struct	s_server
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	t_player		**players;
-	t_map			*map;
-	t_team			**teams;
-	t_pqueue		*events;
-	fd_set			server_fds;
-	int				max;
-	struct timeval	time;
-	// float		time;
-	int				min_players;
-	int				players_nb;
-}				t_server;
+	char	*save;
+	size_t	i;
 
-#endif
+	save = NULL;
+	i = 0;
+	if (dest < src)
+	{
+		save = dest;
+		while (i < n)
+		{
+			*(char *)dest++ = *(char *)src++;
+			i++;
+		}
+		return (save);
+	}
+	else
+	{
+		save = dest;
+		ft_memcpy(dest, src, n);
+	}
+	return (save);
+}

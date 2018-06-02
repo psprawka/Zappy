@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+         #
+#    By: asyed <asyed@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/24 11:51:37 by psprawka          #+#    #+#              #
-#    Updated: 2018/05/22 14:12:03 by psprawka         ###   ########.fr        #
+#    Updated: 2018/06/02 04:28:26 by asyed            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,9 @@ SRC = $(SRC_DIR)ft_atoi.c \
 	$(SRC_DIR)ft_strsub.c \
 	$(SRC_DIR)ft_wstrlen.c \
 	$(SRC_DIR)gnl.c \
+	$(SRC_DIR)ft_pqueue.c \
+	$(SRC_DIR)ft_memmove.c \
+	$(SRC_DIR)ft_memcpy.c \
 
 SRC_PRINTF = $(PRINTF_DIR)atoi_and_ulltoa.c \
 		$(PRINTF_DIR)ft_printf.c \
