@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
+/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/20 17:24:12 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 16:07:53 by asyed            ###   ########.fr       */
+/*   Updated: 2018/06/02 21:37:53 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,7 @@ void	parse_args_serv(int ac, char **av, t_server *server)
 			server->time = opt_time(av, &i);
 		else error(1, NULL, true);
 	}
+	// check_args(server);
+	// init_map();
 }
 

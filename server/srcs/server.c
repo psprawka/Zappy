@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
+/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:25:37 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 16:07:36 by asyed            ###   ########.fr       */
+/*   Updated: 2018/06/02 21:38:31 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-void	print_map(int x, int y)
+void	print_map(t_server *server, int x, int y)
 {
 	int i = 0, j = 0;
 
@@ -30,6 +30,11 @@ void	print_map(int x, int y)
 		i++;
 	}
 	ft_printf("\n%s", NORMAL);
+
+	ft_printf("\nRESOURCES:%s\n", PINK);
+	i = 0; j = 0;
+	// while(server->map->squeres[i])
+	
 }
 
 
@@ -163,7 +168,7 @@ int		runserver(int server_fd, t_server *server)
 			if (events[i].filter & EVFILT_TIMER)
 			{
 				if (events[i].data > 1)
-					printf("Lagging, tick delayed %ld\n", events[i].data);
+					// printf("Lagging, tick delayed %ld\n", events[i].data);
 				//timer
 				// printf("Timer elapsed! %ld times\n", events[i].data);
 				check_queue(server);
@@ -222,7 +227,7 @@ int		main(int ac, char **av)
 	if (init_server(&server) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	parse_args_serv(ac, av, &server);
-	print_map(server.map->width, server.map->height);
+	print_map(&server, server.map->width, server.map->height);
 	sockfd = server_socket(ft_atoi(av[2]));
 	if (listen(sockfd, FD_SETSIZE) == -1)
 		return (error(0, "Listen", true));
