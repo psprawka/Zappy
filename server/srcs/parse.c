@@ -6,11 +6,21 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/20 17:24:12 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 21:37:53 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/02 23:57:48 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
+
+// static int g_ops[] =
+// {
+// 	{'x', opt_dimentions},
+// 	{'y', opt_dimentions},
+// 	{'n', opt_teams},
+// 	{'c', opt_min_players},
+// 	{'t', opt_time},
+// 	{'\0', NULL}
+// };
 
 int		error(int errnb, char *msg, bool ifexit)
 {
@@ -26,24 +36,29 @@ int		error(int errnb, char *msg, bool ifexit)
 		ft_printf("Number of clients authorized at the beginning of the game has to be between 1 and %d\n", FD_SETSIZE);
 	else 
 		ft_printf("%s%s: %s%s\n", RED, msg, strerror(errno), NORMAL);	
-	if (ifexit == true)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+	return (ifexit == true ? EXIT_FAILURE : EXIT_SUCCESS);
 }
 
-void	parse_args_serv(int ac, char **av, t_server *server)
+int		check_args(t_server *server)
+{
+	// if (!server->map->width || !server->map->height || !server->teams ||
+	// 	!server->min_players || !)
+}
+
+
+int	parse_args_serv(int ac, char **av, t_server *server)
 {
 	int		i;
 
 	if (ac < 13)
 		error(1, NULL, true);
 	if (ft_strcmp("-p", av[1]) || ft_atoi(av[2]) > 65535 || ft_atoi(av[2]) < 1024)
-		error(2, NULL, true);
+		return (error(2, NULL, true));
 	i = 3;
 	while (i < ac)
 	{
 		if (av[i][0] != '-' || !av[i][1] || !av[i + 1])
-			error(1, NULL, true);
+			return (error(1, NULL, true));
 		if (av[i][1] == 'x')
 			server->map->width = opt_dimentions(av, &i);
 		else if (av[i][1] == 'y')
@@ -54,9 +69,10 @@ void	parse_args_serv(int ac, char **av, t_server *server)
 			server->min_players = opt_min_players(av, &i);
 		else if (av[i][1] == 't')
 			server->time = opt_time(av, &i);
-		else error(1, NULL, true);
+		else return (error(1, NULL, true));
 	}
-	// check_args(server);
-	// init_map();
+	// return (check_args(server) == EXIT_FAILURE ||
+	// 	init_map(server) == EXIT_FAILURE ? EXIT_FAILURE : EXIT_SUCCESS);
+		return (1);
 }
 

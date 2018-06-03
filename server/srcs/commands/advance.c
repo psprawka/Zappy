@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   advance.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
+/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:49:05 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 19:22:19 by asyed            ###   ########.fr       */
+/*   Updated: 2018/06/02 22:44:38 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int		command_advance(t_player *player, t_server *serv)
 		player->position = (player->position % WIDTH == 1) ?
 		player->position + WIDTH - 1 : player->position - 1;
 	if (send(player->fd, MSG_OK, strlen(MSG_OK), 0) == -1)
-		printf("Error sending: \"%s\"\n", strerror(errno));
+		error(0, "Send", false);
+		
 	ft_printf("%d\n", player->position);
 	return (1);
 }

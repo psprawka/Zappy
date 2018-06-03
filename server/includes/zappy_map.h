@@ -6,10 +6,9 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:39:30 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 15:42:44 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/02 23:23:06 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef ZAPPY_MAP_H
 # define ZAPPY_MAP_H
