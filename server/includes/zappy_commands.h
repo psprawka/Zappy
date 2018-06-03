@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   zappy_commands.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 18:08:13 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 15:39:06 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/02 19:58:09 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct	s_commands
 typedef struct	s_event
 {
 	struct timeval	delaytime;
+	char			*msg;
 	t_player		*player;
 	int				(*fct)(t_player *player, t_server *serv);
 }				t_event;

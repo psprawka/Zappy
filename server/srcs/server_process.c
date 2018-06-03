@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server_process.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/20 17:26:09 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 15:41:41 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/02 20:39:03 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,19 @@
 
 static t_commands g_commands[] =
   {
-    {"advance", 7, command_advance},
-    {"right", 7, command_right},
-    {"left", 7, command_left},
-    {"see", 7, command_see},
-    {"inventory", 1, command_inventory},
-    {"take", 7, command_take},
-	{"put", 7, command_put},
-	{"kick", 7, command_kick},
-	{"broadcast", 7, command_broadcast},
-	{"incantation", 300, command_levelup},
-	{"fork", 42, command_fork},
-	{"connect_nbr", 0, command_connect_nbr}
+    {"advance\n", 7, command_advance},
+    {"right\n", 7, command_right},
+    {"left\n", 7, command_left},
+    {"see\n", 7, command_see},
+    {"inventory\n", 1, command_inventory},
+    {"take\n", 7, command_take},
+	{"put\n", 7, command_put},
+	{"kick\n", 7, command_kick},
+	{"broadcast\n", 7, command_broadcast},
+	{"incantation\n", 300, command_levelup},
+	{"fork\n", 42, command_fork},
+	{"connect_nbr\n", 0, command_connect_nbr},
+	{NULL, 0, NULL}
   };
 
 int		delayComparison(t_event *first, t_event *second)
@@ -40,7 +41,7 @@ int		parse_recv(t_player *player, t_server *server, char *msg)
 	t_event	event;
 
 	i = 0;
-	while (i < sizeof(g_commands) / sizeof(*g_commands))
+	while (g_commands[i].msg)
 	{
 		if (!ft_strcmp(g_commands[i].msg, msg))
 		{
@@ -49,8 +50,11 @@ int		parse_recv(t_player *player, t_server *server, char *msg)
 				//Set failure in X cycles? lol
 				return (EXIT_FAILURE); //Idk what to do in this case tbh.
 			}
+			event.msg = ft_strdup(msg);
+			event.player = player;
 			event.delaytime.tv_usec += g_commands[i].delay * server->time.tv_usec;
 			event.fct = g_commands[i].fct;
+			printf("Function address = %p\n", g_commands[i].fct);
 			ft_enpqueue(server->events, &event, sizeof(t_event), (int (*)(void *, void *))&delayComparison);
 			return (EXIT_SUCCESS);
 		}
@@ -73,13 +77,13 @@ int		process_data(t_player *player, t_server *server)
 			if (get_team_name(player, server, buff) == EXIT_FAILURE)
 				player_quit(player, server);
 		}
-		else if (parse_recv(player, server, buff))
-		{
-			printf("Pushed to queue!\n");
-			// push_priority_queue(player, recv);
-		}
+		else if (parse_recv(player, server, buff) == EXIT_SUCCESS)
+			;
 		else
+		{
+			printf("Why did the command not exist? \"%s\"\n", buff);
 			send(player->fd, MSG_NOCOMMAND, ft_strlen(MSG_NOCOMMAND), 0);
+		}
 	}
 	else
 	{

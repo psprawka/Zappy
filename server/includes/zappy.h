@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:39:21 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 15:35:02 by asyed            ###   ########.fr       */
+/*   Updated: 2018/06/02 19:22:29 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@
 # define	DEF_COLOR		CYAN
 
 # define	MSG_WELCOME		"WELCOME!\n"
-# define	MSG_NOCOMMAND	"This command doesn't exist!"
+# define	MSG_NOCOMMAND	"This command doesn't exist!\n"
 # define	MSG_FULLTEAM	"0"
-# define	MSG_NOTEAM		"This team doesn't exist. Reenter your team name."
-# define	MSG_OK			"ok"
-# define	MSG_KO			"ko"
-# define	MSG_DEATH		"death"
+# define	MSG_NOTEAM		"This team doesn't exist. Reenter your team name.\n"
+# define	MSG_OK			"ok\n"
+# define	MSG_KO			"ko\n"
+# define	MSG_DEATH		"death\n"
 
 # define	NORTH			1
 # define	EAST			2

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   connect_nbr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:51:06 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 15:43:17 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/02 20:44:27 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@ int		command_connect_nbr(t_player *player, t_server *serv)
 		return (EXIT_FAILURE);
 	send(player->fd, msg, ft_strlen(msg), 0);
 	free(msg);
-	return (0);
+	return (EXIT_SUCCESS);
 }
