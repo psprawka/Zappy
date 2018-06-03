@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
+/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:25:37 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 20:14:27 by asyed            ###   ########.fr       */
+/*   Updated: 2018/06/02 23:55:07 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,7 @@ static int	new_player(t_server *server)
 
 	if ((connfd = accept(server->socket_fd, NULL, 0)) == -1)
 		return (error(6, "Accept error", true));
-		// ft_printf("Accept error\n");
 	ft_printf("New player joined [%d]\n", connfd);
-	// FD_SET(connfd, &(server->server_fds));
 	if (!(server->players[connfd] = init_player(connfd, server)))
 	{
 		close(connfd);
@@ -176,19 +174,6 @@ int		runserver(int server_fd, t_server *server)
 		}
 	}
 	printf("Error with kevent(event_handler) \"%s\"\n", strerror(errno));
-	// if (ret < 0)
-		// return (EXIT_FAILURE);
-	// server->max = server_fd + 1;
-	// FD_SET(server_fd, &fds);
-	// FD_COPY(&fds, &(server->server_fds));
-	// while ((ret = select(server->max, &fds, NULL, NULL, NULL)) >= 0)
-	// {
-	// 	printf("Unblocked\n");
-	// 	if (ret && process_select(&fds, server_fd, server) == EXIT_FAILURE)
-	// 		return (EXIT_FAILURE);
-	// 	check_queue(server);
-	// 	FD_COPY(&(server->server_fds), &fds);
-	// }
 	return (EXIT_FAILURE);
 }
 
@@ -221,16 +206,15 @@ int		main(int ac, char **av)
 	fd_set					client_fds;
 	t_server				server;
 	
-	if (init_server(&server) == EXIT_FAILURE)
+	if (init_server(&server) == EXIT_FAILURE ||
+		parse_args_serv(ac, av, &server) == EXIT_FAILURE || 
+		(sockfd = server_socket(ft_atoi(av[2]))) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	parse_args_serv(ac, av, &server);
-	print_map(server.map->width, server.map->height);
-	sockfd = server_socket(ft_atoi(av[2]));
+
+	print_map(server.map->width, server.map->height); // 
+	
 	if (listen(sockfd, FD_SETSIZE) == -1)
 		return (error(0, "Listen", true));
-	// ft_bzero(&client_fds, sizeof(fd_set));
-	// FD_SET(sockfd, &client_fds);
-	// runserver(sockfd, &server, sockfd);
 	if (runserver(sockfd, &server) == EXIT_FAILURE)
 	{
 		printf("Error: \"%s\"\n", strerror(errno));
