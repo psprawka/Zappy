@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   kick.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 18:03:33 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 00:50:46 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/02 20:51:24 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int		command_kick(t_player *player, t_server *serv)
 	{
 		if (!serv->players[i] && ++i)
 			continue;
-		
 		if (serv->players[i]->position == player->position && serv->players[i]->fd != player->fd)
 			command_advance(player, serv);
 		i++;

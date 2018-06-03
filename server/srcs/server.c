@@ -6,7 +6,7 @@
 /*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:25:37 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 16:48:29 by asyed            ###   ########.fr       */
+/*   Updated: 2018/06/02 20:14:27 by asyed            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,9 @@ void	check_queue(t_server *server)
 			tmp = tmp->next;
 			if (!(content = ft_depqueue(server->events)))
 				error(6, "Failed to ft_depqueue", false);
+			printf("Execution address = %p vs %p\n", ((t_event *)content)->fct, &command_advance);
 			((t_event *)content)->fct(((t_event *)content)->player, server);
+			free(((t_event *)content)->msg);
 			free(content);
 		}
 		break ;
@@ -95,7 +97,7 @@ static int	init_kqueue(int server_fd, t_server *server)
 	if ((kfd = kqueue()) == -1)
 		return (EXIT_FAILURE);
 	server->socket_fd = server_fd;
-	EV_SET(&evSet, server_fd, EVFILT_READ, EV_ADD | EV_EOF, 0, 0, NULL);
+	EV_SET(&evSet, server_fd, EVFILT_READ, EV_ADD, 0, 0, NULL);
 	if (kevent(kfd, &evSet, 1, NULL, 0, NULL) == -1 || evSet.flags & EV_ERROR)
 	{
 		printf("Error: \"%s\"\n", strerror(errno));
@@ -117,7 +119,7 @@ static int process_fd(struct kevent *event, t_server *server)
 {
 	if (event->flags & EV_EOF)
 	{
-		printf("Player quit!\n");
+		printf("Player quit! EOF :(\n");
 		player_quit(server->players[event->ident], server);
 		return (EXIT_SUCCESS);
 	}
@@ -153,7 +155,7 @@ int		runserver(int server_fd, t_server *server)
 	while ((ret = kevent(server->kfd, NULL, 0, events, max, NULL)) > 0)
 	{
 		i = 0;
-		printf("woke up! %d < %d\n", i, ret);
+		// printf("woke up! %d < %d\n", i, ret);
 		while (i < ret)
 		{
 			if (i >= max)
@@ -163,7 +165,7 @@ int		runserver(int server_fd, t_server *server)
 			}
 			if (events[i].ident == -1)
 			{
-				printf("Tick woke up\n");
+				// printf("Tick woke up\n");
 				if (events[i].data > 1)
 					printf("Lagging, tick delayed %ld\n", events[i].data);
 				check_queue(server);
