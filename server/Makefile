@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: asyed <asyed@student.42.fr>                +#+  +:+       +#+         #
+#    By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/09 23:21:55 by psprawka          #+#    #+#              #
-#    Updated: 2018/06/02 04:26:13 by asyed            ###   ########.fr        #
+#    Updated: 2018/06/04 15:33:08 by psprawka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,27 @@ SRCS_DIR = srcs/
 COMMANDS = commands/
 
 SRCS_CLIENT =	$(SRCS_DIR)client.c \
+		$(SRCS_DIR)$(COMMANDS)connect_nbr.c \
+		$(SRCS_DIR)$(COMMANDS)broadcast.c \
+		$(SRCS_DIR)$(COMMANDS)inventory.c \
+		$(SRCS_DIR)$(COMMANDS)advance.c \
+		$(SRCS_DIR)$(COMMANDS)levelup.c \
+		$(SRCS_DIR)$(COMMANDS)death.c \
+		$(SRCS_DIR)$(COMMANDS)right.c \
+		$(SRCS_DIR)$(COMMANDS)left.c \
+		$(SRCS_DIR)$(COMMANDS)kick.c \
+		$(SRCS_DIR)$(COMMANDS)fork.c \
+		$(SRCS_DIR)$(COMMANDS)take.c \
+		$(SRCS_DIR)$(COMMANDS)put.c \
+		$(SRCS_DIR)$(COMMANDS)see.c \
+		$(SRCS_DIR)server_process.c \
+		$(SRCS_DIR)init_structs.c \
+		$(SRCS_DIR)randomize.c \
+		$(SRCS_DIR)player.c \
+		$(SRCS_DIR)server.c \
+		$(SRCS_DIR)kqueue.c \
+		$(SRCS_DIR)teams.c \
+		$(SRCS_DIR)tools.c \
 		$(SRCS_DIR)parse.c \
 		$(SRCS_DIR)opt.c 
 	
@@ -41,9 +62,11 @@ SRCS_SERVER = $(SRCS_DIR)$(COMMANDS)connect_nbr.c \
 		$(SRCS_DIR)randomize.c \
 		$(SRCS_DIR)player.c \
 		$(SRCS_DIR)server.c \
+		$(SRCS_DIR)kqueue.c \
 		$(SRCS_DIR)teams.c \
 		$(SRCS_DIR)tools.c \
 		$(SRCS_DIR)parse.c \
+		$(SRCS_DIR)main.c \
 		$(SRCS_DIR)opt.c 
 
 OBJS_CLIENT = $(SRCS_CLIENT:.c=.o)

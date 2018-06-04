@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:39:21 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 23:52:45 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/04 15:32:25 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@
 typedef struct	s_opt
 {
 	char		opt;
-	int			(*fct)(char **av, int ac);
+	int			(*fct)(char **av, int *i, t_server *server);
 }				t_opt;
 
 typedef struct	s_client
@@ -115,6 +115,12 @@ int			rand_position(t_map *map);
 int			get_team_name(t_player *player, t_server *serv, char *msg);
 
 /*
+**	kqueue.c
+*/
+void		check_queue(t_server *server);
+int			init_kqueue(int server_fd, t_server *server);
+
+/*
 **	player.c
 */
 void		player_quit(t_player *player, t_server *serv);
@@ -133,24 +139,25 @@ int			parse_args_serv(int ac, char **av, t_server *server);
 /*
 **	options.c
 */
-int 			opt_dimentions(char **av, int *i);
-int				opt_min_players(char **av, int *i);
-struct timeval	opt_time(char **av, int *i);
-t_team			**opt_teams(char **av, int *i, t_server *server);
+int 		opt_port(char **av, int *i, t_server *server);
+int 		opt_dimentions(char **av, int *i, t_server *server);
+int			opt_min_players(char **av, int *i, t_server *server);
+int			opt_time(char **av, int *i, t_server *server);
+int			opt_teams(char **av, int *i, t_server *server);
 
 /*
 **	server_process.c
 */
-int		process_data(t_player *player, t_server *serv);
+int			process_data(t_player *player, t_server *serv);
 
 /*
 **	server.c
 */
-void	check_select_fds(t_server *server, fd_set *client_fds, int sockfd);
-// void	runserver(fd_set client_fds, t_server *server, int sockfd);
-int		runserver(int server_fd, t_server *server);
-int		server_socket(int port);
-int		main(int ac, char **av);
+void		print_map(t_server *server, int x, int y);
+static int	new_player(t_server *server);
+static int	process_fd(struct kevent *event, t_server *server);
+int			runserver(int server_fd, t_server *server);
+int			server_socket(int port);
 
 
 #endif

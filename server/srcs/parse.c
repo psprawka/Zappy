@@ -6,21 +6,23 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/20 17:24:12 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 23:57:48 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/04 15:47:16 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "zappy.h"
 
-// static int g_ops[] =
-// {
-// 	{'x', opt_dimentions},
-// 	{'y', opt_dimentions},
-// 	{'n', opt_teams},
-// 	{'c', opt_min_players},
-// 	{'t', opt_time},
-// 	{'\0', NULL}
-// };
+static t_opt g_ops[] =
+{
+	{'p', opt_port},
+	{'x', opt_dimentions},
+	{'y', opt_dimentions},
+	{'n', opt_teams},
+	{'c', opt_min_players},
+	{'t', opt_time},
+	{'\0', NULL}
+};
 
 int		error(int errnb, char *msg, bool ifexit)
 {
@@ -33,7 +35,7 @@ int		error(int errnb, char *msg, bool ifexit)
 	else if (errnb == 4)
 		ft_printf("At least one team required\n");
 	else if (errnb == 5)
-		ft_printf("Number of clients authorized at the beginning of the game has to be between 1 and %d\n", FD_SETSIZE);
+		ft_printf("Number of clients authorized at the beginning of the game has to be grater than 1.\n");
 	else 
 		ft_printf("%s%s: %s%s\n", RED, msg, strerror(errno), NORMAL);	
 	return (ifexit == true ? EXIT_FAILURE : EXIT_SUCCESS);
@@ -41,38 +43,37 @@ int		error(int errnb, char *msg, bool ifexit)
 
 int		check_args(t_server *server)
 {
-	// if (!server->map->width || !server->map->height || !server->teams ||
-	// 	!server->min_players || !)
+	if (!server->map->width || !server->map->height || !server->teams ||
+		!server->min_players || !server->port)
+		return(error(1, NULL, true));
+	return (EXIT_SUCCESS);
 }
-
 
 int	parse_args_serv(int ac, char **av, t_server *server)
 {
 	int		i;
+	int		j;
 
-	if (ac < 13)
-		error(1, NULL, true);
-	if (ft_strcmp("-p", av[1]) || ft_atoi(av[2]) > 65535 || ft_atoi(av[2]) < 1024)
-		return (error(2, NULL, true));
-	i = 3;
+	i = 1;
 	while (i < ac)
 	{
-		if (av[i][0] != '-' || !av[i][1] || !av[i + 1])
+		if (av[i][0] != '-' || ft_strlen(av[i]) != 2 || !av[i + 1])
 			return (error(1, NULL, true));
-		if (av[i][1] == 'x')
-			server->map->width = opt_dimentions(av, &i);
-		else if (av[i][1] == 'y')
-			server->map->height = opt_dimentions(av, &i);
-		else if (av[i][1] == 'n')
-			server->teams = opt_teams(av, &i, server);
-		else if (av[i][1] == 'c')
-			server->min_players = opt_min_players(av, &i);
-		else if (av[i][1] == 't')
-			server->time = opt_time(av, &i);
-		else return (error(1, NULL, true));
+		j = -1;
+		ft_printf("got here [%s]\n", av[i]);
+		while (g_ops[++j].opt)
+		{
+			if (av[i][1] == g_ops[j].opt)
+			{
+				g_ops[j].fct(av, &i, server);
+				break ;
+			}
+		}
+		if (!g_ops[j].opt)
+			return (error(1, NULL, true));
 	}
-	// return (check_args(server) == EXIT_FAILURE ||
-	// 	init_map(server) == EXIT_FAILURE ? EXIT_FAILURE : EXIT_SUCCESS);
+	return (check_args(server) == EXIT_FAILURE ||
+		init_map(server) == EXIT_FAILURE ? EXIT_FAILURE : EXIT_SUCCESS);
 		return (1);
 }
 

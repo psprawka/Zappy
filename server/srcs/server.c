@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:25:37 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 23:58:10 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/04 16:12:49 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,7 @@ void	print_map(t_server *server, int x, int y)
 	ft_printf("\nRESOURCES:%s\n", PINK);
 	i = 0; j = 0;
 	// while(server->map->squeres[i])
-	
 }
-
 
 static int	new_player(t_server *server)
 {
@@ -60,59 +58,6 @@ static int	new_player(t_server *server)
 		return (error(6, "kevent error", true));
 	}
 	printf("Sent a welcome message\n");
-	return (EXIT_SUCCESS);
-}
-
-void	check_queue(t_server *server)
-{
-	struct timeval	curr;
-	t_node			*tmp;
-	void			*content;
-
-	if (gettimeofday(&curr, NULL) == -1)
-	{
-		error(6, "gettimeofday() failed", false);
-		return ;
-	}
-	if (server->events)
-		tmp = server->events->first;
-	while (tmp)
-	{
-		if (((t_event *)tmp->content)->delaytime.tv_usec >= curr.tv_usec)
-		{
-			tmp = tmp->next;
-			if (!(content = ft_depqueue(server->events)))
-				error(6, "Failed to ft_depqueue", false);
-			((t_event *)content)->fct(((t_event *)content)->player, server);
-			free(content);
-		}
-		break ;
-	}
-}
-
-static int	init_kqueue(int server_fd, t_server *server)
-{
-	int 			kfd;
-	struct kevent	evSet;
-
-	if ((kfd = kqueue()) == -1)
-		return (EXIT_FAILURE);
-	server->socket_fd = server_fd;
-	EV_SET(&evSet, server_fd, EVFILT_READ, EV_ADD | EV_EOF, 0, 0, NULL);
-	if (kevent(kfd, &evSet, 1, NULL, 0, NULL) == -1 || evSet.flags & EV_ERROR)
-	{
-		printf("Error: \"%s\"\n", strerror(errno));
-		return (EXIT_FAILURE);
-	}
-	ft_bzero(&evSet, sizeof(struct kevent));
-	EV_SET(&evSet, 1, EVFILT_TIMER, EV_ADD, NOTE_USECONDS, server->time.tv_usec, NULL);
-	printf("%d microseconds\n", server->time.tv_usec);
-	if (kevent(kfd, &evSet, 1, NULL, 0, NULL) == -1 || evSet.flags & EV_ERROR)
-	{
-		printf("Error: \"%s\"\n", strerror(errno));
-		return (EXIT_FAILURE);
-	}
-	server->kfd = kfd;
 	return (EXIT_SUCCESS);
 }
 
@@ -195,33 +140,4 @@ int		server_socket(int port)
 		return (error(0, "Bind", true));
 	ft_printf("Binding successful!\n");
 	return (sockfd);
-}
-
-__attribute__((constructor)) int	init(void)
-{
-	srand(time(NULL));
-	return (EXIT_SUCCESS);
-}	
-
-int		main(int ac, char **av)
-{
-	int						sockfd;
-	fd_set					client_fds;
-	t_server				server;
-	
-	if (init_server(&server) == EXIT_FAILURE ||
-		parse_args_serv(ac, av, &server) == EXIT_FAILURE || 
-		(sockfd = server_socket(ft_atoi(av[2]))) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-
-	print_map(server.map->width, server.map->height); // 
-	
-	if (listen(sockfd, FD_SETSIZE) == -1)
-		return (error(0, "Listen", true));
-	if (runserver(sockfd, &server) == EXIT_FAILURE)
-	{
-		printf("Error: \"%s\"\n", strerror(errno));
-		return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
 }

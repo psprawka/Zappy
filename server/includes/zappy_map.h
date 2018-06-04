@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:39:30 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 23:23:06 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/04 15:46:24 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct	s_map
 {
 	uint8_t		height;
 	uint8_t		width;
-	t_square	**squeres;
+	t_square	**squares;
 	
 	uint8_t		max_food;
 	uint8_t		max_linemate;

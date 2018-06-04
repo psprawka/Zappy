@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/26 18:45:10 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 23:58:13 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/04 15:46:55 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,20 @@
 
 int			init_map(t_server *server)
 {
-	if (!(server->map = ft_memalloc(sizeof(t_map))))
+	int		map_size;
+	
+	map_size = server->map->width * server->map->height;
+	if (!(server->map->squares = ft_memalloc(sizeof(t_square) * map_size)))
 	{
 		free(server->players);
 		return (EXIT_FAILURE);
 	}
+	// while (i < map_size)
+	// {
+	// 	server->map[i++] = ft_memalloc()
+	// 	i++;
+	// }
 	return (0);
-	//didnt finish gradma's calling
 }
 
 t_player	*init_player(int sockfd, t_server *server)
@@ -41,7 +48,11 @@ int			init_server(t_server *server)
 {
 	if (!(server->players = ft_memalloc(sizeof(t_player *) * FD_SETSIZE)))
 		return (EXIT_FAILURE);
-	
+	if (!(server->map = ft_memalloc(sizeof(t_square))))
+	{
+		free(server->players);
+		return (EXIT_FAILURE);
+	}
 	if (!(server->events = init_pqueue()))
 	{
 		free(server->map);
