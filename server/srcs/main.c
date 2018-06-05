@@ -29,7 +29,7 @@ int		main(int ac, char **av)
 		(sockfd = server_socket(server.port)) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 
-	print_map(&server, server.map->width, server.map->height);
+	print_map(server.map->width, server.map->height);
 	if (listen(sockfd, FD_SETSIZE) == -1)
 		return (error(0, "Listen", true));
 	if (runserver(sockfd, &server) == EXIT_FAILURE)

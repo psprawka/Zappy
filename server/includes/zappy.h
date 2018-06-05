@@ -170,7 +170,7 @@ int			process_data(t_player *player, t_server *serv);
 /*
 **	server.c
 */
-void		print_map(t_server *server, int x, int y);
+void		print_map(int x, int y);
 static int	new_player(t_server *server);
 static int	process_fd(struct kevent *event, t_server *server);
 int			runserver(int server_fd, t_server *server);

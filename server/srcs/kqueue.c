@@ -54,7 +54,7 @@ int	    init_kqueue(int server_fd, t_server *server)
 		return (EXIT_FAILURE);
 	}
 	ft_bzero(&evSet, sizeof(struct kevent));
-	EV_SET(&evSet, 1, EVFILT_TIMER, EV_ADD, NOTE_USECONDS, server->time.tv_usec, NULL);
+	EV_SET(&evSet, -1, EVFILT_TIMER, EV_ADD, NOTE_USECONDS, server->time.tv_usec, NULL);
 	printf("%d microseconds\n", server->time.tv_usec);
 	if (kevent(kfd, &evSet, 1, NULL, 0, NULL) == -1 || evSet.flags & EV_ERROR)
 	{
