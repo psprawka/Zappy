@@ -14,19 +14,23 @@
 
 void	print_map(int x, int y)
 {
-	int i = 0, j = 0;
+	int	i;
+	int	j;
 
 	ft_printf("\nMAP:%s\n", ORANGE);
-	while (i < y)
+	i = 0;
+	while (i < x)
 	{
-		while (j < x)
+		j = 0;
+		while (j < y)
 		{
-			ft_printf("%d", j + (i * x) + 1);
-			ft_printf("%s",  j + (i * x) + 1 < 10 ? "   " : (j + (i * x) + 1 < 100 ? "  " : " "));
+			ft_printf("%3d", xytocoordinate(i, j));
+			if (j != (x - 1))
+				ft_printf(" ");
+			else
+				ft_printf("\n");
 			j++;
 		}
-		j = 0;
-		ft_printf("\n");
 		i++;
 	}
 	ft_printf("\n%s", NORMAL);
@@ -46,7 +50,7 @@ static int	new_player(t_server *server)
 	if (!(server->players[connfd] = init_player(connfd, server)))
 	{
 		close(connfd);
-		return (EXIT_FAILURE);
+		return (EXIT_SUCCESS);
 	}
 	if (send(connfd, MSG_WELCOME, ft_strlen(MSG_WELCOME), 0) == -1)
 		player_quit(server->players[connfd], server);
@@ -176,19 +180,6 @@ int		runserver(int server_fd, t_server *server)
 		}
 	}
 	printf("Error with kevent(event_handler) \"%s\"\n", strerror(errno));
-	// if (ret < 0)
-		// return (EXIT_FAILURE);
-	// server->max = server_fd + 1;
-	// FD_SET(server_fd, &fds);
-	// FD_COPY(&fds, &(server->server_fds));
-	// while ((ret = select(server->max, &fds, NULL, NULL, NULL)) >= 0)
-	// {
-	// 	printf("Unblocked\n");
-	// 	if (ret && process_select(&fds, server_fd, server) == EXIT_FAILURE)
-	// 		return (EXIT_FAILURE);
-	// 	check_queue(server);
-	// 	FD_COPY(&(server->server_fds), &fds);
-	// }
 	return (EXIT_FAILURE);
 }
 

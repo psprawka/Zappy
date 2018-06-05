@@ -20,7 +20,9 @@ int		command_kick(t_player *player, t_server *serv)
 	{
 		if (!serv->players[i] && ++i)
 			continue;
-		if (serv->players[i]->position == player->position && serv->players[i]->fd != player->fd)
+		if (serv->players[i]->position->x == player->position->x &&
+			serv->players[i]->position->y == player->position->y &&
+			serv->players[i]->fd != player->fd)
 			command_advance(player, serv);
 		i++;
 	}

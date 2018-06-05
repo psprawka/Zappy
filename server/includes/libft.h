@@ -51,7 +51,7 @@ void			*peek_pqueue(t_pqueue *queue);
 void			*ft_depqueue(t_pqueue *queue);
 t_pqueue		*init_pqueue(void);
 void			del_pqueue(t_pqueue *queue, void (*deconstruct)(void *ptr));
-
+void			*ft_memcpy(void *dest, const void *src, size_t n);
 long int		ft_atoi(char *s);
 char			*ft_ftoa(double n);
 char			*ft_itoa(int nbr);

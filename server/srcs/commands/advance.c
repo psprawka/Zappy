@@ -15,30 +15,43 @@
 #define WIDTH	serv->map->width
 #define HEIGHT	serv->map->height
 
-int		command_advance(t_player *player, t_server *serv)
+int 	command_advance(t_player *player, t_server *server)
 {
 	ft_printf("facing: [%s], %d -> ", (player->direction & WEST ? "WEST" :
-	(player->direction & EAST ? "EAST" : (player->direction & SOUTH ? "SOUTH" : "NORTH"))),  player->position);
+	(player->direction & EAST ? "EAST" : (player->direction & SOUTH ? "SOUTH" : "NORTH"))),  player->position->x * player->position->y);
 	
 	if (player->direction & NORTH)
-		player->position = (player->position - WIDTH < 1) ?
-		WIDTH * HEIGHT - WIDTH + player->position : player->position - WIDTH;
-		
-	if (player->direction & EAST)
-		player->position = (player->position % WIDTH == 0) ?
-		player->position - WIDTH + 1 : player->position + 1;
-		
-	if (player->direction & SOUTH)
-		player->position = (player->position + WIDTH > WIDTH * HEIGHT) ?
-		player->position % (WIDTH * (HEIGHT - 1)) : player->position + WIDTH;
-		
-	if (player->direction & WEST)
-		player->position = (player->position % WIDTH == 1) ?
-		player->position + WIDTH - 1 : player->position - 1;
+	{
+		if (!player->position->y)
+			player->position->y = (server->map->width - 1);
+		else
+			player->position->y--;
+	}
+	else if (player->direction & EAST)
+	{
+		if (player->position->x == (server->map->width - 1))
+			player->position->x = 0;
+		else
+			player->position->x++;
+	}
+	else if (player->direction & SOUTH)
+	{
+		if (player->position->y == (server->map->height - 1))
+			player->position->y = 0;
+		else
+			player->position->y++;
+	}
+	else if (player->direction & WEST)
+	{
+		if (!player->position->x)
+			player->position->x = (server->map->width - 1);
+		else
+			player->position->x--;
+	}
 	if (send(player->fd, MSG_OK, strlen(MSG_OK), 0) == -1)
 		printf("Error sending: \"%s\"\n", strerror(errno));
-	ft_printf("%d\n", player->position);
-	return (1);
+	ft_printf("%d\n", xytocoordinate(player->position->x, player->position->y));
+	return (EXIT_SUCCESS);
 }
 
 // 1   2   3   4   5   6   7   8   9   10  11

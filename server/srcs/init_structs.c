@@ -21,7 +21,12 @@ t_player	*init_player(int sockfd, t_server *server)
 	new->fd = sockfd;
 	new->direction = rand_direction();
 	new->see_range = 1;
-	new->position = rand_position(server->map);
+	if (!(new->position = rand_position(server->map)))
+	{
+		ft_printf("This should never actually be a case.... rand failed!? :O \"%s\"", strerror(errno));
+		free(new);
+		return (NULL);
+	}
 	new->lifetime = 1260;
 	return (new);
 }

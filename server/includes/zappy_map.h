@@ -27,16 +27,16 @@ typedef struct	s_square
 	uint8_t		phiras;
 	uint8_t		thystame;
 	uint8_t 	food;
+	int			x;
+	int			y;
 	t_player	**players;
-	
 }				t_square;
 
 typedef struct	s_map
 {
 	uint8_t		height;
 	uint8_t		width;
-	t_square	**squeres;
-	
+	t_square	**squares;
 	uint8_t		max_food;
 	uint8_t		max_linemate;
 	uint8_t		max_deraumere;
