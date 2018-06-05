@@ -12,26 +12,26 @@
 
 #include "zappy.h"
 
-void	print_map(int x, int y)
+void	print_map(t_server *server, int x, int y)
 {
 	int	i;
 	int	j;
 
 	ft_printf("\nMAP:%s\n", ORANGE);
-	i = 0;
-	while (i < x)
+	j = 0;
+	while (j < y)
 	{
-		j = 0;
-		while (j < y)
+		i = 0;
+		while (i < x)
 		{
-			ft_printf("%3d", xytocoordinate(i, j));
-			if (j != (x - 1))
+			ft_printf("(%2d,%2d)", server->map->squares[i][j].x, server->map->squares[i][j].y);
+			if (i != (x - 1))
 				ft_printf(" ");
 			else
 				ft_printf("\n");
-			j++;
+			i++;
 		}
-		i++;
+		j++;
 	}
 	ft_printf("\n%s", NORMAL);
 }

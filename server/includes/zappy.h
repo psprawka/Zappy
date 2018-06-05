@@ -38,13 +38,13 @@
 # define	BUFF_SIZE		64
 # define	DEF_COLOR		CYAN
 
-# define	MSG_WELCOME		"WELCOME!\n"
-# define	MSG_NOCOMMAND	"This command doesn't exist!\n"
+# define	MSG_WELCOME		"WELCOME\n"
+# define	MSG_NOCOMMAND	"This command doesn't exist!"
 # define	MSG_FULLTEAM	"0"
-# define	MSG_NOTEAM		"This team doesn't exist. Reenter your team name.\n"
-# define	MSG_OK			"ok\n"
-# define	MSG_KO			"ko\n"
-# define	MSG_DEATH		"death\n"
+# define	MSG_NOTEAM		"This team doesn't exist. Reenter your team name."
+# define	MSG_OK			"ok"
+# define	MSG_KO			"ko"
+# define	MSG_DEATH		"death"
 
 # define	NORTH			1
 # define	EAST			2
@@ -170,7 +170,7 @@ int			process_data(t_player *player, t_server *serv);
 /*
 **	server.c
 */
-void		print_map(int x, int y);
+void		print_map(t_server *server, int x, int y);
 static int	new_player(t_server *server);
 static int	process_fd(struct kevent *event, t_server *server);
 int			runserver(int server_fd, t_server *server);

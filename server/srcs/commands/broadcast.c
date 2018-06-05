@@ -46,6 +46,62 @@ static t_square	**copy_squares(const t_map *map)
 	return (new);
 }
 
+static int			move_right(t_map *map, int shift)
+{
+	t_square	**new;
+	t_square	**tmp;
+	int			i;
+
+	if (!shift)
+		return (EXIT_SUCCESS);
+	if (!(tmp = ft_memalloc(shift * sizeof(t_square *))))
+		return (EXIT_FAILURE);
+	new = map->squares;
+	i = 0;
+	while (i < shift)
+	{
+		tmp[i] = new[i];
+		new[i] = map->squares[(map->width - 1) - i];
+		i++;
+	}
+	i = 0;
+	while (i < shift)
+	{
+		new[i + shift] = tmp[i];
+		i++;
+	}
+	free(tmp);
+	return (EXIT_SUCCESS);
+}
+
+static int			rotate_top(t_map *map, int shift)
+{
+	t_square	**new;
+	t_square	**tmp;
+	int			i;
+
+	if (!shift)
+		return (EXIT_SUCCESS);
+	if (!(tmp = ft_memalloc(shift * sizeof(t_square *))))
+		return (EXIT_FAILURE);
+	new = map->squares;
+	i = 0;
+	while (i < shift)
+	{
+		tmp[i] = new[i];
+		new[i] = map->squares[(map->width - 1) - i];
+		i++;
+	}
+	i = 0;
+	while (i < shift)
+	{
+		new[i + shift] = tmp[i];
+		i++;
+	}
+	free(tmp);
+	return (EXIT_SUCCESS);
+}
+
 static t_map		*top_left(t_player *player, t_server *server)
 {
 	t_map	*translated;
@@ -54,7 +110,15 @@ static t_map		*top_left(t_player *player, t_server *server)
 		return (NULL);
 	ft_memcpy(translated, server->map, sizeof(t_map));
 	if (!(translated->squares = copy_squares(server->map)))
+	{
+		free(translated);
 		return (NULL);
+	}
+	if (move_right(translated, server->map->width - player->position->x) == EXIT_FAILURE)
+	{
+		//Free all.
+		return (NULL);
+	}
 	return (translated);
 }
 

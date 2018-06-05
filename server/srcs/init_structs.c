@@ -12,21 +12,38 @@
 
 #include "zappy.h"
 
+t_square	**init_squares(t_server *server)
+{
+	int			i;
+	int			j;
+	t_square	**new;
+
+	if (!(new = ft_memalloc(server->map->width * sizeof(t_square *))))
+		return (NULL);
+	i = 0;
+	while (i < server->map->width)
+	{
+		if (!(new[i] = ft_memalloc(server->map->height * sizeof(t_square))))
+		{
+			//Free all that aren't NULL.
+			return (NULL);
+		}
+		j = 0;
+		while (j < server->map->height)
+		{
+			new[i][j].x = i;
+			new[i][j].y = j;
+			j++;
+		}
+		i++;
+	}
+	return (new);
+}
+
 int			init_map(t_server *server)
 {
-	int		map_size;
-	
-	map_size = server->map->width * server->map->height;
-	if (!(server->map->squares = ft_memalloc(sizeof(t_square) * map_size)))
-	{
-		free(server->players);
+	if (!(server->map->squares = init_squares(server)))
 		return (EXIT_FAILURE);
-	}
-	// while (i < map_size)
-	// {
-	// 	server->map[i++] = ft_memalloc()
-	// 	i++;
-	// }
 	return (0);
 }
 
@@ -53,7 +70,7 @@ int			init_server(t_server *server)
 {
 	if (!(server->players = ft_memalloc(sizeof(t_player *) * FD_SETSIZE)))
 		return (EXIT_FAILURE);
-	if (!(server->map = ft_memalloc(sizeof(t_square))))
+	if (!(server->map = ft_memalloc(sizeof(t_map))))
 	{
 		free(server->players);
 		return (EXIT_FAILURE);

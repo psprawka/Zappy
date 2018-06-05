@@ -14,11 +14,18 @@
 
 int		command_connect_nbr(t_player *player, t_server *serv)
 {
-	char *msg;
+	char	*msg;
+	char	*tmp;
 
-	if (!(msg = ft_itoa(6 - player->team->players)))
+	if (!(tmp = ft_itoa(6 - player->team->players)))
 		return (EXIT_FAILURE);
+	if (!(msg = ft_strjoin(tmp, "\n", false)))
+	{
+		free(tmp);
+		return (EXIT_FAILURE);
+	}
 	send(player->fd, msg, ft_strlen(msg), 0);
 	free(msg);
+	free(tmp);
 	return (EXIT_SUCCESS);
 }

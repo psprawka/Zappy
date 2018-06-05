@@ -12,11 +12,50 @@
 
 #include "zappy.h"
 
+static int			move_right(t_map *map, int shift)
+{
+	t_square	**new;
+	t_square	**tmp;
+	int			i;
+
+	if (!shift)
+		return (EXIT_SUCCESS);
+	if (!(tmp = ft_memalloc(shift * sizeof(t_square *))))
+		return (EXIT_FAILURE);
+	new = map->squares;
+	i = 0;
+	while (i < shift)
+	{
+		tmp[i] = new[i];
+		new[i] = map->squares[(map->width - 1) - i];
+		i++;
+	}
+	i = 0;
+	while (i < shift)
+	{
+		new[i + shift] = tmp[i];
+		i++;
+	}
+	free(tmp);
+	return (EXIT_SUCCESS);
+}
+
 __attribute__((constructor)) int	init(void)
 {
 	srand(time(NULL));
 	return (EXIT_SUCCESS);
-}	
+}
+
+int 	test(t_server *server)
+{
+	if (move_right(server->map, server->map->width - 1) == EXIT_FAILURE)
+	{
+		printf("Failed to shift!\n");
+		return (EXIT_FAILURE);
+	}
+	print_map(server, server->map->width, server->map->height);
+	return (EXIT_SUCCESS);
+}
 
 int		main(int ac, char **av)
 {
@@ -29,7 +68,8 @@ int		main(int ac, char **av)
 		(sockfd = server_socket(server.port)) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 
-	print_map(server.map->width, server.map->height);
+	print_map(&server, server.map->width, server.map->height);
+	// test(&server);
 	if (listen(sockfd, FD_SETSIZE) == -1)
 		return (error(0, "Listen", true));
 	if (runserver(sockfd, &server) == EXIT_FAILURE)

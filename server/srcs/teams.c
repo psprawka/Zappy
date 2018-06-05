@@ -19,7 +19,7 @@ int		get_team_name(t_player *player, t_server *serv, char *msg)
 	i = 0;
 	while (serv->teams && serv->teams[i])
 	{
-		if (!ft_strncmp(serv->teams[i]->name, msg, ft_strlen(serv->teams[i]->name)))
+		if (!ft_strncmp(serv->teams[i]->name, msg, ft_strlen(serv->teams[i]->name) - 1))
 		{
 			if (serv->teams[i]->players == 6)
 				send(player->fd, MSG_FULLTEAM, ft_strlen(MSG_FULLTEAM), 0);
