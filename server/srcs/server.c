@@ -212,16 +212,15 @@ int		main(int ac, char **av)
 	fd_set					client_fds;
 	t_server				server;
 	
-	if (init_server(&server) == EXIT_FAILURE)
+	if (init_server(&server) == EXIT_FAILURE ||
+		parse_args_serv(ac, av, &server) == EXIT_FAILURE || 
+		(sockfd = server_socket(ft_atoi(av[2]))) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	parse_args_serv(ac, av, &server);
-	print_map(server.map->width, server.map->height);
-	sockfd = server_socket(ft_atoi(av[2]));
+
+	print_map(server.map->width, server.map->height); // 
+	
 	if (listen(sockfd, FD_SETSIZE) == -1)
 		return (error(0, "Listen", true));
-	// ft_bzero(&client_fds, sizeof(fd_set));
-	// FD_SET(sockfd, &client_fds);
-	// runserver(sockfd, &server, sockfd);
 	if (runserver(sockfd, &server) == EXIT_FAILURE)
 	{
 		printf("Error: \"%s\"\n", strerror(errno));

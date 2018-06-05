@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   zappy.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
+/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:39:21 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 19:22:29 by asyed            ###   ########.fr       */
+/*   Updated: 2018/06/02 23:52:45 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,12 @@ enum e_shape
 	rectangle,
 };
 
+typedef struct	s_opt
+{
+	char		opt;
+	int			(*fct)(char **av, int ac);
+}				t_opt;
+
 typedef struct	s_client
 {
 	int		sockfd;
@@ -109,8 +115,7 @@ typedef struct	s_player
 /*
 **	init_structs.c
 */
-t_map		*init_map(void);
-t_inventory	*init_inv(void);
+int			init_map(t_server *server);
 t_player	*init_player(int sockfd, t_server *server);
 int			init_server(t_server *serv);
 
@@ -123,12 +128,12 @@ t_square	*rand_position(t_map *map);
 /*
 **	teams.c
 */
-int		get_team_name(t_player *player, t_server *serv, char *msg);
+int			get_team_name(t_player *player, t_server *serv, char *msg);
 
 /*
 **	player.c
 */
-void	player_quit(t_player *player, t_server *serv);
+void		player_quit(t_player *player, t_server *serv);
 
 /*
 **	tools.c
@@ -139,8 +144,8 @@ int		xytocoordinate(int x, int y);
 /*
 **	server_parse.c
 */
-int		error(int errnb, char *msg, bool ifexit);
-void	parse_args_serv(int ac, char **av, t_server *serv);
+int			error(int errnb, char *msg, bool ifexit);
+int			parse_args_serv(int ac, char **av, t_server *server);
 
 /*
 **	options.c
