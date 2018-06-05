@@ -29,3 +29,15 @@ void	tools_world_dimensions(t_player *player, t_server *server)
 	free(msg);
 	free(tmp);
 }
+
+int		xytocoordinate(int x, int y)
+{
+	if ((x && y) || (!x && !y))
+		return (x * y);
+	if (x && !y)
+		return (x);
+	if (!x && y)
+		return (y);
+	__builtin_unreachable();
+	return (-1);
+}

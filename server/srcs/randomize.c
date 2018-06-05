@@ -19,12 +19,23 @@
 **	WEST	8
 */
 
-int rand_direction(void)
+int			rand_direction(void)
 {
 	return (1 << (rand() & 3));
 }
 
-int rand_position(t_map *map)
+/*
+** This won't work yet as we don't use squares!
+** ToDo: Can this ever fail? Can rand() ever fail?
+** If so, how do we calculate it?
+*/
+
+t_square	*rand_position(t_map *map)
 {
-	return (rand() % (map->height * map->width));
+	int			x;
+	int			y;
+
+	x = rand() % map->width;
+	y = rand() % map->height;
+	return (&(map->squares[x][y]));
 }

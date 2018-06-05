@@ -50,6 +50,15 @@
 # define	EAST			2
 # define	SOUTH			4
 # define	WEST			8
+// # define	SAMEPOS(x,y) ((x).x == (y).x && (x).y == (y).y)
+
+
+enum e_shape
+{
+	none,
+	square,
+	rectangle,
+};
 
 typedef struct	s_opt
 {
@@ -83,17 +92,24 @@ typedef struct s_inventory
 	int 		food;
 }				t_inventory;
 
+typedef struct s_position
+{
+	int			x;
+	int			y;
+}				t_position;
+
 typedef struct	s_player
 {
-	int			fd;
-	t_team		*team;
-	int			level;
-	int			direction;
-	t_inventory	inv;
-	int			see_range;
-	int			position;
-	int			lifetime;
-	int			requests;
+	int				fd;
+	t_team			*team;
+	int				level;
+	int				direction;
+	t_inventory		inv;
+	int				see_range;
+	t_square		*position;
+	// t_position		*position;
+	int				lifetime;
+	int				requests;
 }				t_player;
 
 /*
@@ -107,7 +123,7 @@ int			init_server(t_server *serv);
 **	randomize.c
 */
 int			rand_direction(void);
-int			rand_position(t_map *map);
+t_square	*rand_position(t_map *map);
 
 /*
 **	teams.c
@@ -128,7 +144,8 @@ void		player_quit(t_player *player, t_server *serv);
 /*
 **	tools.c
 */
-void		tools_world_dimensions(t_player *player, t_server *server);
+void	tools_world_dimensions(t_player *player, t_server *server);
+int		xytocoordinate(int x, int y);
 
 /*
 **	server_parse.c
