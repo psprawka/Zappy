@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   connect_nbr.c                                      :+:      :+:    :+:   */
+/*   create_pnode.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/29 21:51:06 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 07:28:16 by psprawka         ###   ########.fr       */
+/*   Created: 2018/06/12 09:24:05 by psprawka          #+#    #+#             */
+/*   Updated: 2018/06/12 09:24:19 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "zappy.h"
+#include "libft.h"
 
-int		command_connect_nbr(t_player *player, t_server *serv)
+t_pqueue	*create_pnode(void *data, int priority)
 {
-	char *msg;
+	t_pqueue *new;
 
-	if (!(msg = ft_strjoin(ft_itoa(6 - player->team->players), "\n", 0)) || 
-		send(player->fd, msg, ft_strlen(msg), 0) == -1)
-		return (EXIT_FAILURE);
-	free(msg);
-	return (EXIT_SUCCESS);
+	if (!(new = ft_memalloc(sizeof(t_pqueue))))
+		return (NULL);
+	new->data = data;
+	new->priority = priority;
+	new->next = NULL;
+	return (new);
 }

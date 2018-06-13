@@ -3,52 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
+/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/31 12:03:58 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 20:17:33 by asyed            ###   ########.fr       */
+/*   Updated: 2018/06/12 07:05:58 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-static void	del_queue(t_player *player, t_server *server)	
+void	player_quit(t_player *player, t_server *serv)
 {
-	t_node	*tmp;
-	t_node	*node;
-	t_node	*prev;
-
-	node = server->events->first;
-	prev = NULL;
-	while (node)
-	{
-		if (((t_event *)node->content)->player == player)
-		{
-			if (prev)
-				prev->next = node->next;
-			tmp = node;
-			node = node->next;
-			free(tmp);
-		}
-		else
-		{
-			prev = node;
-			node = node->next;
-		}
-	}
+	ft_printf("Player [%d] quit\n", player->fd);
+	command_death(player, serv);
 }
 
-void		player_quit(t_player *player, t_server *server)
+void	new_player(t_server *serv, fd_set *client_fds, int sockfd)
 {
-	struct kevent	evDel;
+	int 					connfd;
+	struct sockaddr_in		temp;
+	socklen_t				socklen;
 
-	ft_printf("Player [%d] quit\n", player->fd);
-	command_death(player, server);
-	close(player->fd);
-	EV_SET(&evDel, player->fd, EVFILT_READ, EV_DELETE, 0, 0, NULL);
-	if (kevent(server->kfd, &evDel, 1, 0, 0, NULL) == -1)
-		error(6, "kevent error", false);
-	if (server->events)
-		del_queue(player, server);
-	free(player);
+	ft_bzero(&temp, sizeof(struct sockaddr_in));
+	socklen = sizeof(struct sockaddr_in);
+
+	if ((connfd = accept(sockfd, (struct sockaddr *)&temp, &socklen)) == -1)
+		error(0, "Accept error", false);
+	else
+	{
+		ft_printf("New player joined [%d]\n", connfd);
+		FD_SET(connfd, client_fds);
+		serv->players[connfd] = init_player(connfd, serv);
+		send(connfd, MSG_WELCOME, ft_strlen(MSG_WELCOME), 0);
+	}
 }

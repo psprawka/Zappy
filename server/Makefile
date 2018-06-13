@@ -6,7 +6,7 @@
 #    By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/09 23:21:55 by psprawka          #+#    #+#              #
-#    Updated: 2018/06/04 15:33:08 by psprawka         ###   ########.fr        #
+#    Updated: 2018/06/12 14:06:03 by psprawka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,11 +15,11 @@ NAME_SERVER = server
 FLAGS = -g -Wall -Wextra -Werror
 
 HEADERS = includes/
-# HEADERS += -I libft/includes
 SRCS_DIR = srcs/
 COMMANDS = commands/
+PQUEUE = pqueue/
 
-SRCS_CLIENT =	$(SRCS_DIR)client.c \
+SRCS_CLIENT = $(SRCS_DIR)client.c \
 		$(SRCS_DIR)$(COMMANDS)connect_nbr.c \
 		$(SRCS_DIR)$(COMMANDS)broadcast.c \
 		$(SRCS_DIR)$(COMMANDS)inventory.c \
@@ -33,12 +33,14 @@ SRCS_CLIENT =	$(SRCS_DIR)client.c \
 		$(SRCS_DIR)$(COMMANDS)take.c \
 		$(SRCS_DIR)$(COMMANDS)put.c \
 		$(SRCS_DIR)$(COMMANDS)see.c \
+		$(SRCS_DIR)$(PQUEUE)create_pevent.c \
+		$(SRCS_DIR)$(PQUEUE)push_pevent.c \
+		$(SRCS_DIR)$(PQUEUE)add_pevent.c \
 		$(SRCS_DIR)server_process.c \
 		$(SRCS_DIR)init_structs.c \
 		$(SRCS_DIR)randomize.c \
 		$(SRCS_DIR)player.c \
 		$(SRCS_DIR)server.c \
-		$(SRCS_DIR)kqueue.c \
 		$(SRCS_DIR)teams.c \
 		$(SRCS_DIR)tools.c \
 		$(SRCS_DIR)parse.c \
@@ -57,12 +59,14 @@ SRCS_SERVER = $(SRCS_DIR)$(COMMANDS)connect_nbr.c \
 		$(SRCS_DIR)$(COMMANDS)take.c \
 		$(SRCS_DIR)$(COMMANDS)put.c \
 		$(SRCS_DIR)$(COMMANDS)see.c \
+		$(SRCS_DIR)$(PQUEUE)create_pevent.c \
+		$(SRCS_DIR)$(PQUEUE)push_pevent.c \
+		$(SRCS_DIR)$(PQUEUE)add_pevent.c \
 		$(SRCS_DIR)server_process.c \
 		$(SRCS_DIR)init_structs.c \
 		$(SRCS_DIR)randomize.c \
 		$(SRCS_DIR)player.c \
 		$(SRCS_DIR)server.c \
-		$(SRCS_DIR)kqueue.c \
 		$(SRCS_DIR)teams.c \
 		$(SRCS_DIR)tools.c \
 		$(SRCS_DIR)parse.c \
@@ -87,7 +91,7 @@ $(NAME_CLIENT) : $(LIBFT) $(OBJS_CLIENT) $(HEADERS)
 		$(DONE_CLIENT)
 
 $(NAME_SERVER) : $(LIBFT) $(OBJS_SERVER) $(HEADERS)
-		@gcc $(FLAGS) -I $(HEADERS) -I libft/includes $(OBJS_SERVER) $(LIBFT) -lncurses -o $(NAME_SERVER)
+		@gcc $(FLAGS) -I $(HEADERS) $(OBJS_SERVER) $(LIBFT) -lncurses -o $(NAME_SERVER)
 		$(DONE_SERVER)
 
 $(LIBFT):

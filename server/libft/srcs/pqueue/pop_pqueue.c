@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   connect_nbr.c                                      :+:      :+:    :+:   */
+/*   pop_pqueue.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/29 21:51:06 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 07:28:16 by psprawka         ###   ########.fr       */
+/*   Created: 2018/06/12 09:21:31 by psprawka          #+#    #+#             */
+/*   Updated: 2018/06/12 09:27:42 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "zappy.h"
+#include "libft.h"
 
-int		command_connect_nbr(t_player *player, t_server *serv)
+t_pqueue	*pop_pqueue(t_pqueue **head)
 {
-	char *msg;
+	t_pqueue *tmp;
 
-	if (!(msg = ft_strjoin(ft_itoa(6 - player->team->players), "\n", 0)) || 
-		send(player->fd, msg, ft_strlen(msg), 0) == -1)
-		return (EXIT_FAILURE);
-	free(msg);
-	return (EXIT_SUCCESS);
+	if (!(*head))
+		return (NULL);
+
+	tmp = *head;
+	*head = (*head)->next;
+	return (tmp);
 }

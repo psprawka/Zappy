@@ -6,10 +6,9 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/20 17:24:12 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/04 15:47:16 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/12 07:21:57 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "zappy.h"
 
@@ -19,7 +18,7 @@ static t_opt g_ops[] =
 	{'x', opt_dimentions},
 	{'y', opt_dimentions},
 	{'n', opt_teams},
-	{'c', opt_min_players},
+	{'c', opt_max_players},
 	{'t', opt_time},
 	{'\0', NULL}
 };
@@ -35,7 +34,7 @@ int		error(int errnb, char *msg, bool ifexit)
 	else if (errnb == 4)
 		ft_printf("At least one team required\n");
 	else if (errnb == 5)
-		ft_printf("Number of clients authorized at the beginning of the game has to be grater than 1.\n");
+		ft_printf("Number of clients authorized at the beginning of the game has to be grater than 5 and less than %d.\n", FD_SETSIZE);
 	else 
 		ft_printf("%s%s: %s%s\n", RED, msg, strerror(errno), NORMAL);	
 	return (ifexit == true ? EXIT_FAILURE : EXIT_SUCCESS);
@@ -44,12 +43,12 @@ int		error(int errnb, char *msg, bool ifexit)
 int		check_args(t_server *server)
 {
 	if (!server->map->width || !server->map->height || !server->teams ||
-		!server->min_players || !server->port)
+		!server->max_team_players || !server->port)
 		return(error(1, NULL, true));
 	return (EXIT_SUCCESS);
 }
 
-int	parse_args_serv(int ac, char **av, t_server *server)
+int		parse_args_serv(int ac, char **av, t_server *server)
 {
 	int		i;
 	int		j;
@@ -57,15 +56,16 @@ int	parse_args_serv(int ac, char **av, t_server *server)
 	i = 1;
 	while (i < ac)
 	{
+		// ft_printf("got here [%s]\n", av[i]);
 		if (av[i][0] != '-' || ft_strlen(av[i]) != 2 || !av[i + 1])
 			return (error(1, NULL, true));
 		j = -1;
-		ft_printf("got here [%s]\n", av[i]);
 		while (g_ops[++j].opt)
 		{
 			if (av[i][1] == g_ops[j].opt)
 			{
-				g_ops[j].fct(av, &i, server);
+				if (g_ops[j].fct(av, &i, server) == EXIT_FAILURE)
+					return (EXIT_FAILURE);
 				break ;
 			}
 		}

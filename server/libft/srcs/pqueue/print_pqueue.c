@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   connect_nbr.c                                      :+:      :+:    :+:   */
+/*   print_pqueue.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/29 21:51:06 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 07:28:16 by psprawka         ###   ########.fr       */
+/*   Created: 2018/06/12 09:22:13 by psprawka          #+#    #+#             */
+/*   Updated: 2018/06/12 11:47:36 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "zappy.h"
+#include "libft.h"
 
-int		command_connect_nbr(t_player *player, t_server *serv)
+void		print_pqueue(t_pqueue *head)
 {
-	char *msg;
+	int			i;
+	t_pqueue	*tmp;
 
-	if (!(msg = ft_strjoin(ft_itoa(6 - player->team->players), "\n", 0)) || 
-		send(player->fd, msg, ft_strlen(msg), 0) == -1)
-		return (EXIT_FAILURE);
-	free(msg);
-	return (EXIT_SUCCESS);
+	i = 1;
+	tmp = head;
+	ft_printf("\n%s", YELLOW);
+	while (tmp)
+	{
+		ft_printf("%d. p: [%d], D: [%s]\n", i++, tmp->priority, tmp->data);
+		tmp = tmp->next;
+	}
+	ft_printf("%s\n", NORMAL);
 }

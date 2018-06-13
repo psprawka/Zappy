@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   free_pnode.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
+/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/18 12:26:21 by asyed             #+#    #+#             */
-/*   Updated: 2018/06/02 04:27:58 by asyed            ###   ########.fr       */
+/*   Created: 2018/06/12 09:23:23 by psprawka          #+#    #+#             */
+/*   Updated: 2018/06/12 09:27:37 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+void		free_pnode(t_pqueue *pnode)
 {
-	while (n--)
-		((char *)dest)[n] = ((const char *)src)[n];
-	return (dest);
+	if (!pnode)
+		return ;
+	if (pnode->data)
+		free(pnode->data);
+	free(pnode);
 }

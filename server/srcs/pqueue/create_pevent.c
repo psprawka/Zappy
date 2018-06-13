@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   connect_nbr.c                                      :+:      :+:    :+:   */
+/*   create_pevent.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/29 21:51:06 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 07:28:16 by psprawka         ###   ########.fr       */
+/*   Created: 2018/06/12 13:54:49 by psprawka          #+#    #+#             */
+/*   Updated: 2018/06/12 16:02:19 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-int		command_connect_nbr(t_player *player, t_server *serv)
+t_pevent *create_pevent(t_player *player, struct timeval delaytime, int itable, char *msg)
 {
-	char *msg;
+	t_pevent *new;
 
-	if (!(msg = ft_strjoin(ft_itoa(6 - player->team->players), "\n", 0)) || 
-		send(player->fd, msg, ft_strlen(msg), 0) == -1)
-		return (EXIT_FAILURE);
-	free(msg);
-	return (EXIT_SUCCESS);
+	if (!player || !(new = ft_memalloc(sizeof(t_pevent))))
+	{
+		error(0, "Create pevent", true);
+		return (NULL);
+	}
+	new->player = player;
+	new->fct = g_commands[itable].fct;
+	new->msg = ft_strdup(msg);
+    new->delaytime = delaytime;
+	player->last_request = new->delaytime;
+	new->next = NULL;
+	return (new);
 }

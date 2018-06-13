@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   connect_nbr.c                                      :+:      :+:    :+:   */
+/*   zappy_pqueue.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/29 21:51:06 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 07:28:16 by psprawka         ###   ########.fr       */
+/*   Created: 2018/06/12 10:39:33 by psprawka          #+#    #+#             */
+/*   Updated: 2018/06/12 14:23:18 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef ZAPPY_PQUEUE_H
+# define ZAPPY_PQUEUE_H
+
 #include "zappy.h"
 
-int		command_connect_nbr(t_player *player, t_server *serv)
-{
-	char *msg;
+/*
+**	pevents -> priority queue of events all players requested
+*/
 
-	if (!(msg = ft_strjoin(ft_itoa(6 - player->team->players), "\n", 0)) || 
-		send(player->fd, msg, ft_strlen(msg), 0) == -1)
-		return (EXIT_FAILURE);
-	free(msg);
-	return (EXIT_SUCCESS);
-}
+typedef struct	s_pevent
+{
+	int					time;
+	struct timeval		delaytime;
+	char				*msg;
+	t_player			*player;
+	int					(*fct)(t_player *player, t_server *serv);
+	struct s_pevent		*next;
+}				t_pevent;
+
+#endif

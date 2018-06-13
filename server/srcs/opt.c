@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/26 18:09:01 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/04 15:43:52 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/12 14:57:16 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int 	opt_port(char **av, int *i, t_server *server)
 		return (error(2, NULL, true));
 	*i += 2;
 	server->port = port;
-	ft_printf("port %d\n", port);
+	// ft_printf("port %d\n", port);
 	return (EXIT_SUCCESS);
 }
 
@@ -32,25 +32,25 @@ int 	opt_dimentions(char **av, int *i, t_server *server)
 	number = ft_atoi(av[*i + 1]);
 	if (number > 100 || number < 2)
 		return (error(3, NULL, true));
-		ft_printf(" %p\n", server->map);
+		// ft_printf(" %p\n", server->map);
 	if (!ft_strncmp(av[*i], "-x", 2))
 		server->map->width = number;
 	else 
 		server->map->height = number;
 	*i += 2;
-	ft_printf("number %d\n", number);
+	// ft_printf("number %d\n", number);
 	return (EXIT_SUCCESS);
 }
 
-int		opt_min_players(char **av, int *i, t_server *server)
+int		opt_max_players(char **av, int *i, t_server *server)
 {
 	int players;
 
 	players = ft_atoi(av[*i + 1]);
-	if (players < 1 || players > FD_SETSIZE)
+	if (players < 6 || players > FD_SETSIZE)
 		return (error(5, NULL, true));
 	*i += 2;
-	server->min_players = players;
+	server->max_team_players = players;
 	return (EXIT_SUCCESS);
 }
 
@@ -60,12 +60,13 @@ int		opt_time(char **av, int *i, t_server *server)
 	struct timeval	ret;
 
 	time_unit = ft_atoi(av[*i + 1]);
-	if (time_unit < 0 || time_unit > 1000)
+	if (time_unit < 1 || time_unit > 1000)
 		return (error(5, NULL, true));
 	*i += 2;
 	ret.tv_usec =  ((double)1 / time_unit) * 1000000;
 	ret.tv_sec = (1 / time_unit);
 	server->time = ret;
+	server->timeunit = time_unit;
 	return (EXIT_SUCCESS);
 }
 

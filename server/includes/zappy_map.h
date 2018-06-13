@@ -6,9 +6,10 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:39:30 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/04 18:12:55 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/12 06:59:42 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef ZAPPY_MAP_H
 # define ZAPPY_MAP_H
@@ -26,17 +27,16 @@ typedef struct	s_square
 	uint8_t		phiras;
 	uint8_t		thystame;
 	uint8_t 	food;
-	int			x;
-	int			y;
-	t_player	**players;
+	t_player	 **players;
+	
 }				t_square;
 
 typedef struct	s_map
 {
-	uint8_t		height;
-	uint8_t		width;
-	t_square	**squares;
-	
+	int			width;
+	int			height;
+	t_square	***squares;
+
 	uint8_t		max_food;
 	uint8_t		max_linemate;
 	uint8_t		max_deraumere;

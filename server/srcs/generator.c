@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/02 01:46:46 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 21:26:30 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/11 22:32:00 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,3 @@ void	generate_stones(t_map *map, t_server *server)
 	add_stones_1(map);
 	add_stones_2(map);
 }
-
-

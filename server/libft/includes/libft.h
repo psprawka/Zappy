@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asyed <asyed@student.42.fr>                +#+  +:+       +#+        */
+/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 18:35:16 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 04:28:13 by asyed            ###   ########.fr       */
+/*   Updated: 2018/06/12 09:29:10 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,28 +30,13 @@
 # define MAROON			"\033[38;5;88m"
 # define GREY			"\033[38;5;246m"
 
-typedef struct	s_node
-{
-	void			*content;
-	struct s_node	*next;
-	struct s_node	*previous;
-}				t_node;
-
 typedef struct	s_pqueue
 {
-	t_node			*first;
+	void			*data;
+	int				priority;
+	struct s_pqueue	*next;
 }				t_pqueue;
 
-/*
-** Priority Queue
-*/
-void			ft_enpqueue(t_pqueue *queue, void *content, size_t c_size,
-					int (*comparer)(void *, void *));
-void			*peek_pqueue(t_pqueue *queue);
-void			*ft_depqueue(t_pqueue *queue);
-t_pqueue		*init_pqueue(void);
-void			del_pqueue(t_pqueue *queue, void (*deconstruct)(void *ptr));
-void			*ft_memcpy(void *dest, const void *src, size_t n);
 long int		ft_atoi(char *s);
 char			*ft_ftoa(double n);
 char			*ft_itoa(int nbr);
@@ -77,8 +62,18 @@ void			*ft_memalloc(size_t size);
 char			*ft_convert_hex(unsigned long int nb, int type);
 char			*ft_convert_octal(unsigned long int nb);
 char			*ft_convert_uni(wchar_t wide);
-void			*ft_memmove(void *dest, const void *src, size_t n);
+
 int				ft_printf(const char *format, ...);
 int				gnl(const int fd, char **line);
+
+/*
+**	pqueue/
+*/
+t_pqueue		*create_pnode(void *data, int priority);
+t_pqueue		*pop_pqueue(t_pqueue **head);
+void			free_pnode(t_pqueue *pnode);
+void			print_pqueue(t_pqueue *head);
+void			*top_pqueue(t_pqueue *head);
+int				push_pqueue(t_pqueue **head, void *data, int priority);
 
 #endif

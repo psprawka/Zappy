@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:49:25 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 00:38:17 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/12 07:13:29 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,9 @@
 
 int		command_left(t_player *player, t_server *serv)
 {
-	ft_printf("%s -> ", (player->direction & WEST ? "WEST" : (player->direction & EAST ? "EAST" :
-	(player->direction & SOUTH ? "SOUTH" : "NORTH"))));
+	player->direction = (player->direction / 2 == 0) ? WEST : player->direction / 2;
+	if (send(player->fd, MSG_OK, ft_strlen(MSG_OK), 0) == -1)
+		return (error(0, "Send", false));
+	return (EXIT_SUCCESS);
 
-	player->direction = (player->direction == 1) ? WEST : player->direction / 2;
-	
-	ft_printf("%s\n", (player->direction & WEST ? "WEST" : (player->direction & EAST ? "EAST" :
-	(player->direction & SOUTH ? "SOUTH" : "NORTH"))));
-	return (1);
 }

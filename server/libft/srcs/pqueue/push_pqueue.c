@@ -1,24 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   connect_nbr.c                                      :+:      :+:    :+:   */
+/*   push_pqueue.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/29 21:51:06 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 07:28:16 by psprawka         ###   ########.fr       */
+/*   Created: 2018/06/12 09:20:50 by psprawka          #+#    #+#             */
+/*   Updated: 2018/06/12 11:34:41 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "zappy.h"
+#include "libft.h"
 
-int		command_connect_nbr(t_player *player, t_server *serv)
+int			push_pqueue(t_pqueue **head, void *data, int priority)
 {
-	char *msg;
+	t_pqueue	*tmp;
+	t_pqueue	*new;
 
-	if (!(msg = ft_strjoin(ft_itoa(6 - player->team->players), "\n", 0)) || 
-		send(player->fd, msg, ft_strlen(msg), 0) == -1)
+	if (!(new = create_pnode(data, priority)))
 		return (EXIT_FAILURE);
-	free(msg);
+	if (!(*head) || (*head)->priority > new->priority)
+	{
+		new->next = *head;
+		*head = new;
+	}
+	else
+	{
+		tmp = *head;
+		while (tmp->next && tmp->next->priority < new->priority)
+			tmp = tmp->next;
+		new->next = tmp->next;
+		tmp->next = new;
+	}
 	return (EXIT_SUCCESS);
 }

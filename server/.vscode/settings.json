@@ -1,6 +1,6 @@
 {
     "files.associations": {
-        "zappy.h": "c",
-        "zappy_server.h": "c"
+        "libft.h": "c",
+        "zappy.h": "c"
     }
 }

@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 18:08:13 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/02 23:01:15 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/12 13:35:26 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,6 @@ typedef struct	s_commands
 	int		delay;
 	int		(*fct)(t_player *player, t_server *serv);
 }				t_commands;
-
-typedef struct	s_event
-{
-	struct timeval	delaytime;
-	char			*msg;
-	t_player		*player;
-	int				(*fct)(t_player *player, t_server *serv);
-}				t_event;
 
 int	command_advance(t_player *player, t_server *serv);
 int	command_broadcast(t_player *player, t_server *serv);

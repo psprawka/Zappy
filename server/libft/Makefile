@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: asyed <asyed@student.42.fr>                +#+  +:+       +#+         #
+#    By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/24 11:51:37 by psprawka          #+#    #+#              #
-#    Updated: 2018/06/02 04:28:26 by asyed            ###   ########.fr        #
+#    Updated: 2018/06/12 09:33:09 by psprawka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME = libft.a
 FLAGS = -Wall -Wextra -Werror
 
 SRC_DIR = srcs/
+PQUEUE_DIR = pqueue/
 PRINTF_DIR = ft_printf/srcs/
 
 HEADERS = ./includes
@@ -45,9 +46,12 @@ SRC = $(SRC_DIR)ft_atoi.c \
 	$(SRC_DIR)ft_strsub.c \
 	$(SRC_DIR)ft_wstrlen.c \
 	$(SRC_DIR)gnl.c \
-	$(SRC_DIR)ft_pqueue.c \
-	$(SRC_DIR)ft_memmove.c \
-	$(SRC_DIR)ft_memcpy.c \
+	$(SRC_DIR)$(PQUEUE_DIR)free_pnode.c \
+	$(SRC_DIR)$(PQUEUE_DIR)create_pnode.c \
+	$(SRC_DIR)$(PQUEUE_DIR)push_pqueue.c \
+	$(SRC_DIR)$(PQUEUE_DIR)pop_pqueue.c \
+	$(SRC_DIR)$(PQUEUE_DIR)top_pqueue.c \
+	$(SRC_DIR)$(PQUEUE_DIR)print_pqueue.c \
 
 SRC_PRINTF = $(PRINTF_DIR)atoi_and_ulltoa.c \
 		$(PRINTF_DIR)ft_printf.c \
@@ -58,7 +62,7 @@ SRC_PRINTF = $(PRINTF_DIR)atoi_and_ulltoa.c \
 		$(PRINTF_DIR)ptr_dbl.c \
 		$(PRINTF_DIR)int_uint.c \
 		$(PRINTF_DIR)indirect_ft.c \
-		$(PRINTF_DIR)ft_libftprintf.c \
+		$(PRINTF_DIR)ft_libftprintf.c 
 
 OBJ += $(SRC:.c=.o)
 OBJ += $(SRC_PRINTF:.c=.o)

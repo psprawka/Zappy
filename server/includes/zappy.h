@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:39:21 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/04 15:32:25 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/12 16:31:18 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,39 +26,31 @@
 # include <term.h>
 # include <curses.h>
 # include "libft.h"
-# include <sys/types.h>
-# include <sys/event.h>
-# include <sys/time.h>
-
 
 # include "zappy_commands.h"
 # include "zappy_map.h"
 # include "zappy_server.h"
+# include "zappy_pqueue.h"
 
 # define	BUFF_SIZE		64
 # define	DEF_COLOR		CYAN
 
-# define	MSG_WELCOME		"WELCOME\n"
-# define	MSG_NOCOMMAND	"This command doesn't exist!"
-# define	MSG_FULLTEAM	"0"
-# define	MSG_NOTEAM		"This team doesn't exist. Reenter your team name."
-# define	MSG_OK			"ok"
-# define	MSG_KO			"ko"
-# define	MSG_DEATH		"death"
+# define	MSG_WELCOME		"WELCOME!\n"
+# define	MSG_NOCOMMAND	"This command doesn't exist!\n"
+# define	MSG_FULLTEAM	"0\n"
+# define	MSG_NOTEAM		"This team doesn't exist. Reenter your team name.\n"
+# define	MSG_OK			"ok\n"
+# define	MSG_KO			"ko\n"
+# define	MSG_DEATH		"death\n"
+
+# define	MAX_REQUEST_NB	10
 
 # define	NORTH			1
 # define	EAST			2
 # define	SOUTH			4
 # define	WEST			8
-// # define	SAMEPOS(x,y) ((x).x == (y).x && (x).y == (y).y)
 
-
-enum e_shape
-{
-	none,
-	square,
-	rectangle,
-};
+extern t_commands g_commands[];
 
 typedef struct	s_opt
 {
@@ -90,13 +82,7 @@ typedef struct s_inventory
 	int			phiras;
 	int			thystame;
 	int 		food;
-}				t_inventory;
-
-typedef struct s_position
-{
-	int			x;
-	int			y;
-}				t_position;
+}				t_inv;
 
 typedef struct	s_player
 {
@@ -104,26 +90,77 @@ typedef struct	s_player
 	t_team			*team;
 	int				level;
 	int				direction;
-	t_inventory		inv;
+	t_inv			*inv;
 	int				see_range;
-	t_square		*position;
-	// t_position		*position;
-	int				lifetime;
-	int				requests;
+	int				x;
+	int				y;
+	struct timeval	last_request;
+	int				requests_nb;
 }				t_player;
+
+/*
+** generator.c
+*/
+void		generate_food(t_map *map, t_server *server);
+void		add_stones_1(t_map *map);
+void		add_stones_2(t_map *map);
+void		generate_stones(t_map *map, t_server *server);
 
 /*
 **	init_structs.c
 */
+int			init_square(t_square *square);
 int			init_map(t_server *server);
 t_player	*init_player(int sockfd, t_server *server);
 int			init_server(t_server *serv);
 
 /*
+**	opt.c
+*/
+int			opt_port(char **av, int *i, t_server *server);
+int			opt_dimentions(char **av, int *i, t_server *server);
+int			opt_max_players(char **av, int *i, t_server *server);
+int			opt_time(char **av, int *i, t_server *server);
+int			opt_teams(char **av, int *i, t_server *server);
+
+/*
+**	parse.c
+*/
+int			error(int errnb, char *msg, bool ifexit);
+int			check_args(t_server *server);
+int			parse_args_serv(int ac, char **av, t_server *server);
+
+/*
+**	player.c
+*/
+void		player_quit(t_player *player, t_server *serv);
+void		new_player(t_server *serv, fd_set *client_fds, int sockfd);
+
+/*
+**	pqueue/
+*/
+int			compare_delays(struct timeval first, struct timeval second);
+t_pevent	*create_pevent(t_player *player, struct timeval delaytime, int itable, char *msg);
+int			push_pevent(t_pevent **head, t_pevent *new);
+int			add_pevent(t_server *serv, t_player *player, int itable, char *msg);
+
+/*
 **	randomize.c
 */
 int			rand_direction(void);
-t_square	*rand_position(t_map *map);
+void		rand_position(t_player *player, t_map *map);
+
+/*
+**	server_process.c
+*/
+int			parse_recv(t_player *player, t_server *server, char *msg);
+int			process_data(t_player *player, t_server *serv, fd_set *client_fds);
+
+/*
+**	server.c
+*/
+int			runserver(fd_set client_fds, t_server *server, int sockfd);
+int			server_socket(int port);
 
 /*
 **	teams.c
@@ -131,50 +168,9 @@ t_square	*rand_position(t_map *map);
 int			get_team_name(t_player *player, t_server *serv, char *msg);
 
 /*
-**	kqueue.c
-*/
-void		check_queue(t_server *server);
-int			init_kqueue(int server_fd, t_server *server);
-
-/*
-**	player.c
-*/
-void		player_quit(t_player *player, t_server *serv);
-
-/*
 **	tools.c
 */
-void	tools_world_dimensions(t_player *player, t_server *server);
-int		xytocoordinate(int x, int y);
-
-/*
-**	server_parse.c
-*/
-int			error(int errnb, char *msg, bool ifexit);
-int			parse_args_serv(int ac, char **av, t_server *server);
-
-/*
-**	options.c
-*/
-int 		opt_port(char **av, int *i, t_server *server);
-int 		opt_dimentions(char **av, int *i, t_server *server);
-int			opt_min_players(char **av, int *i, t_server *server);
-int			opt_time(char **av, int *i, t_server *server);
-int			opt_teams(char **av, int *i, t_server *server);
-
-/*
-**	server_process.c
-*/
-int			process_data(t_player *player, t_server *serv);
-
-/*
-**	server.c
-*/
+void		tools_world_dimensions(t_player *player, t_server *server);
 void		print_map(t_server *server, int x, int y);
-static int	new_player(t_server *server);
-static int	process_fd(struct kevent *event, t_server *server);
-int			runserver(int server_fd, t_server *server);
-int			server_socket(int port);
-
 
 #endif
