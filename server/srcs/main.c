@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 21:18:48 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 07:21:35 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/12 20:35:11 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ int		main(int ac, char **av)
 		parse_args_serv(ac, av, &server) == EXIT_FAILURE ||
 		(sockfd = server_socket(server.port)) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
+		
+	print_map(&server, server.map->width, server.map->height);
+	
 	if (listen(sockfd, FD_SETSIZE) == -1)
 		return (error(0, "Listen", true));
 	ft_bzero(&client_fds, sizeof(fd_set));

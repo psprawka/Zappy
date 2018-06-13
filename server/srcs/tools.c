@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/31 13:23:45 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 07:12:43 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/12 20:39:48 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,23 @@ void	tools_world_dimensions(t_player *player, t_server *server)
 
 void	print_map(t_server *server, int x, int y)
 {
-	int i = 0, j = 0;
+	int i = 0, j;
 
-	ft_printf("\nMAP:%s\n", ORANGE);
+	ft_printf("\nMAP:%s\n\n  ", ORANGE);
 	while (i < y)
 	{
+		j = 0;
 		while (j < x)
 		{
-			ft_printf("%d", j + (i * x) + 1);
-			ft_printf("%s",  j + (i * x) + 1 < 10 ? "   " : (j + (i * x) + 1 < 100 ? "  " : " "));
+			ft_printf("[%d, %d] ", i, j);
 			j++;
 		}
-		j = 0;
-		ft_printf("\n");
+		ft_printf("\n\n  ");
 		i++;
 	}
 	ft_printf("\n%s", NORMAL);
 
-	ft_printf("\nRESOURCES:%s\n", PINK);
-	i = 0; j = 0;
+	// ft_printf("\nRESOURCES:%s\n", PINK);
+	// i = 0; j = 0;
 	// while(server->map->squeres[i])
 }

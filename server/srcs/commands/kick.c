@@ -6,33 +6,78 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 18:03:33 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 19:16:33 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/12 20:34:32 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
+#define WIDTH serv->map->width
+#define HEIGHT serv->map->height
+
+void	send_kick_message(t_player *player, int kicked_from, int facing)
+{
+	int		k;
+	char	*msg;
+
+	k = 1;
+	while (facing != kicked_from)
+	{
+		k += 2;
+		if (facing & WEST)
+			facing = SOUTH;
+		else if (facing & SOUTH)
+			facing = EAST;
+		else if (facing & EAST)
+			facing = NORTH;
+		else if (facing & NORTH)
+			facing = WEST;
+	}
+	msg = ft_strjoin("moving ", ft_itoa(k), 0);
+	if (send(player->fd, msg, ft_strlen(msg), 0) == -1)
+		error(0, "Send", false);
+	free(msg);
+}
+
+void	kick_player(t_server *serv, t_player *kicker, t_player *to_kick)
+{
+	if (kicker->direction & NORTH)
+	{
+		to_kick->y = (!to_kick->y) ? HEIGHT - 1 : to_kick->y - 1;
+		send_kick_message(to_kick, SOUTH, to_kick->direction);
+	}
+	else if (kicker->direction & EAST)
+	{
+		to_kick->x = (to_kick->x == WIDTH - 1) ? 0 : to_kick->x + 1;
+		send_kick_message(to_kick, WEST, to_kick->direction);
+	}
+	else if (kicker->direction & SOUTH)
+	{
+		to_kick->y = (to_kick->y == HEIGHT - 1) ? 0 : to_kick->y + 1;
+		send_kick_message(to_kick, NORTH, to_kick->direction);
+	}
+	else if (kicker->direction & WEST)
+	{
+		to_kick->x = (!to_kick->x) ? WIDTH - 1 : to_kick->x - 1;
+		send_kick_message(to_kick, EAST, to_kick->direction);
+	}
+}
+
 int		command_kick(t_player *player, t_server *serv)
 {
-		int	i;
+	int	i;
 	int	tmp;
 
 	i = 0;
-	// while (i < FD_SETSIZE)
-	// {
-	// 	if ((!server->clients[i] || server->clients[i]->type != player) && ++i)
-	// 		continue;
-	// 	if (((t_player *)server->clients[i])->position->x == player_conn->position->x &&
-	// 		((t_player *)server->clients[i])->position->y == player_conn->position->y &&
-	// 		((t_player *)server->clients[i])->fd != player_conn->fd)
-	// 	{
-	// 		tmp = ((t_player *)server->clients[i])->direction;
-	// 		((t_player *)server->clients[i])->direction = player_conn->direction;
-	// 		command_advance((t_player *)server->clients[i], server);
-	// 		((t_player *)server->clients[i])->direction = tmp;
-	// 	}
-	// 	i++;
-	// }
+	while (i < FD_SETSIZE)
+	{
+		if (!serv->players[i] && ++i)
+			continue;
+		if (serv->players[i]->x == player->x && serv->players[i]->y == player->y
+			&& serv->players[i]->fd != player->fd)
+				kick_player(serv, player, serv->players[i]);
+		i++;
+	}
 	if (send(player->fd, MSG_OK, sizeof(MSG_OK), 0) == -1)
 		return(error(0, "Send", false));
 	return (EXIT_SUCCESS);
