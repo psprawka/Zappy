@@ -6,7 +6,7 @@
 #    By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/09 23:21:55 by psprawka          #+#    #+#              #
-#    Updated: 2018/06/12 14:06:03 by psprawka         ###   ########.fr        #
+#    Updated: 2018/06/13 15:54:08 by psprawka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS_CLIENT = $(SRCS_DIR)client.c \
 		$(SRCS_DIR)$(PQUEUE)add_pevent.c \
 		$(SRCS_DIR)server_process.c \
 		$(SRCS_DIR)init_structs.c \
+		$(SRCS_DIR)graphical.c \
 		$(SRCS_DIR)randomize.c \
 		$(SRCS_DIR)player.c \
 		$(SRCS_DIR)server.c \
@@ -64,6 +65,7 @@ SRCS_SERVER = $(SRCS_DIR)$(COMMANDS)connect_nbr.c \
 		$(SRCS_DIR)$(PQUEUE)add_pevent.c \
 		$(SRCS_DIR)server_process.c \
 		$(SRCS_DIR)init_structs.c \
+		$(SRCS_DIR)graphical.c \
 		$(SRCS_DIR)randomize.c \
 		$(SRCS_DIR)player.c \
 		$(SRCS_DIR)server.c \

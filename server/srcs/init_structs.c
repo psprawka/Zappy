@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/26 18:45:10 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 16:35:27 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/13 15:49:36 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ t_player	*init_player(int sockfd, t_server *server)
 	new->last_request.tv_sec = 0;
 	new->last_request.tv_usec = 0;
 	new->requests_nb = 0;
+	new->type = T_NONDEF;
 	return (new);
 }
 
@@ -90,5 +91,7 @@ int			init_server(t_server *serv)
 		free(serv->players);
 		return (EXIT_FAILURE);
 	}
+	if (!(serv->buff = ft_memalloc(2048 * sizeof(char))))
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

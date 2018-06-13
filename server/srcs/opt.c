@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/26 18:09:01 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 14:57:16 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/12 22:28:26 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int		opt_time(char **av, int *i, t_server *server)
 	if (time_unit < 1 || time_unit > 1000)
 		return (error(5, NULL, true));
 	*i += 2;
-	ret.tv_usec =  ((double)1 / time_unit) * 1000000;
+	ret.tv_usec = ((double)1 / time_unit) * 1000000;
 	ret.tv_sec = (1 / time_unit);
 	server->time = ret;
 	server->timeunit = time_unit;
@@ -92,6 +92,7 @@ int		opt_teams(char **av, int *i, t_server *server)
 		if (!(oneteam = ft_memalloc(sizeof(t_team))))
 			return (EXIT_FAILURE);
 		oneteam->name = av[j++];
+		oneteam->max_players = server->max_team_players;
 		teams[--teams_nb] = oneteam;
 	}
 	server->teams = teams;

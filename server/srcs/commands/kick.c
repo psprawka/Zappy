@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 18:03:33 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 20:34:32 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/13 15:51:58 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 #define WIDTH serv->map->width
 #define HEIGHT serv->map->height
 
-void	send_kick_message(t_player *player, int kicked_from, int facing)
+void	send_kick_message(t_server *serv, t_player *player, int kicked_from, int facing)
 {
 	int		k;
-	char	*msg;
-
 	k = 1;
 	while (facing != kicked_from)
 	{
@@ -33,10 +31,11 @@ void	send_kick_message(t_player *player, int kicked_from, int facing)
 		else if (facing & NORTH)
 			facing = WEST;
 	}
-	msg = ft_strjoin("moving ", ft_itoa(k), 0);
-	if (send(player->fd, msg, ft_strlen(msg), 0) == -1)
+	ft_strcpy(serv->buff, "moving ");
+	ft_strcat(serv->buff, ft_itoa(k));
+	ft_strcpy(serv->buff, "\n");
+	if (send(player->fd, serv->buff, ft_strlen(serv->buff), 0) == -1)
 		error(0, "Send", false);
-	free(msg);
 }
 
 void	kick_player(t_server *serv, t_player *kicker, t_player *to_kick)
@@ -44,22 +43,22 @@ void	kick_player(t_server *serv, t_player *kicker, t_player *to_kick)
 	if (kicker->direction & NORTH)
 	{
 		to_kick->y = (!to_kick->y) ? HEIGHT - 1 : to_kick->y - 1;
-		send_kick_message(to_kick, SOUTH, to_kick->direction);
+		send_kick_message(serv, to_kick, SOUTH, to_kick->direction);
 	}
 	else if (kicker->direction & EAST)
 	{
 		to_kick->x = (to_kick->x == WIDTH - 1) ? 0 : to_kick->x + 1;
-		send_kick_message(to_kick, WEST, to_kick->direction);
+		send_kick_message(serv, to_kick, WEST, to_kick->direction);
 	}
 	else if (kicker->direction & SOUTH)
 	{
 		to_kick->y = (to_kick->y == HEIGHT - 1) ? 0 : to_kick->y + 1;
-		send_kick_message(to_kick, NORTH, to_kick->direction);
+		send_kick_message(serv, to_kick, NORTH, to_kick->direction);
 	}
 	else if (kicker->direction & WEST)
 	{
 		to_kick->x = (!to_kick->x) ? WIDTH - 1 : to_kick->x - 1;
-		send_kick_message(to_kick, EAST, to_kick->direction);
+		send_kick_message(serv, to_kick, EAST, to_kick->direction);
 	}
 }
 
@@ -82,3 +81,5 @@ int		command_kick(t_player *player, t_server *serv)
 		return(error(0, "Send", false));
 	return (EXIT_SUCCESS);
 }
+
+//i think this one is fine

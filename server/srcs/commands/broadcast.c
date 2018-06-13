@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 18:04:46 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 07:13:48 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/12 21:41:14 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,3 +45,5 @@ int		command_broadcast(t_player *player, t_server *serv)
 	ft_printf("broadcast!\n");
 	return (EXIT_SUCCESS);
 }
+
+//not done at all, some stuff on github

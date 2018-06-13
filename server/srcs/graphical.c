@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_pqueue.c                                     :+:      :+:    :+:   */
+/*   graphical.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/12 09:22:13 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 15:31:04 by psprawka         ###   ########.fr       */
+/*   Created: 2018/06/07 16:55:24 by asyed             #+#    #+#             */
+/*   Updated: 2018/06/13 15:17:56 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "zappy.h"
 
-void		print_pqueue(t_pqueue *head)
+int		if_graphical(t_server *server, t_player *player, char *msg)
 {
-	int			i;
-	t_pqueue	*tmp;
+	if (player->type == T_NONDEF && ft_strcmp(msg, "GRAPHICAL\n"))
+		return (EXIT_FAILURE);
 
-	i = 1;
-	tmp = head;
-	ft_printf("\n%s", YELLOW);
-	while (tmp)
+	if (player->type == T_NONDEF)
 	{
-		ft_printf("%d. p: [%d], D: [%s]\n", i++, tmp->priority, tmp->data);
-		tmp = tmp->next;
+		
+		return (EXIT_SUCCESS);
 	}
-	ft_printf("%s\n", NORMAL);
+
+	
 }

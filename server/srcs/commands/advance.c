@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:49:05 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 20:33:11 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/12 21:41:00 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,3 +31,5 @@ int		command_advance(t_player *player, t_server *serv)
 		
 	return (EXIT_SUCCESS);
 }
+
+//i think this one is oke

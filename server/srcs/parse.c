@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/20 17:24:12 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 07:21:57 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/12 21:36:37 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int		parse_args_serv(int ac, char **av, t_server *server)
 		{
 			if (av[i][1] == g_ops[j].opt)
 			{
+				if (g_ops[j].fct == opt_teams && !server->max_team_players)
+					return (error(1, NULL, true));
 				if (g_ops[j].fct(av, &i, server) == EXIT_FAILURE)
 					return (EXIT_FAILURE);
 				break ;
@@ -74,6 +76,6 @@ int		parse_args_serv(int ac, char **av, t_server *server)
 	}
 	return (check_args(server) == EXIT_FAILURE ||
 		init_map(server) == EXIT_FAILURE ? EXIT_FAILURE : EXIT_SUCCESS);
-		return (1);
+		return (EXIT_SUCCESS);
 }
 

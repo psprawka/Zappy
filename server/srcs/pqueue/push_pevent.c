@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 13:54:03 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 16:30:40 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/13 15:24:55 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int		compare_delays(struct timeval first, struct timeval second)
 {
-	if (!(first.tv_sec == second.tv_sec))
+	if (first.tv_sec != second.tv_sec)
 		return (first.tv_sec >= second.tv_sec);
 	
 	return (first.tv_usec >= second.tv_usec);

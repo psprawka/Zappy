@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:39:21 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 16:31:18 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/13 15:53:43 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@
 # define	SOUTH			4
 # define	WEST			8
 
+# define 	T_NONDEF		0
+# define 	T_PLAYER		1
+# define 	T_GRAPHICAL		2
+
 extern t_commands g_commands[];
 
 typedef struct	s_opt
@@ -57,6 +61,19 @@ typedef struct	s_opt
 	char		opt;
 	int			(*fct)(char **av, int *i, t_server *server);
 }				t_opt;
+
+typedef struct	s_node
+{
+	int				fd;
+	struct t_node	*next;
+}				t_node;
+
+typedef struct	s_queue
+{
+	t_node		first;
+	t_node		last;
+}				t_queue;
+
 
 typedef struct	s_client
 {
@@ -70,7 +87,9 @@ typedef struct	s_team
 {
 	char		*name;
 	int			hlvl;	//the highest lvl
-	int			players;
+	int			max_players;
+	int			connected;
+	int			allowed_eggs;
 }				t_team;
 
 typedef struct s_inventory
@@ -92,6 +111,7 @@ typedef struct	s_player
 	int				direction;
 	t_inv			*inv;
 	int				see_range;
+	int				type;
 	int				x;
 	int				y;
 	struct timeval	last_request;
@@ -99,13 +119,17 @@ typedef struct	s_player
 }				t_player;
 
 /*
-** generator.c
+**	generator.c
 */
 void		generate_food(t_map *map, t_server *server);
 void		add_stones_1(t_map *map);
 void		add_stones_2(t_map *map);
 void		generate_stones(t_map *map, t_server *server);
 
+/*
+**	graphical.c
+*/
+int		if_graphical(t_server *server, t_player *player, char *msg);
 /*
 **	init_structs.c
 */

@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/20 17:26:09 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 15:48:18 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/12 23:54:35 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,19 @@ t_commands g_commands[] =
 	{NULL, 0, NULL}
 };
 
+int 	parse_graphical_recv(t_player *player, t_server *server, char *msg)
+{
+
+	;
+}
+
 int		parse_recv(t_player *player, t_server *server, char *msg)
 {
 	int i;
 	
 	i = 0;
+	if (player->type & T_GRAPHICAL)
+		return (parse_graphical_recv(player, server, msg));
 	while (g_commands[i].msg)
 	{
 		if (!ft_strcmp(g_commands[i].msg, msg))
@@ -55,7 +63,7 @@ int		process_data(t_player *player, t_server *serv, fd_set *client_fds)
 	{
 		buff[ret] = '\0';
 		ft_printf("%s[%d]: [%s]%s\n", GREEN, player->fd, buff, NORMAL);
-		if (!player->team)
+		if (!player->team && ~(player->type & T_GRAPHICAL))
 			get_team_name(player, serv, buff);
 		else if (parse_recv(player, serv, buff) == EXIT_SUCCESS)
 			return (EXIT_SUCCESS);

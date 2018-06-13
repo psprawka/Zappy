@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:30:53 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 14:56:48 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/13 15:48:37 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,16 @@
 
 typedef struct s_team	t_team;
 typedef struct s_pevent	t_pevent;
+typedef struct s_queue	t_queue;
 
 typedef struct	s_server
 {
+	t_queue			*graphical;
 	t_player		**players;
 	t_map			*map;
 	t_team			**teams;
 	t_pevent		*events;
+	char			*buff;
 	struct timeval	time;
 	int				timeunit;
 	int				port;

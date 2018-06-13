@@ -18,3 +18,5 @@ int		command_put(t_player *player, t_server *serv)
 	return (EXIT_SUCCESS);
 
 }
+
+//not even started

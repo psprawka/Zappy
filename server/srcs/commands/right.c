@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:49:16 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 06:37:17 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/12 21:45:13 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,6 @@ int		command_right(t_player *player, t_server *serv)
 	if (send(player->fd, MSG_OK, ft_strlen(MSG_OK), 0) == -1)
 		return (error(0, "Send", false));
 	return (EXIT_SUCCESS);
-
 }
+
+//should be fine
