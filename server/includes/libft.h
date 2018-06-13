@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 18:35:16 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 10:52:12 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/12 19:13:15 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ char			*ft_ftoa(double n);
 char			*ft_itoa(int nbr);
 char			*ft_strjoin(char *s1, char *s2, bool sfree);
 char			*ft_strdup(char *src);
+char			*ft_strcat(char *dest, const char *src);
+char			*ft_strcpy(char *dest, const char *src);
 int				ft_strlen(char *str);
 void			ft_bzero(void *s, unsigned int n);
 char			*ft_strnew(size_t size);

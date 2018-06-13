@@ -6,7 +6,7 @@
 #    By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/09/24 11:51:37 by psprawka          #+#    #+#              #
-#    Updated: 2018/06/12 09:33:09 by psprawka         ###   ########.fr        #
+#    Updated: 2018/06/12 19:17:12 by psprawka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,10 +31,12 @@ SRC = $(SRC_DIR)ft_atoi.c \
 	$(SRC_DIR)ft_memset.c \
 	$(SRC_DIR)ft_putchar_fd.c \
 	$(SRC_DIR)ft_putendl_fd.c \
+	$(SRC_DIR)ft_strcat.c \
 	$(SRC_DIR)ft_strncat.c \
 	$(SRC_DIR)ft_strchr.c \
 	$(SRC_DIR)ft_strcmp.c \
 	$(SRC_DIR)ft_strdup.c \
+	$(SRC_DIR)ft_strcpy.c \
 	$(SRC_DIR)ft_strjoin.c \
 	$(SRC_DIR)ft_strlen.c \
 	$(SRC_DIR)ft_strlen_chr.c \
