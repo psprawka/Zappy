@@ -6,7 +6,7 @@
 #    By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/09 23:21:55 by psprawka          #+#    #+#              #
-#    Updated: 2018/06/13 21:04:27 by psprawka         ###   ########.fr        #
+#    Updated: 2018/06/13 23:40:50 by psprawka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,6 @@ PDEATH = pdeaths/
 #to remove later
 SRCS_CLIENT = $(SRCS_DIR)client.c \
 		$(SRCS_DIR)$(COMMANDS)connect_nbr.c \
-		$(SRCS_DIR)$(COMMANDS)broadcast.c \
 		$(SRCS_DIR)$(COMMANDS)inventory.c \
 		$(SRCS_DIR)$(COMMANDS)advance.c \
 		$(SRCS_DIR)$(COMMANDS)levelup.c \
@@ -57,7 +56,6 @@ SRCS_CLIENT = $(SRCS_DIR)client.c \
 		$(SRCS_DIR)opt.c 
 	
 SRCS_SERVER = $(SRCS_DIR)$(COMMANDS)connect_nbr.c \
-		$(SRCS_DIR)$(COMMANDS)broadcast.c \
 		$(SRCS_DIR)$(COMMANDS)inventory.c \
 		$(SRCS_DIR)$(COMMANDS)advance.c \
 		$(SRCS_DIR)$(COMMANDS)levelup.c \
