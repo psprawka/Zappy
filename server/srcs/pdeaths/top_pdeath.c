@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.c                                             :+:      :+:    :+:   */
+/*   top_pdeath.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/13 17:32:33 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 20:47:11 by psprawka         ###   ########.fr       */
+/*   Created: 2018/06/13 20:13:18 by psprawka          #+#    #+#             */
+/*   Updated: 2018/06/13 21:04:12 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-//0 if first is less
-//0 if theyre the same 
-//1 if first is bigger
-
-int		time_compare(struct timeval *first, struct timeval *second)
+struct timeval	*top_pdeath(t_pdeath *head)
 {
-	if (first->tv_sec != second->tv_sec)
-		return (first->tv_sec > second->tv_sec);
-	
-	return (first->tv_usec > second->tv_usec);
+	if (head)
+		return (head->death_time);
+	return (NULL);	
 }
 

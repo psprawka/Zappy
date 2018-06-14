@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/26 18:45:10 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 15:49:36 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/13 20:56:21 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,7 @@ t_player	*init_player(int sockfd, t_server *server)
 	new->inv->food = 10;
 	new->see_range = 1;
 	rand_position(new, server->map);
-	new->last_request.tv_sec = 0;
-	new->last_request.tv_usec = 0;
+	ft_bzero(&new->last_request, sizeof(struct timeval));
 	new->requests_nb = 0;
 	new->type = T_NONDEF;
 	return (new);

@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:25:37 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 18:11:06 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/13 20:58:34 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,21 +76,49 @@
 	};
 */
 
-int	execute_pqueue(t_server *server)
+int		execute_deaths(t_server *server)
 {
-	struct timeval	event_time;
+	struct timeval	*death_time;
 	struct timeval	curr;
 	
-	while (1)
+	while (server->deaths)
 	{
 		ft_bzero(&curr, sizeof(struct timeval));
 		if (gettimeofday(&(curr), NULL) == EXIT_FAILURE)
 			return (error(0, "Gettimeofday", true));
 
+		death_time = top_pdeath(server->deaths);
+		if (time_compare(death_time, &curr))
+			break ;
 
-		
+		command_death(server->deaths->player, server);
+		pop_pdeath(&server->deaths);
 	}
+	return (EXIT_SUCCESS);
 }
+
+
+int		execute_events(t_server *server)
+{
+	struct timeval	*event_time;
+	struct timeval	curr;
+	
+	while (server->events)
+	{
+		ft_bzero(&curr, sizeof(struct timeval));
+		if (gettimeofday(&(curr), NULL) == EXIT_FAILURE)
+			return (error(0, "Gettimeofday", true));
+
+		event_time = top_pevent(server->events);
+		if (time_compare(event_time, &curr))
+			break ;
+
+		server->events->fct(server->events->player, server);
+		free_pevent(pop_pevent(&server->events));
+	}
+	return (EXIT_SUCCESS);
+}
+
 
 int		runserver(fd_set client_fds, t_server *server, int servfd)
 {
@@ -112,8 +140,9 @@ int		runserver(fd_set client_fds, t_server *server, int servfd)
 			}
 			i++;
 		}
-		// execute_pqueue(server);
-		// life_ticker();
+		// execute_events(server);
+		// execute_deaths(server);
+		// set_time_alarm();
 		select_fds = client_fds;
 	}
 	return (error(0, "Select", true));

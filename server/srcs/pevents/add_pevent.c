@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 13:55:59 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 17:32:14 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/13 20:53:41 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,20 @@ void		print_pevent(t_pevent *head)
 
 int		add_pevent(t_server *serv, t_player *player, int itable, char *msg)
 {
-	struct timeval	last_request;
+	struct timeval	*last_request;
 	struct timeval	curr;
 	t_pevent		*new;
 
 	if (gettimeofday(&(curr), NULL) == EXIT_FAILURE)
 		return (error(0, "Gettimeofday", true));
 	
-	last_request = player->last_request;
+	last_request = &player->last_request;
 	
-	if ((!last_request.tv_sec && !last_request.tv_usec ) ||
-		!time_compare(last_request, curr))
-		last_request = curr;
+	if (!last_request || !time_compare(last_request, &curr))
+		last_request = &curr;
 	
-	last_request.tv_sec += g_commands[itable].delay * serv->time.tv_sec;
-	last_request.tv_usec += g_commands[itable].delay * serv->time.tv_usec;
+	last_request->tv_sec += g_commands[itable].delay * serv->time.tv_sec;
+	last_request->tv_usec += g_commands[itable].delay * serv->time.tv_usec;
 	
 	if (!(new = create_pevent(player, last_request, itable, msg)))
 		return (EXIT_FAILURE);

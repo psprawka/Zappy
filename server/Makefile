@@ -6,7 +6,7 @@
 #    By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/09 23:21:55 by psprawka          #+#    #+#              #
-#    Updated: 2018/06/13 17:34:31 by psprawka         ###   ########.fr        #
+#    Updated: 2018/06/13 21:04:27 by psprawka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,10 @@ FLAGS = -g -Wall -Wextra -Werror
 HEADERS = includes/
 SRCS_DIR = srcs/
 COMMANDS = commands/
-PQUEUE = pqueue/
+PEVENT = pevents/
+PDEATH = pdeaths/
 
+#to remove later
 SRCS_CLIENT = $(SRCS_DIR)client.c \
 		$(SRCS_DIR)$(COMMANDS)connect_nbr.c \
 		$(SRCS_DIR)$(COMMANDS)broadcast.c \
@@ -33,10 +35,15 @@ SRCS_CLIENT = $(SRCS_DIR)client.c \
 		$(SRCS_DIR)$(COMMANDS)take.c \
 		$(SRCS_DIR)$(COMMANDS)put.c \
 		$(SRCS_DIR)$(COMMANDS)see.c \
-		$(SRCS_DIR)$(PQUEUE)create_pevent.c \
-		$(SRCS_DIR)$(PQUEUE)push_pevent.c \
-		$(SRCS_DIR)$(PQUEUE)add_pevent.c \
-		$(SRCS_DIR)$(PQUEUE)top_pevent.c \
+		$(SRCS_DIR)$(PEVENT)create_pevent.c \
+		$(SRCS_DIR)$(PEVENT)push_pevent.c \
+		$(SRCS_DIR)$(PEVENT)free_pevent.c \
+		$(SRCS_DIR)$(PEVENT)add_pevent.c \
+		$(SRCS_DIR)$(PEVENT)pop_pevent.c \
+		$(SRCS_DIR)$(PEVENT)top_pevent.c \
+		$(SRCS_DIR)$(PDEATH)top_pdeath.c \
+		$(SRCS_DIR)$(PDEATH)pop_pdeath.c \
+		$(SRCS_DIR)$(PDEATH)push_pdeath.c \
 		$(SRCS_DIR)server_process.c \
 		$(SRCS_DIR)init_structs.c \
 		$(SRCS_DIR)graphical.c \
@@ -62,10 +69,15 @@ SRCS_SERVER = $(SRCS_DIR)$(COMMANDS)connect_nbr.c \
 		$(SRCS_DIR)$(COMMANDS)take.c \
 		$(SRCS_DIR)$(COMMANDS)put.c \
 		$(SRCS_DIR)$(COMMANDS)see.c \
-		$(SRCS_DIR)$(PQUEUE)create_pevent.c \
-		$(SRCS_DIR)$(PQUEUE)push_pevent.c \
-		$(SRCS_DIR)$(PQUEUE)add_pevent.c \
-		$(SRCS_DIR)$(PQUEUE)top_pevent.c \
+		$(SRCS_DIR)$(PEVENT)create_pevent.c \
+		$(SRCS_DIR)$(PEVENT)push_pevent.c \
+		$(SRCS_DIR)$(PEVENT)free_pevent.c \
+		$(SRCS_DIR)$(PEVENT)add_pevent.c \
+		$(SRCS_DIR)$(PEVENT)pop_pevent.c \
+		$(SRCS_DIR)$(PEVENT)top_pevent.c \
+		$(SRCS_DIR)$(PDEATH)top_pdeath.c \
+		$(SRCS_DIR)$(PDEATH)pop_pdeath.c \
+		$(SRCS_DIR)$(PDEATH)push_pdeath.c \
 		$(SRCS_DIR)server_process.c \
 		$(SRCS_DIR)init_structs.c \
 		$(SRCS_DIR)graphical.c \

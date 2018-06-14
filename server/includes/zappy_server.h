@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:30:53 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 18:10:22 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/13 19:56:58 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 
 #include "zappy.h"
 
-typedef struct s_team	t_team;
-typedef struct s_pevent	t_pevent;
-typedef struct s_graphic_list t_graphic_list;
+typedef struct s_team			t_team;
+typedef struct s_pevent			t_pevent;
+typedef struct s_pdeath			t_pdeath;
+typedef struct s_graphic_list	t_graphic_list;
 
 typedef struct	s_server
 {
@@ -26,6 +27,7 @@ typedef struct	s_server
 	t_map			*map;
 	t_team			**teams;
 	t_pevent		*events;
+	t_pdeath		*deaths;
 	char			*buff;
 	struct timeval	time;
 	int				timeunit;
