@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:49:49 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 21:01:05 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/13 21:39:21 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		command_inventory(t_player *player, t_server *serv)
 {
-
+	printf("Player %s has sent command [inventory]\n", player->fd);
 	strcpy(serv->buff, "{food ");
 	// strcat(serv->buff, ft_itoa(player->inv->food * 126));
 	strcat(serv->buff, ft_itoa(player->inv->food));

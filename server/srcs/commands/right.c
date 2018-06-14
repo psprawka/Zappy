@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:49:16 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 21:02:40 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/13 21:38:15 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int		command_right(t_player *player, t_server *serv)
 {
+	printf("Player %s has sent command [right]\n", player->fd);
 	player->direction = (player->direction * 2 == 8) ? NORTH : player->direction * 2;
 	if (send(player->fd, MSG_OK, strlen(MSG_OK), 0) == -1)
 		return (error(0, "Send", false));

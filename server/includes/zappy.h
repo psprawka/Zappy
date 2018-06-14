@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:39:21 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 21:13:15 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/13 22:22:40 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # include "zappy_map.h"
 # include "zappy_server.h"
 # include "zappy_pqueue.h"
-# include "zappy_graphic_queue.h"
+# include "zappy_graphic.h"
 
 # define	BUFF_SIZE		64
 # define	SERV_BUFF_SIZE	2048
@@ -66,6 +66,12 @@
 # define	THYSTAME		6
 
 extern t_commands g_commands[];
+
+typedef struct	s_vector
+{
+	int		x;
+	int		y;
+}				t_vector;
 
 typedef struct	s_opt
 {
@@ -139,7 +145,7 @@ void		generate_stones(t_map *map, t_server *server);
 /*
 **	graphical.c
 */
-int		if_graphical(t_server *server, t_player *player, char *msg);
+int			if_graphical(t_server *server, t_player *player, char *msg);
 /*
 **	init_structs.c
 */

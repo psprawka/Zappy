@@ -6,12 +6,11 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:49:59 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 21:11:51 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/13 21:36:59 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
-
 
 int		command_take(t_player *player, t_server *serv, int ressource)
 {

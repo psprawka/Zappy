@@ -6,9 +6,11 @@
 /*   By: tle-huu- <tle-huu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 16:55:08 by tle-huu-          #+#    #+#             */
-/*   Updated: 2018/06/13 16:55:09 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/13 22:37:00 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "zappy.h"
 
 void	player_level(t_player *player, t_server *server)
 {

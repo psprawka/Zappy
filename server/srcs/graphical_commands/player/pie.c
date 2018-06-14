@@ -6,13 +6,13 @@
 /*   By: tle-huu- <tle-huu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 17:34:18 by tle-huu-          #+#    #+#             */
-/*   Updated: 2018/06/13 21:11:15 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/13 22:37:19 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-void		end_incantation(t_player *player, t_server *server,int result)
+void		end_incantation(t_player *player, t_server *server, int result)
 {
 	int				len;
 	t_graphic_list	*node;

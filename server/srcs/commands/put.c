@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 18:04:32 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 21:12:40 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/13 21:38:37 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		command_put(t_player *player, t_server *serv, int ressource)
 {
-	ft_printf("putting!\n");
+	printf("Player %s has sent command [put]\n", player->fd);
 	t_square	*square;
 	int			x;
 	int			y;

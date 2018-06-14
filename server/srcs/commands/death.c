@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:51:22 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 21:44:03 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/13 21:39:36 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 int	command_death(t_player *player, t_server *server)
 {
+	printf("Player %s has died\n", player->fd);
 	if (!player->team)
 		return (EXIT_FAILURE);
 	player->team->connected--;
 	if (send(player->fd, MSG_DEATH, ft_strlen(MSG_DEATH), 0) == -1)
-		return (error(0, "Send", false));	
+		return (error(0, "Send", false));
 	return (EXIT_SUCCESS);
 }
 
