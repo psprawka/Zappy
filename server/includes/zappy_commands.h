@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 18:08:13 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 22:24:25 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/13 23:39:49 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 
 #include "zappy.h"
 
-typedef struct s_player t_player;
-typedef struct s_server t_server;
+typedef struct s_player		t_player;
+typedef struct s_server		t_server;
+typedef struct s_vector		t_vector;
+typedef struct s_map		t_map;
+typedef struct s_graphic	t_graphic;
 
 typedef struct	s_commands
 {
