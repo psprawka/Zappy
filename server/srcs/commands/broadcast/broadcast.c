@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 18:04:46 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 22:35:03 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/13 22:43:44 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ void			send_message_to_others(t_player *sender, t_player *receiver, t_server *se
 	strcat(server->buff, msg);
 	if (msg[strlen(msg) - 1] != '\n')
 		strcat(server->buff, "\n");
-	while (i < FD_SETSIZE + 1)
+	while (i < FD_SETSIZE + 1) // +1 or not +1 ???
 	{
-		// The server needs to keep in its structure the sockfd
+		//TODO: The server needs to keep in its structure the sockfd
 		if (i != server->sockfd)
 		{
 			if (send(i, server->buff, strlen(server->buff) + 1, 0) == -1)
