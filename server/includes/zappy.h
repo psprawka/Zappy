@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:39:21 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 18:06:08 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/13 18:08:12 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # include "zappy_map.h"
 # include "zappy_server.h"
 # include "zappy_pqueue.h"
-# include "zappy_graphic_list.h"
+# include "zappy_graphic_queue.h"
 
 # define	BUFF_SIZE		64
 # define	SERV_BUFF_SIZE	2048
@@ -76,7 +76,6 @@ typedef struct	s_queue
 	t_node		first;
 	t_node		last;
 }				t_queue;
-
 
 typedef struct	s_client
 {

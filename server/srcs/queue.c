@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 15:25:38 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 15:45:55 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/13 16:28:06 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 
 // 	if (!(new = create_node(graphicfd)))
 // 		return (EXIT_FAILURE);
-	 
+
 // 	if (!(*head))
 // 		*head = new;
 // 	else
@@ -81,5 +81,3 @@
 // 	}
 // 	ft_printf("%s\n", NORMAL);
 // }
-
-

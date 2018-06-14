@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:25:37 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 17:28:25 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/13 18:11:06 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 // 	static struct timeval	alarm;
 
 // 	select_fds = client_fds;
-	
+
 // 	// if (gettimeofday(&(alarm), NULL) == EXIT_FAILURE)
 // 	// 		return (error(0, "Gettimeofday", true));
 // 	alarm.tv_sec = 100;
@@ -76,7 +76,7 @@
 	};
 */
 
-void	execute_pqueue(t_server *server)
+int	execute_pqueue(t_server *server)
 {
 	struct timeval	event_time;
 	struct timeval	curr;
@@ -112,8 +112,8 @@ int		runserver(fd_set client_fds, t_server *server, int servfd)
 			}
 			i++;
 		}
-		execute_pqueue(server);
-		life_ticker();
+		// execute_pqueue(server);
+		// life_ticker();
 		select_fds = client_fds;
 	}
 	return (error(0, "Select", true));
