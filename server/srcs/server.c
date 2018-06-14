@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:25:37 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/14 08:24:30 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/14 10:47:51 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		execute_deaths(t_server *server)
 {
 	struct timeval	*death_time;
 	struct timeval	curr;
-	
+
 	while (server->deaths)
 	{
 		ft_bzero(&curr, sizeof(struct timeval));
@@ -28,7 +28,7 @@ int		execute_deaths(t_server *server)
 		if (time_compare(death_time, &curr))
 			break ;
 
-		command_death(server->deaths->player, server);
+		command_death(server->deaths->player, server, 0);
 		pop_pdeath(&server->deaths);
 	}
 	return (EXIT_SUCCESS);
@@ -39,7 +39,7 @@ int		execute_events(t_server *server)
 {
 	struct timeval	*event_time;
 	struct timeval	curr;
-	
+
 	while (server->events)
 	{
 		ft_bzero(&curr, sizeof(struct timeval));
@@ -50,7 +50,7 @@ int		execute_events(t_server *server)
 		if (time_compare(event_time, &curr))
 			break ;
 
-		server->events->fct(server->events->player, server);
+		server->events->fct(server->events->player, server, 0);
 		free_pevent(pop_pevent(&server->events));
 	}
 	return (EXIT_SUCCESS);
@@ -122,7 +122,7 @@ int		server_socket(int port)
 {
 	int					servfd;
 	struct sockaddr_in	server_addr;
-	
+
 	if ((servfd = socket(AF_INET, SOCK_STREAM, 6)) < 0)
 		return (error(0, "Socket", true));
 	ft_bzero(&server_addr, sizeof(server_addr));

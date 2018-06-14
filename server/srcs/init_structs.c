@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/26 18:45:10 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/14 09:00:47 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/14 11:00:09 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int		init_map(t_server *server)
 	int i;
 	int j;
 
+
+//		Change X Y ?
 	i = 0;
 	if (!(server->map->squares = ft_memalloc(server->map->height * sizeof(t_square *))))
 		return (EXIT_FAILURE);
@@ -85,10 +87,19 @@ int			init_server(t_server *serv)
 	}
 	if (!(serv->buff = ft_memalloc(2048 * sizeof(char))))
 		return (EXIT_FAILURE);
-		
+
 	serv->timeunit = -1;
 	serv->port = 0;
 	serv->max_team_players = 0;
 	serv->teamcount = 0;
+	serv->sockfd = 0;
+	return (EXIT_SUCCESS);
+}
+
+int			init_action_arg(t_action_arg *arg, int ressource, char *message)
+{
+	//		!!!! HAS TO BE USED WITH AN ACTION ARG ALLOCATED ON THE STACK !!
+	arg->ressource = ressource;
+	arg->message = message;
 	return (EXIT_SUCCESS);
 }

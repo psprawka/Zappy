@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:39:21 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/14 06:58:18 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/14 11:00:18 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,9 @@ typedef struct s_inventory
 	// int			mendiane;
 	// int			phiras;
 	// int			thystame;
-	
+
 	int		inventory[7];
-	
+
 }				t_inv;
 
 typedef struct	s_player
@@ -234,5 +234,9 @@ int			time_compare(struct timeval *first, struct timeval *second);
 */
 int			tools_world_dimensions(t_player *player, t_server *serv);
 void		print_map(t_server *server, int x, int y);
+int			hash_function(char *ressource);
+int			init_action_arg(t_action_arg *arg, int ressource, char *message);
+
+
 
 #endif

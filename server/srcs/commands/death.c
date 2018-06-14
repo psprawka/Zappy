@@ -6,13 +6,13 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:51:22 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 23:49:54 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/14 11:05:29 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-int	command_death(t_player *player, t_server *server)
+int	command_death(t_player *player, t_server *server, t_action_arg *arg)
 {
 	printf("Player %d has died\n", player->fd);
 	if (!player->team)
@@ -20,6 +20,7 @@ int	command_death(t_player *player, t_server *server)
 	player->team->connected--;
 	if (send(player->fd, MSG_DEATH, ft_strlen(MSG_DEATH), 0) == -1)
 		return (error(0, "Send", false));
+	arg = (void *)arg;
 	return (EXIT_SUCCESS);
 }
 

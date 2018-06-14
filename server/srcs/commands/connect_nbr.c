@@ -6,13 +6,13 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:51:06 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/14 07:26:42 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/14 11:05:55 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-int		command_connect_nbr(t_player *player, t_server *serv)
+int		command_connect_nbr(t_player *player, t_server *serv, t_action_arg *arg)
 {
 	printf("Player %d has sent command [connect_nbr]\n", player->fd);
 	ft_bzero(serv->buff, 2048);
@@ -20,6 +20,7 @@ int		command_connect_nbr(t_player *player, t_server *serv)
 	ft_strcat(serv->buff, "\n");
 	if (send(player->fd, serv->buff, ft_strlen(serv->buff), 0) == -1)
 		return (EXIT_FAILURE);
+	arg = (void *)arg;
 	return (EXIT_SUCCESS);
 }
 

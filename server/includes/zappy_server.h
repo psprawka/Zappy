@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:30:53 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 19:56:58 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/14 10:13:02 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_graphic_list	t_graphic_list;
 typedef struct	s_server
 {
 	t_graphic_list	*graph_list;
+	int				sockfd;
 	t_player		**players;
 	t_map			*map;
 	t_team			**teams;

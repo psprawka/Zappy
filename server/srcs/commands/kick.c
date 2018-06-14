@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 18:03:33 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 23:50:08 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/14 11:04:49 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	kick_player(t_server *serv, t_player *kicker, t_player *to_kick)
 	}
 }
 
-int		command_kick(t_player *player, t_server *serv)
+int		command_kick(t_player *player, t_server *serv, t_action_arg *arg)
 {
 	int	i;
 	int	tmp;
@@ -80,6 +80,7 @@ int		command_kick(t_player *player, t_server *serv)
 	}
 	if (send(player->fd, MSG_OK, sizeof(MSG_OK), 0) == -1)
 		return(error(0, "Send", false));
+	arg = (void *)arg;
 	return (EXIT_SUCCESS);
 }
 

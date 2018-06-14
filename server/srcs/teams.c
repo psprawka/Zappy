@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 20:57:59 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/14 08:41:42 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/14 10:48:15 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ struct timeval	*lifetime()
 int		get_team_name(t_player *player, t_server *serv, char *msg)
 {
 	int		i;
-	
+
 	i = 0;
 	if (if_graphical(serv, player, msg) == EXIT_SUCCESS)
 		return (EXIT_SUCCESS);
@@ -34,7 +34,7 @@ int		get_team_name(t_player *player, t_server *serv, char *msg)
 				return (EXIT_FAILURE);
 			}
 			player->team = serv->teams[i];
-			if (command_connect_nbr(player, serv) == EXIT_FAILURE || 
+			if (command_connect_nbr(player, serv, 0) == EXIT_FAILURE || 
 				tools_world_dimensions(player, serv) == EXIT_FAILURE)
 				return (EXIT_FAILURE); //idk what to do in this situation?
 			player->team->connected += 1;
@@ -49,4 +49,3 @@ int		get_team_name(t_player *player, t_server *serv, char *msg)
 		send(player->fd, MSG_NOTEAM, ft_strlen(MSG_NOTEAM), 0);
 	return (EXIT_SUCCESS);
 }
-

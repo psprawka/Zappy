@@ -6,13 +6,13 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 18:04:32 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/14 00:23:18 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/14 11:04:59 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-int		command_put(t_player *player, t_server *serv)
+int		command_put(t_player *player, t_server *serv, t_action_arg *arg)
 // int		command_put(t_player *player, t_server *serv, int ressource)
 {
 	// printf("Player %d has sent command [put]\n", player->fd);
@@ -40,6 +40,7 @@ int		command_put(t_player *player, t_server *serv)
 	// 	if (send(player->fd, MSG_KO, strlen(MSG_OK), 0) == -1)
 	// 		return (error(0, "Send", false));
 	// }
+	
 	return (EXIT_SUCCESS);
 }
 

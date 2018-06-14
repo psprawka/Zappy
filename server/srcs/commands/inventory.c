@@ -6,13 +6,13 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:49:49 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/14 00:14:18 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/14 11:05:35 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-int		command_inventory(t_player *player, t_server *serv)
+int		command_inventory(t_player *player, t_server *serv, t_action_arg *arg)
 {
 	printf("Player %d has sent command [inventory]\n", player->fd);
 	strcpy(serv->buff, "{food ");
@@ -31,6 +31,7 @@ int		command_inventory(t_player *player, t_server *serv)
 	strcat(serv->buff, ft_itoa(player->inventory[6]));
 	strcat(serv->buff, "}\n");
 	send(player->fd, serv->buff, strlen(serv->buff) + 1, 0);
+	arg = (void *)arg;
 	return (EXIT_SUCCESS);
 }
 
