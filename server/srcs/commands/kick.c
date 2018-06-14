@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 18:03:33 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 15:51:58 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/13 20:57:13 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	send_kick_message(t_server *serv, t_player *player, int kicked_from, int fa
 		else if (facing & NORTH)
 			facing = WEST;
 	}
-	ft_strcpy(serv->buff, "moving ");
-	ft_strcat(serv->buff, ft_itoa(k));
-	ft_strcpy(serv->buff, "\n");
+	strcpy(serv->buff, "moving ");
+	strcat(serv->buff, ft_itoa(k));
+	strcpy(serv->buff, "\n");
 	if (send(player->fd, serv->buff, ft_strlen(serv->buff), 0) == -1)
 		error(0, "Send", false);
 }

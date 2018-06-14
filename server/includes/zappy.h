@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:39:21 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 18:08:12 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/13 21:05:14 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,14 @@
 # define 	T_NONDEF		0
 # define 	T_PLAYER		1
 # define 	T_GRAPHICAL		2
+
+# define	FOOD			0
+# define	LINEMATE		1
+# define	DERAUMERE		2
+# define	SIBUR			3
+# define	MENDIANE		4
+# define	PHIRAS			5
+# define	THYSTAME		6
 
 extern t_commands g_commands[];
 

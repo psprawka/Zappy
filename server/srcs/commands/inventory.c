@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:49:49 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 15:50:53 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/13 21:01:05 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,21 @@
 int		command_inventory(t_player *player, t_server *serv)
 {
 
-	ft_strcpy(serv->buff, "{food");
-	ft_strcat(serv->buff, ft_itoa(player->inv->food * 126));
-	ft_strcat(serv->buff, ", linemate ");
-	ft_strcat(serv->buff, ft_itoa(player->inv->linemate));
-	ft_strcat(serv->buff, ", deraumere ");
-	ft_strcat(serv->buff, ft_itoa(player->inv->deraumere));
-	ft_strcat(serv->buff, ", mendiane ");
-	ft_strcat(serv->buff, ft_itoa(player->inv->mendiane));
-	ft_strcat(serv->buff, ", phiras ");
-	ft_strcat(serv->buff, ft_itoa(player->inv->phiras));
-	ft_strcat(serv->buff, ", thystame ");
-	ft_strcat(serv->buff, ft_itoa(player->inv->thystame));
-	ft_strcat(serv->buff, "}");
-	send(player->fd, serv->buff, ft_strlen(serv->buff) + 1, 0);
+	strcpy(serv->buff, "{food ");
+	// strcat(serv->buff, ft_itoa(player->inv->food * 126));
+	strcat(serv->buff, ft_itoa(player->inv->food));
+	strcat(serv->buff, ", linemate ");
+	strcat(serv->buff, ft_itoa(player->inv->linemate));
+	strcat(serv->buff, ", deraumere ");
+	strcat(serv->buff, ft_itoa(player->inv->deraumere));
+	strcat(serv->buff, ", mendiane ");
+	strcat(serv->buff, ft_itoa(player->inv->mendiane));
+	strcat(serv->buff, ", phiras ");
+	strcat(serv->buff, ft_itoa(player->inv->phiras));
+	strcat(serv->buff, ", thystame ");
+	strcat(serv->buff, ft_itoa(player->inv->thystame));
+	strcat(serv->buff, "}\n");
+	send(player->fd, serv->buff, strlen(serv->buff) + 1, 0);
 	return (EXIT_SUCCESS);
 }
 

@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:50:35 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 23:59:34 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/13 21:02:32 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,21 @@
 
 int		command_levelup(t_player *player, t_server *serv)
 {
-	ft_printf("level up!\n");
-	return (EXIT_SUCCESS);
+	int		len;
 
+	printf("level up!\n");
+	if (player->level < 8 && player->level > 0)
+	{
+		printf("%d -> %d\n", player->level, player->level + 1);
+		player->level++;
+		strcpy(serv->buff, "current level : ");
+		strcat(serv->buff, player->level);
+		len = strlen(serv->buff + 1);
+		send(player->fd, serv->buff, len, 0);
+		return (EXIT_SUCCESS);
+	}
+	printf("Error level up\n");
+	return (EXIT_FAILURE);
 }
 
 //not even started
