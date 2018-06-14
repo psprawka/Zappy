@@ -6,7 +6,7 @@
 #    By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/09 23:21:55 by psprawka          #+#    #+#              #
-#    Updated: 2018/06/13 15:54:08 by psprawka         ###   ########.fr        #
+#    Updated: 2018/06/13 17:34:31 by psprawka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRCS_CLIENT = $(SRCS_DIR)client.c \
 		$(SRCS_DIR)$(PQUEUE)create_pevent.c \
 		$(SRCS_DIR)$(PQUEUE)push_pevent.c \
 		$(SRCS_DIR)$(PQUEUE)add_pevent.c \
+		$(SRCS_DIR)$(PQUEUE)top_pevent.c \
 		$(SRCS_DIR)server_process.c \
 		$(SRCS_DIR)init_structs.c \
 		$(SRCS_DIR)graphical.c \
@@ -45,6 +46,7 @@ SRCS_CLIENT = $(SRCS_DIR)client.c \
 		$(SRCS_DIR)teams.c \
 		$(SRCS_DIR)tools.c \
 		$(SRCS_DIR)parse.c \
+		$(SRCS_DIR)time.c \
 		$(SRCS_DIR)opt.c 
 	
 SRCS_SERVER = $(SRCS_DIR)$(COMMANDS)connect_nbr.c \
@@ -63,6 +65,7 @@ SRCS_SERVER = $(SRCS_DIR)$(COMMANDS)connect_nbr.c \
 		$(SRCS_DIR)$(PQUEUE)create_pevent.c \
 		$(SRCS_DIR)$(PQUEUE)push_pevent.c \
 		$(SRCS_DIR)$(PQUEUE)add_pevent.c \
+		$(SRCS_DIR)$(PQUEUE)top_pevent.c \
 		$(SRCS_DIR)server_process.c \
 		$(SRCS_DIR)init_structs.c \
 		$(SRCS_DIR)graphical.c \
@@ -73,6 +76,7 @@ SRCS_SERVER = $(SRCS_DIR)$(COMMANDS)connect_nbr.c \
 		$(SRCS_DIR)tools.c \
 		$(SRCS_DIR)parse.c \
 		$(SRCS_DIR)main.c \
+		$(SRCS_DIR)time.c \
 		$(SRCS_DIR)opt.c 
 
 OBJS_CLIENT = $(SRCS_CLIENT:.c=.o)

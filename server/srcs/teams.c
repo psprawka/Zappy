@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 20:57:59 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 15:53:02 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/13 16:57:28 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ int		get_team_name(t_player *player, t_server *serv, char *msg)
 				return (EXIT_FAILURE);
 			}
 			player->team = serv->teams[i];
-			command_connect_nbr(player, serv);
-			tools_world_dimensions(player, serv);
+			if (command_connect_nbr(player, serv) == EXIT_FAILURE || 
+				tools_world_dimensions(player, serv) == EXIT_FAILURE)
+				return (EXIT_FAILURE); //idk what to do in this situation?
 			player->team->connected += 1;
 			player->type = T_PLAYER;
 			return (EXIT_SUCCESS);

@@ -1,34 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_pevent.c                                      :+:      :+:    :+:   */
+/*   top_pevent.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/12 13:54:03 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 17:32:06 by psprawka         ###   ########.fr       */
+/*   Created: 2018/06/13 17:22:54 by psprawka          #+#    #+#             */
+/*   Updated: 2018/06/13 17:23:52 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-int		push_pevent(t_pevent **head, t_pevent *new)
-{
-	t_pevent	*tmp;
-
-	if (!(*head) || time_compare((*head)->delaytime, new->delaytime))
-	{
-		new->next = *head;
-		*head = new;
-	}
-	else
-	{
-		tmp = *head;
-		while (tmp->next && !(time_compare(tmp->next->delaytime, new->delaytime)))
-			tmp = tmp->next;
-		new->next = tmp->next;
-		tmp->next = new;
-	}
-	new->player->requests_nb++;
-	return (EXIT_SUCCESS);
-}

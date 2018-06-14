@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 13:55:59 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 16:34:38 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/13 17:32:14 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		add_pevent(t_server *serv, t_player *player, int itable, char *msg)
 	last_request = player->last_request;
 	
 	if ((!last_request.tv_sec && !last_request.tv_usec ) ||
-		!compare_delays(last_request, curr))
+		!time_compare(last_request, curr))
 		last_request = curr;
 	
 	last_request.tv_sec += g_commands[itable].delay * serv->time.tv_sec;

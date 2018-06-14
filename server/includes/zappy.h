@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:39:21 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 15:53:43 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/13 17:33:46 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # include "zappy_pqueue.h"
 
 # define	BUFF_SIZE		64
+# define	SERV_BUFF_SIZE	2048
 # define	DEF_COLOR		CYAN
 
 # define	MSG_WELCOME		"WELCOME!\n"
@@ -192,9 +193,14 @@ int			server_socket(int port);
 int			get_team_name(t_player *player, t_server *serv, char *msg);
 
 /*
+**	time.c
+*/
+int			time_compare(struct timeval first, struct timeval second);
+
+/*
 **	tools.c
 */
-void		tools_world_dimensions(t_player *player, t_server *server);
+int			tools_world_dimensions(t_player *player, t_server *serv);
 void		print_map(t_server *server, int x, int y);
 
 #endif

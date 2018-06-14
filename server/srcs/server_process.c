@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/20 17:26:09 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 23:54:35 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/13 17:09:01 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int 	parse_graphical_recv(t_player *player, t_server *server, char *msg)
 {
 
 	;
+	
 }
 
 int		parse_recv(t_player *player, t_server *server, char *msg)

@@ -6,24 +6,23 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/31 13:23:45 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 20:39:48 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/13 16:47:17 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-void	tools_world_dimensions(t_player *player, t_server *server)
+int		tools_world_dimensions(t_player *player, t_server *serv)
 {
-	char	*msg;
-
-	if (!(msg = ft_strjoin(ft_itoa(server->map->width), " ", 0)))
-		return ;
-	if (!(msg = ft_strjoin(msg, ft_itoa(server->map->height), 0)))
-		return ;
-	if (!(msg = ft_strjoin(msg, "\n", 0)))
-		return ;
-	send(player->fd, msg, ft_strlen(msg), 0);
-	free(msg);
+	ft_bzero(serv->buff, SERV_BUFF_SIZE);
+	ft_strcpy(serv->buff, ft_itoa(server->map->width));
+	ft_strcat(serv->buff, " ");
+	ft_strcat(serv->buff, ft_itoa(server->map->height));
+	ft_strcat(serv->buff, "\n");
+	
+	if (send(player->fd, msg, ft_strlen(msg), 0) == -1)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 //just testing
