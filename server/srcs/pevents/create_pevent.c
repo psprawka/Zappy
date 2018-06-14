@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 13:54:49 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 20:52:54 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/14 08:26:28 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@ t_pevent *create_pevent(t_player *player, struct timeval *event_time, int itable
 		error(0, "Create pevent", true);
 		return (NULL);
 	}
+
 	new->player = player;
 	new->fct = g_commands[itable].fct;
 	new->msg = ft_strdup(msg);
-	new->event_time = event_time;
-	player->last_request = *new->event_time;
+	new->event_time = ft_memdup(event_time, sizeof(struct timeval));
+	player->last_request = ft_memdup(new->event_time, sizeof(struct timeval));
 	new->next = NULL;
 	return (new);
 }

@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/20 18:35:16 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 19:12:51 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/14 07:53:04 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ char			*ft_strnew(size_t size);
 void			*ft_memset(void *s, int c, size_t n);
 int				ft_strncmp(char *s1, char *s2, unsigned int n);
 int				ft_strcmp(char *s1, char *s2);
+void			*ft_memdup(void *mem, int size);
 int				ft_strlen_chr(char *str, char c);
 char			*ft_strncpy(char *str, int size);
 int				ft_strstr(char *str, char *to_find);
@@ -61,6 +62,7 @@ void			ft_putchar_fd(char c, int fd);
 int				ft_wstrlen(wchar_t *ws);
 char			*ft_strrev(char *str);
 void			*ft_memalloc(size_t size);
+void			*ft_memcpy(void *dest, const void *src, unsigned int size);
 char			*ft_convert_hex(unsigned long int nb, int type);
 char			*ft_convert_octal(unsigned long int nb);
 char			*ft_convert_uni(wchar_t wide);

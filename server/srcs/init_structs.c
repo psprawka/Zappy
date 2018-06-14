@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/26 18:45:10 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 20:56:21 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/14 09:00:47 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,7 @@ int		init_square(t_square *square)
 	i = 0;
 	if (!(square = ft_memalloc(sizeof(t_square))))
 		return (EXIT_FAILURE);
-	square->linemate = 0;
-	square->deraumere = 0;
-	square->sibur = 0;
-	square->mendiane = 0;
-	square->phiras = 0;
-	square->thystame = 0;
-	square->food = 0;
+	ft_bzero(square->ressources, 7);
 	if (!(square->players = ft_memalloc(sizeof(t_player) * FD_SETSIZE)))
 		return (EXIT_FAILURE);
 	while (i < FD_SETSIZE)
@@ -70,9 +64,8 @@ t_player	*init_player(int sockfd, t_server *server)
 	new->team = NULL;
 	new->level = 0;
 	new->direction = rand_direction();
-	if (!(new->inv = ft_memalloc(sizeof(t_inv))))
-		error(0, "Initialize inventory", false);
-	new->inv->food = 10;
+	ft_bzero(new->inventory, 7);
+	new->inventory[0] = 10;
 	new->see_range = 1;
 	rand_position(new, server->map);
 	ft_bzero(&new->last_request, sizeof(struct timeval));
@@ -92,5 +85,10 @@ int			init_server(t_server *serv)
 	}
 	if (!(serv->buff = ft_memalloc(2048 * sizeof(char))))
 		return (EXIT_FAILURE);
+		
+	serv->timeunit = -1;
+	serv->port = 0;
+	serv->max_team_players = 0;
+	serv->teamcount = 0;
 	return (EXIT_SUCCESS);
 }

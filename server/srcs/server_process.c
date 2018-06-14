@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/20 17:26:09 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 17:09:01 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/14 07:35:21 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int 	parse_graphical_recv(t_player *player, t_server *server, char *msg)
 {
 
 	;
-	
+	return (EXIT_SUCCESS);
 }
 
 int		parse_recv(t_player *player, t_server *server, char *msg)
@@ -48,6 +48,8 @@ int		parse_recv(t_player *player, t_server *server, char *msg)
 		if (!ft_strcmp(g_commands[i].msg, msg))
 		{
 			add_pevent(server, player, i, msg);
+			// ft_printf("%s[%d]PQUEUE: [%d][%d]%s\n", PINK, player->fd, 
+			// 	server->events->event_time->tv_sec, server->events->event_time->tv_usec, NORMAL);
 			return (EXIT_SUCCESS);
 		}
 		i++;

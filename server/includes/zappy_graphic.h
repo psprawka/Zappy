@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   zappy_graphic.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-huu- <tle-huu-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 16:20:32 by tle-huu-          #+#    #+#             */
-/*   Updated: 2018/06/13 22:40:11 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/14 00:15:05 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ZAPPY_GRAPHIC_H
 # define ZAPPY_GRAPHIC_H
+
+typedef struct s_team	t_team;
 
 
 typedef struct		s_graphic_list

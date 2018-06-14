@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/20 17:24:12 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 21:36:37 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/14 09:03:52 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,20 @@ int		error(int errnb, char *msg, bool ifexit)
 
 int		check_args(t_server *server)
 {
-	if (!server->map->width || !server->map->height || !server->teams ||
-		!server->max_team_players || !server->port)
+	int i;
+	
+	i = 0;
+	ft_printf("team %d max %d\n", server->teamcount, server->max_team_players);
+	if (!server->map->width || server->timeunit == -1 || !server->map->height ||
+		!server->teams || !server->max_team_players || !server->port)
 		return(error(1, NULL, true));
+	
+	while (i < server->teamcount)
+	{
+		server->teams[i++]->max_players = server->max_team_players; 
+		ft_printf("tn [%d] | connected [%d]\n", server->teams[i - 1]->max_players, server->teams[i - 1]->connected);
+	}
+		
 	return (EXIT_SUCCESS);
 }
 
@@ -64,8 +75,6 @@ int		parse_args_serv(int ac, char **av, t_server *server)
 		{
 			if (av[i][1] == g_ops[j].opt)
 			{
-				if (g_ops[j].fct == opt_teams && !server->max_team_players)
-					return (error(1, NULL, true));
 				if (g_ops[j].fct(av, &i, server) == EXIT_FAILURE)
 					return (EXIT_FAILURE);
 				break ;

@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/26 18:09:01 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 22:28:26 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/14 08:47:09 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		opt_max_players(char **av, int *i, t_server *server)
 	int players;
 
 	players = ft_atoi(av[*i + 1]);
-	if (players < 6 || players > FD_SETSIZE)
+	if (players < 1 || players > FD_SETSIZE)
 		return (error(5, NULL, true));
 	*i += 2;
 	server->max_team_players = players;
@@ -64,7 +64,9 @@ int		opt_time(char **av, int *i, t_server *server)
 		return (error(5, NULL, true));
 	*i += 2;
 	ret.tv_usec = ((double)1 / time_unit) * 1000000;
+	ret.tv_usec %= 1000000;
 	ret.tv_sec = (1 / time_unit);
+	// ft_printf("%sTIME: [%d][%d]%s\n\n", ORANGE, ret.tv_sec, ret.tv_usec, NORMAL);
 	server->time = ret;
 	server->timeunit = time_unit;
 	return (EXIT_SUCCESS);
@@ -92,7 +94,7 @@ int		opt_teams(char **av, int *i, t_server *server)
 		if (!(oneteam = ft_memalloc(sizeof(t_team))))
 			return (EXIT_FAILURE);
 		oneteam->name = av[j++];
-		oneteam->max_players = server->max_team_players;
+		oneteam->connected = 0;
 		teams[--teams_nb] = oneteam;
 	}
 	server->teams = teams;

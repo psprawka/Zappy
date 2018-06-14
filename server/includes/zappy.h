@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:39:21 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 22:22:40 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/14 06:58:18 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,13 +110,16 @@ typedef struct	s_team
 
 typedef struct s_inventory
 {
-	int			linemate;
-	int			deraumere;
-	int			sibur;
-	int			mendiane;
-	int			phiras;
-	int			thystame;
-	int 		food;
+	// int 		food;
+	// int			linemate;
+	// int			deraumere;
+	// int			sibur;
+	// int			mendiane;
+	// int			phiras;
+	// int			thystame;
+	
+	int		inventory[7];
+	
 }				t_inv;
 
 typedef struct	s_player
@@ -125,12 +128,13 @@ typedef struct	s_player
 	t_team			*team;
 	int				level;
 	int				direction;
-	t_inv			*inv;
+	// t_inv			*inv;
 	int				see_range;
 	int				type;
 	int				x;
 	int				y;
-	struct timeval	last_request;
+	int				inventory[7];
+	struct timeval	*last_request;
 	int				requests_nb;
 }				t_player;
 
