@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:30:53 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 15:48:37 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/13 17:21:36 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef struct s_queue	t_queue;
 
 typedef struct	s_server
 {
-	t_queue			*graphical;
+	t_graphic_list	*graph_list;
 	t_player		**players;
 	t_map			*map;
 	t_team			**teams;

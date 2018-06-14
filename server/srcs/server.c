@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:25:37 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/12 19:09:42 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/13 16:15:22 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 // 	static struct timeval	alarm;
 
 // 	select_fds = client_fds;
-	
+
 // 	// if (gettimeofday(&(alarm), NULL) == EXIT_FAILURE)
 // 	// 		return (error(0, "Gettimeofday", true));
 // 	alarm.tv_sec = 100;
@@ -86,7 +86,7 @@ int		server_socket(int port)
 {
 	int					sockfd;
 	struct sockaddr_in	server_addr;
-	
+
 	if ((sockfd = socket(AF_INET, SOCK_STREAM, 6)) < 0)
 		return (error(0, "Socket", true));
 	ft_bzero(&server_addr, sizeof(server_addr));
