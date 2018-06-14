@@ -6,39 +6,40 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 18:04:32 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 21:38:37 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/14 00:23:18 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-int		command_put(t_player *player, t_server *serv, int ressource)
+int		command_put(t_player *player, t_server *serv)
+// int		command_put(t_player *player, t_server *serv, int ressource)
 {
-	printf("Player %s has sent command [put]\n", player->fd);
-	t_square	*square;
-	int			x;
-	int			y;
+	// printf("Player %d has sent command [put]\n", player->fd);
+	// t_square	*square;
+	// int			x;
+	// int			y;
 
-	if (ressource < 0 || ressource > 6)
-	{
-		printf("Error ressource number\n");
-		return (EXIT_FAILURE);
-	}
-	x = player->x;
-	y = player->y;
-	square = serv->map->squares[x][y];
-	if (player->inv->ressource > 0)
-	{
-		player->inv->ressource--;
-		square->ressource++;
-		if (send(player->fd, MSG_OK, strlen(MSG_OK), 0) == -1)
-			return (error(0, "Send", false));
-	}
-	else
-	{
-		if (send(player->fd, MSG_KO, strlen(MSG_OK), 0) == -1)
-			return (error(0, "Send", false));
-	}
+	// if (ressource < 0 || ressource > 6)
+	// {
+	// 	printf("Error ressource number\n");
+	// 	return (EXIT_FAILURE);
+	// }
+	// x = player->x;
+	// y = player->y;
+	// square = serv->map->squares[x][y];
+	// if (player->inventory[ressource] > 0)
+	// {
+	// 	player->inventory[ressource]--;
+	// 	square->ressources[ressource]++;
+	// 	if (send(player->fd, MSG_OK, strlen(MSG_OK), 0) == -1)
+	// 		return (error(0, "Send", false));
+	// }
+	// else
+	// {
+	// 	if (send(player->fd, MSG_KO, strlen(MSG_OK), 0) == -1)
+	// 		return (error(0, "Send", false));
+	// }
 	return (EXIT_SUCCESS);
 }
 

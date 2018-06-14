@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 18:03:33 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 21:39:12 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/13 23:50:08 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		command_kick(t_player *player, t_server *serv)
 	int	tmp;
 
 	i = 0;
-	printf("Player %s has sent command [kick]\n", player->fd);
+	printf("Player %d has sent command [kick]\n", player->fd);
 	while (i < FD_SETSIZE)
 	{
 		if (!serv->players[i] && ++i)

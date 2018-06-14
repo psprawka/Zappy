@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:39:33 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 21:13:25 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/14 05:42:28 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 typedef struct	s_pevent
 {
-	int					time;
+	// int					time;
 	struct timeval		*event_time;
 	char				*msg;
 	t_player			*player;

@@ -6,7 +6,7 @@
 #    By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/09 23:21:55 by psprawka          #+#    #+#              #
-#    Updated: 2018/06/13 23:40:50 by psprawka         ###   ########.fr        #
+#    Updated: 2018/06/14 00:15:40 by psprawka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCS_DIR = srcs/
 COMMANDS = commands/
 PEVENT = pevents/
 PDEATH = pdeaths/
+BROADCAST = broadcast/
 
 #to remove later
 SRCS_CLIENT = $(SRCS_DIR)client.c \
@@ -53,9 +54,13 @@ SRCS_CLIENT = $(SRCS_DIR)client.c \
 		$(SRCS_DIR)tools.c \
 		$(SRCS_DIR)parse.c \
 		$(SRCS_DIR)time.c \
-		$(SRCS_DIR)opt.c 
+		$(SRCS_DIR)opt.c \
+		$(SRCS_DIR)$(COMMANDS)$(BROADCAST)broadcast.c \
+		$(SRCS_DIR)$(COMMANDS)$(BROADCAST)calcul_square.c 
 	
-SRCS_SERVER = $(SRCS_DIR)$(COMMANDS)connect_nbr.c \
+SRCS_SERVER =  $(SRCS_DIR)$(COMMANDS)$(BROADCAST)broadcast.c \
+		$(SRCS_DIR)$(COMMANDS)$(BROADCAST)calcul_square.c \
+		$(SRCS_DIR)$(COMMANDS)connect_nbr.c \
 		$(SRCS_DIR)$(COMMANDS)inventory.c \
 		$(SRCS_DIR)$(COMMANDS)advance.c \
 		$(SRCS_DIR)$(COMMANDS)levelup.c \

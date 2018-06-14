@@ -6,76 +6,13 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:25:37 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 20:58:34 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/14 08:24:30 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-
-// int		runserver(fd_set client_fds, t_server *server, int servfd)
-// {
-// 	int						i;
-// 	fd_set					select_fds;
-// 	static struct timeval	alarm;
-
-// 	select_fds = client_fds;
-
-// 	// if (gettimeofday(&(alarm), NULL) == EXIT_FAILURE)
-// 	// 		return (error(0, "Gettimeofday", true));
-// 	alarm.tv_sec = 100;
-// 	while (select(FD_SETSIZE, &select_fds, NULL, NULL, &alarm) > -1)
-// 	{
-// 		i = 0;
-// 		while (i < FD_SETSIZE + 1)
-// 		{
-// 			if (FD_ISSET(i, &select_fds))
-// 			{
-// 				if (i == servfd)
-// 					new_player(server, &client_fds, servfd);
-// 				else
-// 					process_data(server->players[i], server, &client_fds);
-// 			}
-// 			i++;
-// 		}
-// 		select_fds = client_fds;
-// 		alarm.tv_sec = 100;
-// 		if (server->events)
-// 		{
-// 			if (gettimeofday(&(alarm), NULL) == EXIT_FAILURE)
-// 				return (error(0, "Gettimeofday", true));
-// 			if (server->events->delaytime.tv_sec - alarm.tv_sec >= 0)
-// 			{
-// 				alarm.tv_sec = server->events->delaytime.tv_sec - alarm.tv_sec;
-// 				alarm.tv_usec = server->events->delaytime.tv_usec - alarm.tv_usec;
-// 			}
-// 			else alarm.tv_sec = 100;
-// 		}
-// 		ft_printf("[%d][%d]", alarm.tv_sec, alarm.tv_usec);
-// 		sleep(10);
-// 	}
-// 	return (error(0, "Select", true));
-// }
-
-/*
-	t_commands g_commands[] =
-	{
-		{"advance", 7, command_advance},
-		{"right", 7, command_right},
-		{"left", 7, command_left},
-		{"see", 7, command_see},
-		{"inventory", 1, command_inventory},
-		{"take", 7, command_take},
-		{"put", 7, command_put},
-		{"kick", 7, command_kick},
-		{"broadcast", 7, command_broadcast},
-		{"incantation", 300, command_levelup},
-		{"fork", 42, command_fork},
-		{"connect_nbr", 0, command_connect_nbr},
-		{NULL, 0, NULL}
-	};
-*/
-
+//I didnt test this one yet
 int		execute_deaths(t_server *server)
 {
 	struct timeval	*death_time;
@@ -97,7 +34,7 @@ int		execute_deaths(t_server *server)
 	return (EXIT_SUCCESS);
 }
 
-
+// this one just execute events and pops events from priority queue
 int		execute_events(t_server *server)
 {
 	struct timeval	*event_time;
@@ -119,14 +56,47 @@ int		execute_events(t_server *server)
 	return (EXIT_SUCCESS);
 }
 
+// set_time sets time based on fitst node in pqueue, if nothing exists NULL
+ struct timeval		*set_time_alarm(t_server *server)
+{
+	struct timeval	*nextevent;
+	struct timeval	curr;
+
+	if (!(nextevent = ft_memalloc(sizeof(struct timeval))))
+		return (NULL);
+	if (server->events && server->events->event_time)
+		nextevent = ft_memdup(server->events->event_time, sizeof(struct timeval));
+	nextevent->tv_sec += nextevent->tv_usec / 1000000;
+	nextevent->tv_usec %= 1000000;
+	if (gettimeofday(&curr, NULL) == EXIT_FAILURE)
+		return (NULL);
+	if ((nextevent->tv_sec - curr.tv_sec) < 0)
+		return (NULL);
+	if ((nextevent->tv_usec - curr.tv_usec) < 0)
+	{
+		if ((nextevent->tv_sec - (curr.tv_sec + 1)) < 0)
+			return (NULL);
+		nextevent->tv_sec -= (curr.tv_sec + 1);
+		nextevent->tv_usec += (1000000 - curr.tv_usec);
+	}
+	else
+	{
+		nextevent->tv_usec -= curr.tv_usec;
+		nextevent->tv_sec -= curr.tv_sec;
+	}
+	return (nextevent);
+}
 
 int		runserver(fd_set client_fds, t_server *server, int servfd)
 {
-	int			i;
-	fd_set		select_fds;
+	int				i;
+	fd_set			select_fds;
+	struct timeval	*alarm;
 
 	select_fds = client_fds;
-	while (select(FD_SETSIZE, &select_fds, NULL, NULL, NULL) > -1)
+
+	alarm = NULL;
+	while (select(FD_SETSIZE, &select_fds, NULL, NULL, alarm) > -1)
 	{
 		i = 0;
 		while (i < FD_SETSIZE + 1)
@@ -140,14 +110,13 @@ int		runserver(fd_set client_fds, t_server *server, int servfd)
 			}
 			i++;
 		}
-		// execute_events(server);
+		execute_events(server);
 		// execute_deaths(server);
-		// set_time_alarm();
+		alarm = set_time_alarm(server);
 		select_fds = client_fds;
 	}
 	return (error(0, "Select", true));
 }
-
 
 int		server_socket(int port)
 {

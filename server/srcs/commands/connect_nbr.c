@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:51:06 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 21:39:43 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/14 07:26:42 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		command_connect_nbr(t_player *player, t_server *serv)
 {
-	printf("Player %s has sent command [connect_nbr]\n", player->fd);
+	printf("Player %d has sent command [connect_nbr]\n", player->fd);
 	ft_bzero(serv->buff, 2048);
 	ft_strcpy(serv->buff, ft_itoa(player->team->max_players - player->team->connected));
 	ft_strcat(serv->buff, "\n");
