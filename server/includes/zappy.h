@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:39:21 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 18:08:12 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/13 21:08:18 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,12 +163,23 @@ void		player_quit(t_player *player, t_server *serv);
 void		new_player(t_server *serv, fd_set *client_fds, int sockfd);
 
 /*
-**	pqueue/
+**	pevents/
 */
-int			compare_delays(struct timeval first, struct timeval second);
-t_pevent	*create_pevent(t_player *player, struct timeval delaytime, int itable, char *msg);
-int			push_pevent(t_pevent **head, t_pevent *new);
-int			add_pevent(t_server *serv, t_player *player, int itable, char *msg);
+t_pevent 		*create_pevent(t_player *player, struct timeval *event_time, int itable, char *msg);
+int				push_pevent(t_pevent **head, t_pevent *new);
+int				add_pevent(t_server *serv, t_player *player, int itable, char *msg);
+t_pevent		*pop_pevent(t_pevent **head);
+struct timeval	*top_pevent(t_pevent *head);
+void			free_pevent(t_pevent *to_free);
+
+
+/*
+**	pdeaths/
+*/
+t_pdeath		*create_pdeath(t_player *player, struct timeval *death_time);
+int				push_pdeath(t_pdeath **head, t_player *player, struct timeval *death_time);
+t_pdeath		*pop_pdeath(t_pdeath **head);
+struct timeval	*top_pdeath(t_pdeath *head);
 
 /*
 **	randomize.c
@@ -185,6 +196,8 @@ int			process_data(t_player *player, t_server *serv, fd_set *client_fds);
 /*
 **	server.c
 */
+int			execute_deaths(t_server *server);
+int			execute_events(t_server *server);
 int			runserver(fd_set client_fds, t_server *server, int sockfd);
 int			server_socket(int port);
 
@@ -196,7 +209,7 @@ int			get_team_name(t_player *player, t_server *serv, char *msg);
 /*
 **	time.c
 */
-int			time_compare(struct timeval first, struct timeval second);
+int			time_compare(struct timeval *first, struct timeval *second);
 
 /*
 **	tools.c

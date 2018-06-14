@@ -6,11 +6,16 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 20:57:59 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 16:57:28 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/13 20:59:04 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
+
+struct timeval	*lifetime()
+{
+	return (NULL);
+}
 
 int		get_team_name(t_player *player, t_server *serv, char *msg)
 {
@@ -34,6 +39,7 @@ int		get_team_name(t_player *player, t_server *serv, char *msg)
 				return (EXIT_FAILURE); //idk what to do in this situation?
 			player->team->connected += 1;
 			player->type = T_PLAYER;
+			push_pdeath(&serv->deaths, player, lifetime());
 			return (EXIT_SUCCESS);
 		}
 		i++;

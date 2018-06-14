@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 13:54:03 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 17:32:06 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/13 20:32:24 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		push_pevent(t_pevent **head, t_pevent *new)
 {
 	t_pevent	*tmp;
 
-	if (!(*head) || time_compare((*head)->delaytime, new->delaytime))
+	if (!(*head) || time_compare((*head)->event_time, new->event_time))
 	{
 		new->next = *head;
 		*head = new;
@@ -24,7 +24,7 @@ int		push_pevent(t_pevent **head, t_pevent *new)
 	else
 	{
 		tmp = *head;
-		while (tmp->next && !(time_compare(tmp->next->delaytime, new->delaytime)))
+		while (tmp->next && !(time_compare(tmp->next->event_time, new->event_time)))
 			tmp = tmp->next;
 		new->next = tmp->next;
 		tmp->next = new;
