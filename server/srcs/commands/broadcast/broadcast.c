@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 18:04:46 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/14 11:10:37 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/14 13:18:37 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,19 +142,21 @@ void			send_message_to_others(t_player *sender, t_player *receiver, t_server *se
 	// }
 }
 
-int				command_broadcast(t_player *player, t_server *server, t_action_arg *arg)
+int				command_broadcast(void *object, t_action_arg *arg)
 // int				command_broadcast(t_player *player, t_server *serv, char *message)
 {
-	int		i;
-	char	*message;
+	int			i;
+	char		*message;
+	t_player	*player;
 
+	player = (t_player *)object;
 	message = ((t_action_arg *)arg)->message;
 	printf("Player %d has sent command [broadcast] [%s]\n", player->fd, message);
 	i = 0;
 	while (i < FD_SETSIZE + 1)
 	{
-		if (server->players[i])
-			send_message_to_others(player, server->players[i], server, message);
+		if (g_server->players[i])
+			send_message_to_others(player, g_server->players[i], g_server, message);
 		i++;
 	}
 	if (send(player->fd, MSG_OK, strlen(MSG_OK), 0) == -1)

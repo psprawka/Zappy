@@ -3,81 +3,73 @@
 /*                                                        :::      ::::::::   */
 /*   queue.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tle-huu- <tle-huu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/13 15:25:38 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/13 16:28:06 by tle-huu-         ###   ########.fr       */
+/*   Created: 2018/03/17 11:48:49 by tle-huu-          #+#    #+#             */
+/*   Updated: 2018/06/14 12:19:15 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "zappy.h"
+#include "queue.h"
 
-// t_node	*create_node(int graphicfd)
-// {
-// 	t_node *new;
+t_queue			*new_queue(void)
+{
+	t_queue		*queue;
 
-// 	if (!(new = ft_memalloc(sizeof(t_node))))
-// 		return (NULL);
-// 	new->fd = graphicfd;
-// 	new->next = NULL;
-// 	return (new);
-// }
+	if (!(queue = (t_queue *)ft_memalloc(sizeof(t_queue))))
+	{
+		printf("Error malloc new queue\n");
+		return (NULL);
+	}
+	queue->head = NULL;
+	queue->tail = NULL;
+	return (queue);
+}
 
-// t_queue	*create_queue(void)
-// {
-// 	t_queue *queue;
+void			enqueue(t_queue *queue, t_list *node)
+{
+	if (queue && node)
+	{
+		if (!(queue->head))
+		{
+			queue->head = node;
+			queue->tail = node;
+		}
+		else if (!((queue->head)->next))
+		{
+			queue->tail = node;
+			queue->head->next = queue->tail;
+		}
+		else
+		{
+			queue->tail->next = node;
+			queue->tail = node;
+		}
+	}
+	else
+		printf("No queue pointer or NULL node in trying to enqueuing\n");
+}
 
-// 	if (!(new = ft_memalloc(sizeof(t_queue))))
-// 		return (NULL);
-// 	queue->first = NULL;
-// 	queue->last = NULL;
-// 	return (queue);
-// }
+t_list			*queue_pop(t_queue *queue)
+{
+	t_list		*head;
 
-// int		push_queue(t_queue **head, int graphicfd)
-// {
-// 	t_queue	*tmp;
-// 		*new;
+	if (queue && queue->head)
+	{
+		head = queue->head;
+		queue->head = head->next;
+		if (!head->next)
+			queue->tail = NULL;
+		return (head);
+	}
+	printf("Error while poping\n");
+	return (NULL);
+}
 
-// 	if (!(new = create_node(graphicfd)))
-// 		return (EXIT_FAILURE);
-
-// 	if (!(*head))
-// 		*head = new;
-// 	else
-// 	{
-// 		tmp = *head;
-// 		while (tmp->next)
-// 			tmp = tmp->next;
-// 		tmp->next = new;
-// 	}
-// 	return (EXIT_SUCCESS);
-// }
-
-// t_queue	*pop_queue(t_queue **head)
-// {
-// 	t_queue *tmp;
-
-// 	if (!(*head))
-// 		return (NULL);
-
-// 	tmp = *head;
-// 	*head = (*head)->next;
-// 	return (tmp);
-// }
-
-// void		print_queue(t_queue *head)
-// {
-// 	int		i;
-// 	t_queue	*tmp;
-
-// 	i = 1;
-// 	tmp = head;
-// 	ft_printf("\n%s", YELLOW);
-// 	while (tmp)
-// 	{
-// 		ft_printf("%d. k: [%d]\n", i++, tmp->fd);
-// 		tmp = tmp->next;
-// 	}
-// 	ft_printf("%s\n", NORMAL);
-// }
+int				queue_empty(t_queue *queue)
+{
+	if (queue)
+		return (!(queue->head));
+	printf("Error queue pointer null\n");
+	return (-2);
+}

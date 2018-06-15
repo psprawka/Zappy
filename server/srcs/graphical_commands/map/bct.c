@@ -6,13 +6,13 @@
 /*   By: tle-huu- <tle-huu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 17:00:56 by tle-huu-          #+#    #+#             */
-/*   Updated: 2018/06/13 17:53:45 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/14 15:00:28 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-void	send_block_contents(int x, int y, t_graphic *client, t_server *server)
+void	send_block_contents(int x, int y, t_player *gclient, t_server *server)
 {
 	int		len;
 	t_graphic_list	*node;
@@ -39,6 +39,11 @@ void	send_block_contents(int x, int y, t_graphic *client, t_server *server)
 	len = ft_strlen(server->buff) + 1;
 	if (!(node = server->graph_list))
 		return ;
+	if (gclient)
+	{
+		send(gclient->fd, server->buff, len, 0);
+		return ;
+	}
 	while (node)
 	{
 		send(node->fd, server->buff, len, 0);
@@ -46,7 +51,7 @@ void	send_block_contents(int x, int y, t_graphic *client, t_server *server)
 	}
 }
 
-void	send_mapcontents(t_graphic *client, t_server *server)
+void	send_mapcontents(t_player *player, t_server *server)
 {
 	int	i;
 	int	j;
@@ -57,7 +62,7 @@ void	send_mapcontents(t_graphic *client, t_server *server)
 		j = 0;
 		while (j < server->map->height)
 		{
-			send_block_contents(i, j, client, server);
+			send_block_contents(i, j, player, server);
 			j++;
 		}
 		i++;

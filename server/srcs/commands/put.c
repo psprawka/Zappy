@@ -12,7 +12,7 @@
 
 #include "zappy.h"
 
-int		command_put(t_player *player, t_server *serv, t_action_arg *arg)
+int		command_put(void *object, t_action_arg *arg)
 // int		command_put(t_player *player, t_server *serv, int ressource)
 {
 	// printf("Player %d has sent command [put]\n", player->fd);

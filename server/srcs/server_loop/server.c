@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:25:37 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/14 10:47:51 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/14 13:17:08 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		execute_deaths(t_server *server)
 		if (time_compare(death_time, &curr))
 			break ;
 
-		command_death(server->deaths->player, server, 0);
+		command_death(server->deaths->object, NULL);
 		pop_pdeath(&server->deaths);
 	}
 	return (EXIT_SUCCESS);
@@ -50,7 +50,7 @@ int		execute_events(t_server *server)
 		if (time_compare(event_time, &curr))
 			break ;
 
-		server->events->fct(server->events->player, server, 0);
+		server->events->fct(server->events->player, NULL);
 		free_pevent(pop_pevent(&server->events));
 	}
 	return (EXIT_SUCCESS);

@@ -18,7 +18,7 @@
 // 	}
 // }
 //
-// void	send_block_contents(int x, int y, t_graphic *client, t_server *server)
+// void	send_block_contents(int x, int y, t_player *player, t_server *server)
 // {
 // 	int		len;
 // 	t_graphic_list	*node;
@@ -52,7 +52,7 @@
 // 	}
 // }
 //
-// void	send_mapcontents(t_graphic *client, t_server *server)
+// void	send_mapcontents(t_player *player, t_server *server)
 // {
 // 	int	i;
 // 	int	j;

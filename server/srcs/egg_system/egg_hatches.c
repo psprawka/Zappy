@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pop_pdeath.c                                       :+:      :+:    :+:   */
+/*   egg_hatches.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tle-huu- <tle-huu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/13 20:12:56 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/14 13:14:50 by tle-huu-         ###   ########.fr       */
+/*   Created: 2018/06/14 12:56:04 by tle-huu-          #+#    #+#             */
+/*   Updated: 2018/06/14 13:00:15 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-t_pdeath	*pop_pdeath(t_pdeath **head)
+int			egg_hatches(void *object, t_server server, t_action_arg *arg)
 {
-	t_pdeath *tmp;
-
-	if (!(*head))
-		return (NULL);
-
-	tmp = *head;
-	*head = (*head)->next;
-	return (tmp);
+	
 }

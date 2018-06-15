@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/31 12:03:58 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/14 10:46:40 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/14 16:50:27 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 void	player_quit(t_player *player, t_server *serv)
 {
 	ft_printf("Player [%d] quit\n", player->fd);
-	command_death(player, serv, 0);
+	command_death(player, NULL);
 }
 
-void	new_player(t_server *serv, fd_set *client_fds, int sockfd)
+void	new_client(fd_set *client_fds, int sockfd)
 {
 	int 					connfd;
 	struct sockaddr_in		temp;

@@ -6,11 +6,11 @@
 /*   By: tle-huu- <tle-huu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 16:55:29 by tle-huu-          #+#    #+#             */
-/*   Updated: 2018/06/13 16:55:30 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/14 15:04:46 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	send_teams(t_server *server)
+void	send_teams(t_player *gclient, t_server *server)
 {
 	int					i;
 	int					len;
@@ -25,11 +25,16 @@ void	send_teams(t_server *server)
 		len = strlen(server->buff) + 1;
 		if (!(node = server->graph_list))
 			return ;
+		i++;
+		if (gclient)
+		{
+			send(gclient->fd, server->buff, len, 0);
+			continue ;
+		}
 		while (node)
 		{
 			send(node->fd, server->buff, len, 0);
 			node = node->next;
 		}
-		i++;
 	}
 }

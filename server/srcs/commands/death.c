@@ -6,14 +6,17 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:51:22 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/14 11:05:29 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/14 13:13:25 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-int	command_death(t_player *player, t_server *server, t_action_arg *arg)
+int	command_death(void *object, t_action_arg *arg)
 {
+	t_player		*player;
+
+	player = (t_player *)object;
 	printf("Player %d has died\n", player->fd);
 	if (!player->team)
 		return (EXIT_FAILURE);

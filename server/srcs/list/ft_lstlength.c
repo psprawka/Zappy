@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pop_pdeath.c                                       :+:      :+:    :+:   */
+/*   ft_lstlength.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tle-huu- <tle-huu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/13 20:12:56 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/14 13:14:50 by tle-huu-         ###   ########.fr       */
+/*   Created: 2018/01/27 14:59:26 by tle-huu-          #+#    #+#             */
+/*   Updated: 2018/06/14 12:18:00 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "zappy.h"
+#include "list.h"
 
-t_pdeath	*pop_pdeath(t_pdeath **head)
+int		ft_lstlength(t_list *list)
 {
-	t_pdeath *tmp;
+	int length;
 
-	if (!(*head))
-		return (NULL);
-
-	tmp = *head;
-	*head = (*head)->next;
-	return (tmp);
+	length = 0;
+	while (list)
+	{
+		length++;
+		list = list->next;
+	}
+	return (length);
 }

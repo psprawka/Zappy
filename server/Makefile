@@ -6,7 +6,7 @@
 #    By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/09 23:21:55 by psprawka          #+#    #+#              #
-#    Updated: 2018/06/14 00:15:40 by psprawka         ###   ########.fr        #
+#    Updated: 2018/06/14 12:42:05 by tle-huu-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,15 +14,23 @@ NAME_CLIENT = client
 NAME_SERVER = server
 FLAGS = -g -Wall -Wextra -Werror
 
-HEADERS = includes/
-SRCS_DIR = srcs/
-COMMANDS = commands/
-PEVENT = pevents/
-PDEATH = pdeaths/
-BROADCAST = broadcast/
+HEADERS			= includes/
+SRCS_DIR		= srcs/
+COMMANDS		= commands/
+PEVENT			= pevents/
+PDEATH			= pdeaths/
+BROADCAST		= broadcast/
+LIST			= list/
+EGG				= egg_system/
 
 #to remove later
-SRCS_CLIENT = $(SRCS_DIR)client.c \
+SRCS_CLIENT = $(SRCS_DIR)$(LIST)ft_lstlength.c	\
+		$(SRCS_DIR)$(LIST)ft_lstnew.c	\
+		$(SRCS_DIR)$(LIST)ft_lstadd.c	\
+		$(SRCS_DIR)$(LIST)ft_lstutils.c	\
+		$(SRCS_DIR)queue.c	\
+		$(SRCS_DIR)client.c \
+		$(SRCS_DIR)$(EGG)new_egg.c \
 		$(SRCS_DIR)$(COMMANDS)connect_nbr.c \
 		$(SRCS_DIR)$(COMMANDS)inventory.c \
 		$(SRCS_DIR)$(COMMANDS)advance.c \
@@ -56,9 +64,15 @@ SRCS_CLIENT = $(SRCS_DIR)client.c \
 		$(SRCS_DIR)time.c \
 		$(SRCS_DIR)opt.c \
 		$(SRCS_DIR)$(COMMANDS)$(BROADCAST)broadcast.c \
-		$(SRCS_DIR)$(COMMANDS)$(BROADCAST)calcul_square.c 
-	
-SRCS_SERVER =  $(SRCS_DIR)$(COMMANDS)$(BROADCAST)broadcast.c \
+		$(SRCS_DIR)$(COMMANDS)$(BROADCAST)calcul_square.c
+
+SRCS_SERVER = $(SRCS_DIR)$(LIST)ft_lstlength.c	\
+		$(SRCS_DIR)$(LIST)ft_lstnew.c	\
+		$(SRCS_DIR)$(EGG)new_egg.c \
+		$(SRCS_DIR)$(LIST)ft_lstadd.c	\
+		$(SRCS_DIR)$(LIST)ft_lstutils.c	\
+		$(SRCS_DIR)queue.c	\
+		$(SRCS_DIR)$(COMMANDS)$(BROADCAST)broadcast.c \
 		$(SRCS_DIR)$(COMMANDS)$(BROADCAST)calcul_square.c \
 		$(SRCS_DIR)$(COMMANDS)connect_nbr.c \
 		$(SRCS_DIR)$(COMMANDS)inventory.c \
@@ -92,7 +106,8 @@ SRCS_SERVER =  $(SRCS_DIR)$(COMMANDS)$(BROADCAST)broadcast.c \
 		$(SRCS_DIR)parse.c \
 		$(SRCS_DIR)main.c \
 		$(SRCS_DIR)time.c \
-		$(SRCS_DIR)opt.c 
+		$(SRCS_DIR)opt.c	\
+
 
 OBJS_CLIENT = $(SRCS_CLIENT:.c=.o)
 OBJS_SERVER = $(SRCS_SERVER:.c=.o)
@@ -104,7 +119,7 @@ DONE_CLIENT = @echo "\033[K\033[1;38;5;44mCLIENT\033[K\033[1;38;5;200m ready to 
 DONE_SERVER = @echo "\033[K\033[1;38;5;44mSERVER\033[K\033[1;38;5;200m ready to use!"
 CLEAN_O = @echo "\033[38;5;246mObject files removed! [ZAPPY]"
 CLEAN_A = @echo "\033[38;5;246mExecutable removed! [ZAPPY]"
- 
+
 all: $(NAME_CLIENT) $(NAME_SERVER)
 
 $(NAME_CLIENT) : $(LIBFT) $(OBJS_CLIENT) $(HEADERS)

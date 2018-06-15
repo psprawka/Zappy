@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 18:03:33 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/14 11:04:49 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/14 13:13:44 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,17 @@ void	kick_player(t_server *serv, t_player *kicker, t_player *to_kick)
 	}
 }
 
-int		command_kick(t_player *player, t_server *serv, t_action_arg *arg)
+int		command_kick(void *object, t_action_arg *arg)
 {
-	int	i;
-	int	tmp;
+	int			i;
+	int			tmp;
+	t_server	*serv;
+	t_player	*player;
+
 
 	i = 0;
+	serv = g_server;
+	player = (t_player *)object;
 	printf("Player %d has sent command [kick]\n", player->fd);
 	while (i < FD_SETSIZE)
 	{

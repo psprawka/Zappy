@@ -6,13 +6,13 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:49:59 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/14 11:02:51 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/14 13:10:33 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-int		command_take(t_player *player, t_server *serv, t_action_arg *arg)
+int		command_take(void *object, t_action_arg *arg)
 // int		command_take(t_player *player, t_server *serv, int ressource)
 {
 	// t_square	*square;

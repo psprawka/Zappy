@@ -1,45 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   graphic_list.c                                     :+:      :+:    :+:   */
+/*   ft_lstadd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tle-huu- <tle-huu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/13 16:23:56 by tle-huu-          #+#    #+#             */
-/*   Updated: 2018/06/14 11:59:48 by tle-huu-         ###   ########.fr       */
+/*   Created: 2017/10/24 17:37:14 by tle-huu-          #+#    #+#             */
+/*   Updated: 2018/06/14 12:18:08 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "zappy_graphic_queue.h"
+#include "list.h"
 
-
-t_graphic_list		*glist_new(int fd)
+void	ft_lstadd(t_list **alst, t_list *new)
 {
-	t_graphic_list		*list;
-
-	if (!(list = (t_graphic_list *)ft_memalloc(sizeof(t_graphic_list))))
-		return (NULL);
-	list->fd = fd;
-	list->next = NULL;
-	return (list);
-}
-
-void				glist_add(t_graphic_list **alst, t_graphic_list *nw)
-{
-	if (alst && nw)
+	if (alst)
 	{
-		if (!nw)
+		if (!new)
 			return ;
-		nw->next = *alst;
-		*alst = nw;
+		new->next = *alst;
+		*alst = new;
 	}
 }
 
-void				glist_add_end(t_graphic_list **alst, t_graphic_list *nw)
+void	ft_lstadd_end(t_list **alst, t_list *new)
 {
-	t_graphic_list	*tmp;
+	t_list	*tmp;
 
-	if (alst && nw)
+	if (alst)
 	{
 		if (!new)
 			return ;
@@ -52,12 +40,4 @@ void				glist_add_end(t_graphic_list **alst, t_graphic_list *nw)
 			tmp = tmp->next;
 		tmp->next = new;
 	}
-}
-
-
-int					glist_length(t_graphic_list *list)
-{
-	if (!list)
-		return (0)
-	return (1 + glist_length(list->next));
 }

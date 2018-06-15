@@ -12,7 +12,7 @@
 
 #include "zappy.h"
 
-void	resource_pickup(t_graphic *client, t_server *server)
+void	resource_pickup(t_player *player, t_server *server)
 {
 	int		len;
 	t_graphic_list	*node;

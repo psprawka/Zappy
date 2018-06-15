@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:39:21 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/14 11:00:18 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/14 13:15:19 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,15 @@
 # include "libft.h"
 # include <string.h>
 
+# include "list.h"
+# include "queue.h"
 # include "zappy_commands.h"
 # include "zappy_map.h"
 # include "zappy_server.h"
 # include "zappy_pqueue.h"
 # include "zappy_graphic.h"
+
+t_server	*g_server;
 
 # define	BUFF_SIZE		64
 # define	SERV_BUFF_SIZE	2048
@@ -79,17 +83,13 @@ typedef struct	s_opt
 	int			(*fct)(char **av, int *i, t_server *server);
 }				t_opt;
 
-typedef struct	s_node
+typedef struct	s_egg
 {
-	int				fd;
-	struct t_node	*next;
-}				t_node;
-
-typedef struct	s_queue
-{
-	t_node		first;
-	t_node		last;
-}				t_queue;
+	t_team		*team;
+	int			hatched;
+	int			x;
+	int			y;
+}				t_egg;
 
 typedef struct	s_client
 {
@@ -106,6 +106,8 @@ typedef struct	s_team
 	int			max_players;
 	int			connected;
 	int			allowed_eggs;
+	t_queue		*eggqueue;
+
 }				t_team;
 
 typedef struct s_inventory
@@ -194,8 +196,8 @@ void			free_pevent(t_pevent *to_free);
 /*
 **	pdeaths/
 */
-t_pdeath		*create_pdeath(t_player *player, struct timeval *death_time);
-int				push_pdeath(t_pdeath **head, t_player *player, struct timeval *death_time);
+t_pdeath		*create_pdeath(void *object, struct timeval *death_time);
+int				push_pdeath(t_pdeath **head, void *object, struct timeval *death_time);
 t_pdeath		*pop_pdeath(t_pdeath **head);
 struct timeval	*top_pdeath(t_pdeath *head);
 
@@ -236,6 +238,12 @@ int			tools_world_dimensions(t_player *player, t_server *serv);
 void		print_map(t_server *server, int x, int y);
 int			hash_function(char *ressource);
 int			init_action_arg(t_action_arg *arg, int ressource, char *message);
+
+/*
+**	eggs
+*/
+t_egg				*new_egg(t_team *team, int x, int y);
+
 
 
 

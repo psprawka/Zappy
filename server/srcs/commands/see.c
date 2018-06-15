@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:49:36 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/14 11:02:43 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/14 13:21:38 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,18 @@ void		process_square(int x, int y, t_server *server)
 	}
 }
 
-int			command_see(t_player *player, t_server *server, t_action_arg *arg)
+int			command_see(void *object , t_action_arg *arg)
 {
-	int		y;
-	int		column;
+	int			y;
+	int			column;
+	t_server	*server;
+	t_player	*player;
 
+	return (EXIT_SUCCESS);
+	// this fonction is wrong as fuck
 	y = 0;
+	player = (t_player *)object;
+	server = g_server;
 	strcat(server->buff, "{");
 	while (y <= player->level)
 	{

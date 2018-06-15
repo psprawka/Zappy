@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pop_pdeath.c                                       :+:      :+:    :+:   */
+/*   eggqueue.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tle-huu- <tle-huu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/13 20:12:56 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/14 13:14:50 by tle-huu-         ###   ########.fr       */
+/*   Created: 2018/06/14 11:21:00 by tle-huu-          #+#    #+#             */
+/*   Updated: 2018/06/14 12:39:35 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-t_pdeath	*pop_pdeath(t_pdeath **head)
+t_egg		*new_egg(t_team *team, int x, int y)
 {
-	t_pdeath *tmp;
+	t_egg		*egg;
 
-	if (!(*head))
+	if (!(egg = (t_egg *)ft_memalloc(sizeof(t_egg))))
 		return (NULL);
-
-	tmp = *head;
-	*head = (*head)->next;
-	return (tmp);
+	if (!team)
+		return (NULL);
+	egg->team = team;
+	egg->x = x;
+	egg->y = y;
+	return (egg);
 }

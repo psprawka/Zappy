@@ -12,7 +12,7 @@
 
 #include "zappy.h"
 
-void		send_timeunit(t_graphic *client, t_server *server)
+void		send_timeunit(t_player *player, t_server *server)
 {
 	static char	timeunit[12] = "\0";
 	t_graphic_list		*node;

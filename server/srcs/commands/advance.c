@@ -6,17 +6,20 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:49:05 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/14 11:05:20 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/14 13:13:01 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-#define WIDTH serv->map->width
-#define HEIGHT serv->map->height
+#define WIDTH g_server->map->width
+#define HEIGHT g_server->map->height
 
-int		command_advance(t_player *player, t_server *serv, t_action_arg *arg)
+int		command_advance(void *object, t_action_arg *arg)
 {
+	t_player	*player;
+	
+	player = (t_player *)object;
 	if (player->direction & NORTH)
 		player->y = (!player->y) ? HEIGHT - 1 : player->y - 1;
 	if (player->direction & EAST)

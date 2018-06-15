@@ -6,16 +6,21 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:50:35 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/14 11:05:40 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/14 13:11:05 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-int		command_levelup(t_player *player, t_server *serv, t_action_arg *arg)
+int		command_levelup(void *object, t_action_arg *arg)
 {
-	int		len;
+	int			len;
+	t_server	*serv;
+	t_player	*player;
 
+
+	player = (t_player *)object;
+	serv = g_server;
 	printf("Player %d might level up\n", player->fd);
 	if (player->level < 8 && player->level > 0)
 	{
