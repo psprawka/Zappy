@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:39:21 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/14 13:15:19 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/14 18:03:16 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,19 +93,18 @@ typedef struct	s_egg
 
 typedef struct	s_client
 {
-	int		sockfd;
-	char	*color;
-	char	*name;
-	char	*room;
+	int				fd;
+	int				type;
+	void			*object;
 }				t_client;
 
 typedef struct	s_team
 {
 	char		*name;
-	int			hlvl;	//the highest lvl
-	int			max_players;
-	int			connected;
-	int			allowed_eggs;
+	int			hlvl;			//the highest lvl
+	// int			max_players;
+	// int			connected;
+	// int			allowed_eggs;
 	t_queue		*eggqueue;
 
 }				t_team;
@@ -126,13 +125,11 @@ typedef struct s_inventory
 
 typedef struct	s_player
 {
-	int				fd;
+	// int				fd;
 	t_team			*team;
 	int				level;
 	int				direction;
-	// t_inv			*inv;
 	int				see_range;
-	int				type;
 	int				x;
 	int				y;
 	int				inventory[7];
