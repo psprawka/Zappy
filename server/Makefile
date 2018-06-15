@@ -6,7 +6,7 @@
 #    By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/09 23:21:55 by psprawka          #+#    #+#              #
-#    Updated: 2018/06/14 12:42:05 by tle-huu-         ###   ########.fr        #
+#    Updated: 2018/06/14 18:15:27 by psprawka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,8 @@ PDEATH			= pdeaths/
 BROADCAST		= broadcast/
 LIST			= list/
 EGG				= egg_system/
+PARSE			= parsing/
+STRUCTS			= init_structs/
 
 #to remove later
 SRCS_CLIENT = $(SRCS_DIR)$(LIST)ft_lstlength.c	\
@@ -29,7 +31,7 @@ SRCS_CLIENT = $(SRCS_DIR)$(LIST)ft_lstlength.c	\
 		$(SRCS_DIR)$(LIST)ft_lstadd.c	\
 		$(SRCS_DIR)$(LIST)ft_lstutils.c	\
 		$(SRCS_DIR)queue.c	\
-		$(SRCS_DIR)client.c \
+		$(SRCS_DIR)testing/client.c \
 		$(SRCS_DIR)$(EGG)new_egg.c \
 		$(SRCS_DIR)$(COMMANDS)connect_nbr.c \
 		$(SRCS_DIR)$(COMMANDS)inventory.c \
@@ -53,16 +55,16 @@ SRCS_CLIENT = $(SRCS_DIR)$(LIST)ft_lstlength.c	\
 		$(SRCS_DIR)$(PDEATH)pop_pdeath.c \
 		$(SRCS_DIR)$(PDEATH)push_pdeath.c \
 		$(SRCS_DIR)server_process.c \
-		$(SRCS_DIR)init_structs.c \
+		$(SRCS_DIR)$(STRUCTS)init_structs.c \
 		$(SRCS_DIR)graphical.c \
 		$(SRCS_DIR)randomize.c \
 		$(SRCS_DIR)player.c \
 		$(SRCS_DIR)server.c \
 		$(SRCS_DIR)teams.c \
 		$(SRCS_DIR)tools.c \
-		$(SRCS_DIR)parse.c \
+		$(SRCS_DIR)$(PARSE)parse.c \
 		$(SRCS_DIR)time.c \
-		$(SRCS_DIR)opt.c \
+		$(SRCS_DIR)$(PARSE)opt.c \
 		$(SRCS_DIR)$(COMMANDS)$(BROADCAST)broadcast.c \
 		$(SRCS_DIR)$(COMMANDS)$(BROADCAST)calcul_square.c
 
@@ -96,17 +98,17 @@ SRCS_SERVER = $(SRCS_DIR)$(LIST)ft_lstlength.c	\
 		$(SRCS_DIR)$(PDEATH)pop_pdeath.c \
 		$(SRCS_DIR)$(PDEATH)push_pdeath.c \
 		$(SRCS_DIR)server_process.c \
-		$(SRCS_DIR)init_structs.c \
+		$(SRCS_DIR)$(STRUCTS)init_structs.c \
 		$(SRCS_DIR)graphical.c \
 		$(SRCS_DIR)randomize.c \
 		$(SRCS_DIR)player.c \
 		$(SRCS_DIR)server.c \
 		$(SRCS_DIR)teams.c \
 		$(SRCS_DIR)tools.c \
-		$(SRCS_DIR)parse.c \
+		$(SRCS_DIR)$(PARSE)parse.c \
 		$(SRCS_DIR)main.c \
 		$(SRCS_DIR)time.c \
-		$(SRCS_DIR)opt.c	\
+		$(SRCS_DIR)$(PARSE)opt.c	\
 
 
 OBJS_CLIENT = $(SRCS_CLIENT:.c=.o)
