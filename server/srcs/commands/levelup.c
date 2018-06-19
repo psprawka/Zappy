@@ -5,36 +5,24 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/29 21:50:35 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/14 13:11:05 by tle-huu-         ###   ########.fr       */
+/*   Created: 2018/06/17 21:36:42 by psprawka          #+#    #+#             */
+/*   Updated: 2018/06/19 00:20:25 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-int		command_levelup(void *object, t_action_arg *arg)
+int		command_levelup(void *entity, char *msg)
 {
-	int			len;
-	t_server	*serv;
-	t_player	*player;
-
-
-	player = (t_player *)object;
-	serv = g_server;
-	printf("Player %d might level up\n", player->fd);
-	if (player->level < 8 && player->level > 0)
-	{
-		printf("%d -> %d\n", player->level, player->level + 1);
-		player->level++;
-		strcpy(serv->buff, "current level : ");
-		strcat(serv->buff, ft_itoa(player->level));
-		len = strlen(serv->buff + 1);
-		send(player->fd, serv->buff, len, 0);
-		return (EXIT_SUCCESS);
-	}
-	printf("Error level up\n");
-	arg = (void *)arg;
-	return (EXIT_FAILURE);
+	P_ENTITY->level++;
+	ft_bzero(g_server.buff, SERV_BUFF_SIZE);
+	ft_strcpy(g_server.buff, "current level: ");
+	ft_strcat(g_server.buff, ft_itoa(P_ENTITY->level));
+	ft_strcat(g_server.buff, "\n");
+	P_ENTITY->requests_nb--;
+	P_ENTITY->incantation = false;
+	if (send(P_ENTITY->fd, g_server.buff, ft_strlen(g_server.buff), 0) == -1)
+		return (EXIT_FAILURE);
+	player_level(g_server.graphic_fd, P_ENTITY);
+	return (EXIT_SUCCESS);
 }
-
-//not even started

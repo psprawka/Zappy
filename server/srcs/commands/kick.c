@@ -6,18 +6,20 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 18:03:33 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/14 13:13:44 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/19 00:26:57 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-#define WIDTH serv->map->width
-#define HEIGHT serv->map->height
+#define WIDTH g_server.map->width
+#define HEIGHT g_server.map->height
 
-void	send_kick_message(t_server *serv, t_player *player, int kicked_from, int facing)
+void	send_kick_message(t_player *player, int kicked_from, int facing)
 {
 	int		k;
+	char	*freer;
+
 	k = 1;
 	while (facing != kicked_from)
 	{
@@ -31,62 +33,60 @@ void	send_kick_message(t_server *serv, t_player *player, int kicked_from, int fa
 		else if (facing & NORTH)
 			facing = WEST;
 	}
-	strcpy(serv->buff, "moving ");
-	strcat(serv->buff, ft_itoa(k));
-	strcpy(serv->buff, "\n");
-	if (send(player->fd, serv->buff, ft_strlen(serv->buff), 0) == -1)
+	strcpy(g_server.buff, "moving ");
+	strcat(g_server.buff, (freer = ft_itoa(k)));
+	free(freer);
+	strcpy(g_server.buff, "\n");
+	if (send(player->fd, g_server.buff, strlen(g_server.buff), 0) == -1)
 		error(0, "Send", false);
 }
 
-void	kick_player(t_server *serv, t_player *kicker, t_player *to_kick)
+void	kick_player(t_player *kicker, t_player *to_kick)
 {
 	if (kicker->direction & NORTH)
 	{
-		to_kick->y = (!to_kick->y) ? HEIGHT - 1 : to_kick->y - 1;
-		send_kick_message(serv, to_kick, SOUTH, to_kick->direction);
+		to_kick->y = ft_modulo(to_kick->y + 1, g_server.map->height);
+		send_kick_message(to_kick, SOUTH, to_kick->direction);
 	}
 	else if (kicker->direction & EAST)
 	{
-		to_kick->x = (to_kick->x == WIDTH - 1) ? 0 : to_kick->x + 1;
-		send_kick_message(serv, to_kick, WEST, to_kick->direction);
+		to_kick->x = ft_modulo(to_kick->x + 1, g_server.map->width);
+		send_kick_message(to_kick, WEST, to_kick->direction);
 	}
 	else if (kicker->direction & SOUTH)
 	{
-		to_kick->y = (to_kick->y == HEIGHT - 1) ? 0 : to_kick->y + 1;
-		send_kick_message(serv, to_kick, NORTH, to_kick->direction);
+		to_kick->y = ft_modulo(to_kick->y - 1, g_server.map->height);
+		send_kick_message( to_kick, NORTH, to_kick->direction);
 	}
 	else if (kicker->direction & WEST)
 	{
-		to_kick->x = (!to_kick->x) ? WIDTH - 1 : to_kick->x - 1;
-		send_kick_message(serv, to_kick, EAST, to_kick->direction);
+		to_kick->x = ft_modulo(to_kick->x - 1, g_server.map->width);
+		send_kick_message(to_kick, EAST, to_kick->direction);
 	}
 }
 
-int		command_kick(void *object, t_action_arg *arg)
+int		command_kick(void *entity, char *msg)
 {
-	int			i;
-	int			tmp;
-	t_server	*serv;
-	t_player	*player;
-
+	int	i;
+	int	tmp;
 
 	i = 0;
-	serv = g_server;
-	player = (t_player *)object;
-	printf("Player %d has sent command [kick]\n", player->fd);
+	printf("%sPlayer %d -> [kick]%s\n", CYAN, P_ENTITY->fd, NORMAL);
 	while (i < FD_SETSIZE)
 	{
-		if (!serv->players[i] && ++i)
+		if ((g_client_type[i] != T_PLAYER) && ++i)
 			continue;
-		if (serv->players[i]->x == player->x && serv->players[i]->y == player->y
-			&& serv->players[i]->fd != player->fd)
-				kick_player(serv, player, serv->players[i]);
+		if (((t_player *)g_entity[i])->x == P_ENTITY->x && ((t_player *)g_entity[i])->y == P_ENTITY->y
+			&& ((t_player *)g_entity[i])->fd != P_ENTITY->fd)
+			{
+				kick_player(P_ENTITY, g_entity[i]);
+				player_position(g_server.graphic_fd, g_entity[i]);
+			}
 		i++;
 	}
-	if (send(player->fd, MSG_OK, sizeof(MSG_OK), 0) == -1)
+	P_ENTITY->requests_nb--;
+	if (send(P_ENTITY->fd, MSG_OK, sizeof(MSG_OK), 0) == -1)
 		return(error(0, "Send", false));
-	arg = (void *)arg;
+	notify_kick(g_server.graphic_fd, P_ENTITY);
 	return (EXIT_SUCCESS);
 }
-
-//i think this one is fine

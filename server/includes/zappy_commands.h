@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 18:08:13 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/14 13:04:12 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/17 21:55:58 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,44 +21,44 @@ typedef struct s_vector		t_vector;
 typedef struct s_map		t_map;
 typedef struct s_graphic	t_graphic;
 
-
-typedef struct	s_action_arg
+typedef struct	s_events
 {
-	int		ressource;
-	char	*message;
-}				t_action_arg;
-
-typedef struct	s_commands
-{
-	char				*msg;
-	int					delay;
-	// int		(*fct)(t_player *player, t_server *serv, t_action_arg *arg);
-	int					(*fct)(void *object, t_action_arg *arg);
-
-}				t_commands;
-
+	char	*msg;
+	int		time;
+	int		(*fct)(void *entity, char *msg);
+}				t_events;
 
 //		BROADCAST UTILS
-// int				calcul_square(t_vector *direction);
+int				calcul_square(t_vector *direction);
 // int				mesage_from(t_map *map, t_player *sender, t_player *receiver);
-// void			send_message_to_others(t_player *player, t_server *server, char *msg);
-void	send_message_to_others(t_player *sender, t_player *receiver, t_server *server, char *msg);
+// void			send_message_to_others(void *entity, char *msg, char *msg);
+// void		send_message_to_others(t_player *sender, t_player *receiver, char *msg);
 
-int		command_advance(void *object, t_action_arg *arg);
-int		command_broadcast(void *object, t_action_arg *arg);
-int		command_connect_nbr(void *object, t_action_arg *arg);
-int		command_death(void *object, t_action_arg *arg);
-int		command_fork(void *object, t_action_arg *arg);
-int		command_inventory(void *object, t_action_arg *arg);
-int		command_kick(void *object, t_action_arg *arg);
-int		command_left(void *object, t_action_arg *arg);
-int		command_levelup(void *object, t_action_arg *arg);
-// int	command_put(void *object, t_action_arg *argsource);
-int		command_put(void *object, t_action_arg *arg);
-int		command_right(void *object, t_action_arg *arg);
-int		command_see(void *object, t_action_arg *arg);
-int		command_take(void *object, t_action_arg *arg);
-// int	command_take(t_player *player, t_server *serv, int ressource);
+int				command_advance(void *entity, char *msg);
+int				command_broadcast(void *entity, char *msg);
+int				command_connect_nbr(void *entity, char *msg);
+int				command_death(void *entity, char *msg);
+int				command_fork(void *entity, char *msg);
+int				command_hatch(void *entity, char *msg);
+int				command_inventory(void *entity, char *msg);
+int				command_kick(void *entity, char *msg);
+int				command_left(void *entity, char *msg);
+int				command_incantation(void *entity, char *msg);
+int				command_levelup(void *entity, char *msg);
+int				command_put(void *entity, char *msg);
+int				command_right(void *entity, char *msg);
+int				command_take(void *entity, char *msg);
+int				command_eat(void *entity, char *msg);
+int				command_egg_death(void *entity, char *msg);
+
+//		SEE UTILS
+int				command_see(void *entity, char *msg);
+void			rotation90(int *x, int *y);
+void			rotation180(int *x, int *y);
+void			rotation270(int *x, int *y);
+void			put_player_buffer(int nbr_players, int *first);
+void			put_ressources_buffer(t_square *square, int nbr_players, int first);
+
 
 
 #endif

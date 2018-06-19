@@ -6,33 +6,29 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:49:05 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/14 13:13:01 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/19 00:25:45 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-#define WIDTH g_server->map->width
-#define HEIGHT g_server->map->height
+#define WIDTH g_server.map->width
+#define HEIGHT g_server.map->height
 
-int		command_advance(void *object, t_action_arg *arg)
+int				command_advance(void *entity, char *msg)
 {
-	t_player	*player;
-	
-	player = (t_player *)object;
-	if (player->direction & NORTH)
-		player->y = (!player->y) ? HEIGHT - 1 : player->y - 1;
-	if (player->direction & EAST)
-		player->x = (player->x == WIDTH - 1) ? 0 : player->x + 1;
-	if (player->direction & SOUTH)
-		player->y = (player->y == HEIGHT - 1) ? 0 : player->y + 1;
-	if (player->direction & WEST)
-		player->x = (!player->x) ? WIDTH - 1 : player->x - 1;
-
-	if (send(player->fd, MSG_OK, ft_strlen(MSG_OK), 0) == -1)
+	printf("%sPlayer %d -> [advance]%s\n", CYAN, P_ENTITY->fd, NORMAL);
+	if (P_ENTITY->direction & NORTH)
+		P_ENTITY->y = ft_modulo((P_ENTITY->y + 1), HEIGHT);
+	if (P_ENTITY->direction & EAST)
+		P_ENTITY->x = ft_modulo(P_ENTITY->x + 1, WIDTH);
+	if (P_ENTITY->direction & SOUTH)
+		P_ENTITY->y = ft_modulo(P_ENTITY->y - 1, HEIGHT);
+	if (P_ENTITY->direction & WEST)
+		P_ENTITY->x = ft_modulo(P_ENTITY->x - 1, WIDTH);
+	P_ENTITY->requests_nb--;
+	if (send(P_ENTITY->fd, MSG_OK, strlen(MSG_OK), 0) == -1)
 		return (error(0, "Send", false));
-	arg = (void *)arg;
+	player_position(g_server.graphic_fd, P_ENTITY);
 	return (EXIT_SUCCESS);
 }
-
-//i think this one is oke

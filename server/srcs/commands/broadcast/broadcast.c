@@ -6,80 +6,37 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 18:04:46 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/14 13:18:37 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/19 00:39:43 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//something similar in broadcast
-
-// void	process_data(t_player *player, int sockfd, fd_set *client_fds)
-// {
-// 	int		ret;
-// 	char	buff[BUFF_SIZE];
-// 	int 	i;
-
-// 	if ((ret = recv(player->fd, buff, BUFF_SIZE, 0)) > 0)
-// 	{
-// 		i = 0;
-// 		while (i < FD_SETSIZE)
-// 		{
-// 			if (FD_ISSET(i, client_fds))
-// 			{
-// 				if (i != sockfd)
-// 				{
-// 					if (send(i, buff, ret, 0) == -1)
-// 							ft_printf("Sending unsuccessful\n");
-
-// 				}
-// 			}
-// 			i++;
-// 		}
-// 		ft_bzero(buff, BUFF_SIZE);
-// 	}
-// 	}
-// }
 #include "zappy.h"
 
-
-static	int		absol(int a)
+static int				terence_modulo(int square)
 {
-	return (a < 0 ? -a : a);
+	if (square >= 9)
+		square = (square % 9) + 1;
+	return (square);
 }
 
-static int		calcul_square(t_vector *direction)
+static int				square_orientation(t_player *receiver, int square)
 {
-	// int		square;
-	// int		x;
-	// int		y;
+	int		direction;
 
-	// x = direction->x;
-	// y = direction->y;
-	// if (!x && !y)
-	// 	return (0);
-	// else if (x >= 0 && x == y)
-	// 	return (8);
-	// else if (x >= 0 && y >= 0 && y > x)
-	// 	return (1);
-	// else if (x >= 0 && y >= 0 && y < x)
-	// 	return (7);
-	// else if (x >= 0 && y <= 0 && absol(y) > absol(x))
-	// 	return (5);
-	// else if (x >= 0 && y <= 0 && absol(y) == absol(x))
-	// 	return (6);
-	// else if (x <= 0 && y <= 0 && absol(y) == absol(x))
-	// 	return (4);
-	// else if (x <= 0 && y >= 0 && absol(y) == absol(x))
-	// 	return (2);
-	// else if (x <= 0 && y <= 0 && absol(y) < absol(x))
-	// 	return (3);
-	// else
-	// 	return (-1);
-	return (EXIT_SUCCESS);
+	direction = receiver->direction;
+	if (!square)
+		return (0);
+	if (direction == WEST)
+		square = terence_modulo(square + 6);
+	else if (direction == EAST)
+		square = terence_modulo(square + 2);
+	else if (direction == SOUTH)
+		square = terence_modulo(square + 4);
+	return (square);
 }
 
-static int		message_from(t_map *map, t_player *sender, t_player *receiver)
+static int				message_from(t_map *map, t_player *sender, t_player *receiver)
 {
-	int				square;
 	t_vector		translation;
 	t_vector		center;
 	t_vector		new_sender;
@@ -88,80 +45,51 @@ static int		message_from(t_map *map, t_player *sender, t_player *receiver)
 
 	center.x = map->width / 2;
 	center.y = map->height / 2;
-	translation.x = center.x - receiver->x;
-	translation.y = center.y - receiver->y;
-	new_sender.x = sender->x + translation.x;
-	new_sender.y = sender->y + translation.y;
-	new_receiver.x = new_receiver.x + translation.x;
-	new_receiver.y = new_receiver.y + translation.y;
-	direction.x = new_sender.x - new_receiver.x;
-	direction.y = new_sender.y - new_receiver.y;
+	translation.x = (center.x - receiver->x) % map->width;
+	translation.y = (center.y - receiver->y) % map->height;
+	new_sender.x = (sender->x + translation.x) % map->width;
+	new_sender.y = (sender->y + translation.y) % map->height;
+	new_receiver.x = (receiver->x + translation.x) % map->width;
+	new_receiver.y = (receiver->y + translation.y) % map->height;
+	direction.x = (new_sender.x - new_receiver.x) % map->width;
+	direction.y = (new_sender.y - new_receiver.y) % map->height;
 	return (calcul_square(&direction));
-	return (EXIT_SUCCESS);
-
 }
 
-void			send_message_to_others(t_player *sender, t_player *receiver, t_server *server, char *msg)
+static void				send_message_to_others(t_player *sender, t_player *receiver, char *msg)
 {
 	int		i;
 	int		square;
 
 	i = 0;
-	square = message_from(server->map, sender, receiver);
-	strcpy(server->buff, "message ");
-	strcat(server->buff, ft_itoa(square));
-	strcat(server->buff, ",");
-	strcat(server->buff, msg);
+	square = message_from(g_server.map, sender, receiver);
+	square = square_orientation(receiver, square);
+	strcpy(g_server.buff, "message ");
+	strcat(g_server.buff, ft_itoa(square));
+	strcat(g_server.buff, ",");
+	strcat(g_server.buff, msg);
 	if (msg[strlen(msg) - 1] != '\n')
-		strcat(server->buff, "\n");
-	while (i < FD_SETSIZE + 1) // +1 or not +1 ???
-	{
-		//TODO: The server needs to keep in its structure the sockfd
-		if (i != server->sockfd)
-		{
-			if (send(i, server->buff, strlen(server->buff) + 1, 0) == -1)
-				printf("Sending unsuccessful\n");
-		}
-	}
-	// i = 0;
-	// square = message_from(server->map, sender, receiver);
-	// strcpy(server->buff, "message ");
-	// strcat(server->buff, ft_itoa(square));
-	// strcat(server->buff, ",");
-	// strcat(server->buff, msg);
-	// if (msg[strlen(msg) - 1] != '\n')
-	// 	strcat(server->buff, "\n");
-	// while (i < FD_SETSIZE + 1)
-	// {
-	// 	// The server needs to keep in its structure the sockfd
-	// 	if (i != server->sockfd)
-	// 	{
-	// 		if (send(i, server->buff, strlen(server->buff) + 1, 0) == -1)
-	// 			printf("Sending unsuccessful\n");
-	// 	}
-	// }
+		strcat(g_server.buff, "\n");
+	if (send(receiver->fd, g_server.buff, strlen(g_server.buff), 0) == -1)
+		error(0, "Send", false);
+
 }
-
-int				command_broadcast(void *object, t_action_arg *arg)
-// int				command_broadcast(t_player *player, t_server *serv, char *message)
+int				command_broadcast(void *entity, char *msg)
 {
-	int			i;
-	char		*message;
-	t_player	*player;
+	int		i;
 
-	player = (t_player *)object;
-	message = ((t_action_arg *)arg)->message;
-	printf("Player %d has sent command [broadcast] [%s]\n", player->fd, message);
+	printf("%sPlayer %d -> [broadcast]: [%s]%s\n", CYAN, P_ENTITY->fd, msg, NORMAL);
 	i = 0;
-	while (i < FD_SETSIZE + 1)
+	msg += ft_strlen("broadcast ");
+	while (i < FD_SETSIZE)
 	{
-		if (g_server->players[i])
-			send_message_to_others(player, g_server->players[i], g_server, message);
+		if (g_client_type[i] == T_PLAYER && i != P_ENTITY->fd)
+			send_message_to_others(P_ENTITY, g_entity[i], msg);
 		i++;
 	}
-	if (send(player->fd, MSG_OK, strlen(MSG_OK), 0) == -1)
+	P_ENTITY->requests_nb--;
+	if (send(P_ENTITY->fd, MSG_OK, strlen(MSG_OK), 0) == -1)
 		return (error(0, "Send", false));
+	notify_broadcast(g_server.graphic_fd, P_ENTITY, msg);
 	return (EXIT_SUCCESS);
 }
-
-//not done at all, some stuff on github

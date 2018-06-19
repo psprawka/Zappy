@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:30:53 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/14 18:01:34 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/19 00:53:52 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,25 @@
 #include "zappy.h"
 
 typedef struct s_team			t_team;
-typedef struct s_pevent			t_pevent;
-typedef struct s_pdeath			t_pdeath;
-typedef struct s_graphic_list	t_graphic_list;
 
 typedef struct	s_server
 {
-	int				sockfd;
-	char			*buff;
-	struct timeval	time;
-	int				timeunit;
-	int				port;
-	int				max_team_players;
-	int				teamcount;
-	t_graphic_list	*graph_list;
-	t_player		**players;
-	t_map			*map;
-	t_team			**teams;
-	t_pevent		*events;
-	t_pdeath		*deaths;
-
+	t_map			*map;				/* game map */
+	t_team			**teams;			/* set of all teams */
+	t_queue			*events;			/* priority queue of events */
+	t_queue			*deaths;			/* priority queue of deaths */
+	// t_queue			*graphics;		/* queue of graphical clients
+	int				graphic_fd;
+	fd_set			client_fds;			/* set of all clients fds */
+	char			*buff;				/* buff used to send messages to clients in order to reduce malloc usage */
+	struct timeval	time;				/* "actual" game time */
+	int				timeunit;			/* time unit; "-t" option */
+	int				port;				/* port; "-p" option */
+	int				print_queue;		/* flag showing the event's queue; "-q" option */
+	int				max_team_players;	/* a max num of players at the beginning of the game; "-c" option */
+	int				teamcount;			/* number of teams */
+	int				serverfd;			/* server socket fd */
+	int				number_egg;			/* number of eggs since the beggining */
 }				t_server;
 
 #endif

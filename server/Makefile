@@ -6,109 +6,97 @@
 #    By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/09 23:21:55 by psprawka          #+#    #+#              #
-#    Updated: 2018/06/14 18:15:27 by psprawka         ###   ########.fr        #
+#    Updated: 2018/06/18 16:23:13 by tle-huu-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME_CLIENT = client
 NAME_SERVER = server
 FLAGS = -g -Wall -Wextra -Werror
+#FLAGS +=  -fsanitize=address
 
-HEADERS			= includes/
-SRCS_DIR		= srcs/
-COMMANDS		= commands/
-PEVENT			= pevents/
-PDEATH			= pdeaths/
-BROADCAST		= broadcast/
-LIST			= list/
-EGG				= egg_system/
-PARSE			= parsing/
-STRUCTS			= init_structs/
+HEADERS		= includes/
+SRCS_DIR	= srcs/
+COMMANDS	= commands/
+BROADCAST	= broadcast/
+SEE			= see/
+FORK		= fork/
+HANDLE		= handle/
+PARSE		= parse/
+TOOLS		= server_tools/
+STRUCTS		= init/
+GRAPHICAL	= graphical_commands/
 
 #to remove later
-SRCS_CLIENT = $(SRCS_DIR)$(LIST)ft_lstlength.c	\
-		$(SRCS_DIR)$(LIST)ft_lstnew.c	\
-		$(SRCS_DIR)$(LIST)ft_lstadd.c	\
-		$(SRCS_DIR)$(LIST)ft_lstutils.c	\
-		$(SRCS_DIR)queue.c	\
-		$(SRCS_DIR)testing/client.c \
-		$(SRCS_DIR)$(EGG)new_egg.c \
-		$(SRCS_DIR)$(COMMANDS)connect_nbr.c \
-		$(SRCS_DIR)$(COMMANDS)inventory.c \
-		$(SRCS_DIR)$(COMMANDS)advance.c \
-		$(SRCS_DIR)$(COMMANDS)levelup.c \
-		$(SRCS_DIR)$(COMMANDS)death.c \
-		$(SRCS_DIR)$(COMMANDS)right.c \
-		$(SRCS_DIR)$(COMMANDS)left.c \
-		$(SRCS_DIR)$(COMMANDS)kick.c \
-		$(SRCS_DIR)$(COMMANDS)fork.c \
-		$(SRCS_DIR)$(COMMANDS)take.c \
-		$(SRCS_DIR)$(COMMANDS)put.c \
-		$(SRCS_DIR)$(COMMANDS)see.c \
-		$(SRCS_DIR)$(PEVENT)create_pevent.c \
-		$(SRCS_DIR)$(PEVENT)push_pevent.c \
-		$(SRCS_DIR)$(PEVENT)free_pevent.c \
-		$(SRCS_DIR)$(PEVENT)add_pevent.c \
-		$(SRCS_DIR)$(PEVENT)pop_pevent.c \
-		$(SRCS_DIR)$(PEVENT)top_pevent.c \
-		$(SRCS_DIR)$(PDEATH)top_pdeath.c \
-		$(SRCS_DIR)$(PDEATH)pop_pdeath.c \
-		$(SRCS_DIR)$(PDEATH)push_pdeath.c \
-		$(SRCS_DIR)server_process.c \
-		$(SRCS_DIR)$(STRUCTS)init_structs.c \
-		$(SRCS_DIR)graphical.c \
-		$(SRCS_DIR)randomize.c \
-		$(SRCS_DIR)player.c \
-		$(SRCS_DIR)server.c \
-		$(SRCS_DIR)teams.c \
-		$(SRCS_DIR)tools.c \
-		$(SRCS_DIR)$(PARSE)parse.c \
-		$(SRCS_DIR)time.c \
-		$(SRCS_DIR)$(PARSE)opt.c \
-		$(SRCS_DIR)$(COMMANDS)$(BROADCAST)broadcast.c \
-		$(SRCS_DIR)$(COMMANDS)$(BROADCAST)calcul_square.c
+SRCS_CLIENT = $(SRCS_DIR)testing/clienttest.c
 
-SRCS_SERVER = $(SRCS_DIR)$(LIST)ft_lstlength.c	\
-		$(SRCS_DIR)$(LIST)ft_lstnew.c	\
-		$(SRCS_DIR)$(EGG)new_egg.c \
-		$(SRCS_DIR)$(LIST)ft_lstadd.c	\
-		$(SRCS_DIR)$(LIST)ft_lstutils.c	\
-		$(SRCS_DIR)queue.c	\
+SRCS_SERVER = $(SRCS_DIR)main.c \
+		$(SRCS_DIR)client.c \
+		$(SRCS_DIR)time.c \
+		$(SRCS_DIR)teams.c \
+		$(SRCS_DIR)queue.c \
+		$(SRCS_DIR)event.c \
+		$(SRCS_DIR)execute.c \
+		$(SRCS_DIR)$(PARSE)opt.c \
+		$(SRCS_DIR)$(PARSE)parse.c \
+		$(SRCS_DIR)$(TOOLS)tools.c \
+		$(SRCS_DIR)$(TOOLS)randomize.c \
+		$(SRCS_DIR)$(TOOLS)generator.c \
+		$(SRCS_DIR)$(HANDLE)handle.c \
+		$(SRCS_DIR)$(HANDLE)handle_ai.c \
+		$(SRCS_DIR)$(HANDLE)handle_graphic.c \
+		$(SRCS_DIR)$(HANDLE)handle_nondef.c \
+		$(SRCS_DIR)$(STRUCTS)init_map.c \
+		$(SRCS_DIR)$(STRUCTS)init_server.c \
+		$(SRCS_DIR)$(STRUCTS)init_player.c \
 		$(SRCS_DIR)$(COMMANDS)$(BROADCAST)broadcast.c \
 		$(SRCS_DIR)$(COMMANDS)$(BROADCAST)calcul_square.c \
+		$(SRCS_DIR)$(COMMANDS)$(FORK)fork.c \
+		$(SRCS_DIR)$(COMMANDS)$(FORK)egg.c \
+		$(SRCS_DIR)$(COMMANDS)$(FORK)hatch.c \
 		$(SRCS_DIR)$(COMMANDS)connect_nbr.c \
 		$(SRCS_DIR)$(COMMANDS)inventory.c \
 		$(SRCS_DIR)$(COMMANDS)advance.c \
+		$(SRCS_DIR)$(COMMANDS)incantation.c \
 		$(SRCS_DIR)$(COMMANDS)levelup.c \
 		$(SRCS_DIR)$(COMMANDS)death.c \
 		$(SRCS_DIR)$(COMMANDS)right.c \
 		$(SRCS_DIR)$(COMMANDS)left.c \
 		$(SRCS_DIR)$(COMMANDS)kick.c \
-		$(SRCS_DIR)$(COMMANDS)fork.c \
 		$(SRCS_DIR)$(COMMANDS)take.c \
 		$(SRCS_DIR)$(COMMANDS)put.c \
-		$(SRCS_DIR)$(COMMANDS)see.c \
-		$(SRCS_DIR)$(PEVENT)create_pevent.c \
-		$(SRCS_DIR)$(PEVENT)push_pevent.c \
-		$(SRCS_DIR)$(PEVENT)free_pevent.c \
-		$(SRCS_DIR)$(PEVENT)add_pevent.c \
-		$(SRCS_DIR)$(PEVENT)pop_pevent.c \
-		$(SRCS_DIR)$(PEVENT)top_pevent.c \
-		$(SRCS_DIR)$(PDEATH)top_pdeath.c \
-		$(SRCS_DIR)$(PDEATH)pop_pdeath.c \
-		$(SRCS_DIR)$(PDEATH)push_pdeath.c \
-		$(SRCS_DIR)server_process.c \
-		$(SRCS_DIR)$(STRUCTS)init_structs.c \
-		$(SRCS_DIR)graphical.c \
-		$(SRCS_DIR)randomize.c \
-		$(SRCS_DIR)player.c \
-		$(SRCS_DIR)server.c \
-		$(SRCS_DIR)teams.c \
-		$(SRCS_DIR)tools.c \
-		$(SRCS_DIR)$(PARSE)parse.c \
-		$(SRCS_DIR)main.c \
-		$(SRCS_DIR)time.c \
-		$(SRCS_DIR)$(PARSE)opt.c	\
+		$(SRCS_DIR)$(COMMANDS)$(SEE)see.c \
+		$(SRCS_DIR)$(COMMANDS)$(SEE)rotation.c \
+		$(SRCS_DIR)$(COMMANDS)$(SEE)put_in_buffer.c \
+		$(SRCS_DIR)$(COMMANDS)eat.c \
+		$(SRCS_DIR)$(COMMANDS)egg_death.c \
+		$(SRCS_DIR)testing/test.c	\
+		$(SRCS_DIR)free.c			\
+		$(SRCS_DIR)$(GRAPHICAL)egg/ebo.c		\
+		$(SRCS_DIR)$(GRAPHICAL)egg/edi.c		\
+		$(SRCS_DIR)$(GRAPHICAL)egg/eht.c		\
+		$(SRCS_DIR)$(GRAPHICAL)egg/enw.c		\
+		$(SRCS_DIR)$(GRAPHICAL)map/bct.c		\
+		$(SRCS_DIR)$(GRAPHICAL)map/msz.c		\
+		$(SRCS_DIR)$(GRAPHICAL)map/tna.c		\
+		$(SRCS_DIR)$(GRAPHICAL)player/pbc.c		\
+		$(SRCS_DIR)$(GRAPHICAL)player/pdi.c		\
+		$(SRCS_DIR)$(GRAPHICAL)player/pdr.c		\
+		$(SRCS_DIR)$(GRAPHICAL)player/pex.c		\
+		$(SRCS_DIR)$(GRAPHICAL)player/pfk.c		\
+		$(SRCS_DIR)$(GRAPHICAL)player/pgt.c		\
+		$(SRCS_DIR)$(GRAPHICAL)player/pic.c		\
+		$(SRCS_DIR)$(GRAPHICAL)player/pie.c		\
+		$(SRCS_DIR)$(GRAPHICAL)player/pin.c		\
+		$(SRCS_DIR)$(GRAPHICAL)player/plv.c		\
+		$(SRCS_DIR)$(GRAPHICAL)player/pnw.c		\
+		$(SRCS_DIR)$(GRAPHICAL)player/ppo.c		\
+		$(SRCS_DIR)$(GRAPHICAL)server_info/sbp.c		\
+		$(SRCS_DIR)$(GRAPHICAL)server_info/seg.c		\
+		$(SRCS_DIR)$(GRAPHICAL)server_info/sgt.c		\
+		$(SRCS_DIR)$(GRAPHICAL)server_info/smg.c		\
+		$(SRCS_DIR)$(GRAPHICAL)server_info/suc.c		\
+		$(SRCS_DIR)$(GRAPHICAL)graphic_greeting.c		\
 
 
 OBJS_CLIENT = $(SRCS_CLIENT:.c=.o)

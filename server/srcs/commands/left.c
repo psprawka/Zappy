@@ -6,24 +6,19 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:49:25 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/14 13:11:02 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/19 00:27:00 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-int		command_left(void *object, t_action_arg *arg)
+int		command_left(void *entity, char *msg)
 {
-	t_player	*player;
-
-
-	player = (t_player *)object;
-	printf("Player %d has sent command [left]\n", player->fd);
-	player->direction = (player->direction / 2 == 0) ? WEST : player->direction / 2;
-	if (send(player->fd, MSG_OK, strlen(MSG_OK), 0) == -1)
+	printf("%sPlayer %d -> [left]%s\n", CYAN, P_ENTITY->fd, NORMAL);
+	P_ENTITY->direction = (P_ENTITY->direction / 2 == 0) ? WEST : P_ENTITY->direction / 2;
+	P_ENTITY->requests_nb--;
+	if (send(P_ENTITY->fd, MSG_OK, strlen(MSG_OK), 0) == -1)
 		return (error(0, "Send", false));
-	arg = (void *)arg;
+	player_position(g_server.graphic_fd, P_ENTITY);
 	return (EXIT_SUCCESS);
 }
-
-//i think this one is fine too

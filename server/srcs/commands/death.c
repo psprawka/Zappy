@@ -6,25 +6,20 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:51:22 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/14 13:13:25 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/19 00:25:56 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-int	command_death(void *object, t_action_arg *arg)
+int		command_death(void *entity, char *msg)
 {
-	t_player		*player;
-
-	player = (t_player *)object;
-	printf("Player %d has died\n", player->fd);
-	if (!player->team)
+	if (!entity)
 		return (EXIT_FAILURE);
-	player->team->connected--;
-	if (send(player->fd, MSG_DEATH, ft_strlen(MSG_DEATH), 0) == -1)
+	printf("%sPlayer %d has died%s\n", PINK, P_ENTITY->fd, NORMAL);
+	if (P_ENTITY->team)
+		P_ENTITY->team->connected--;
+	if (send(P_ENTITY->fd, MSG_DEATH, ft_strlen(MSG_DEATH), 0) == -1)
 		return (error(0, "Send", false));
-	arg = (void *)arg;
 	return (EXIT_SUCCESS);
 }
-
-//i think this one is fine too

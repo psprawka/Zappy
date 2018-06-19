@@ -10,7 +10,7 @@
 // 	strcpy(server->buff, " ");
 // 	strcat(server->buff, ft_itoa(server->map->height));
 // 	strcpy(server->buff, "\n");
-// 	len = ft_strlen(server->buff) + 1;
+// 	len = ft_strlen(server->buff);
 // 	while (node)
 // 	{
 // 		send(node->fd, server->buff, len, 0);
@@ -42,7 +42,7 @@
 // 	strcat(server->buff, " ");
 // 	strcat(server->buff, ft_itoa(server->map->squares[x][y].thystame));
 // 	strcat(server->buff, "\n");
-// 	len = ft_strlen(server->buff) + 1;
+// 	len = ft_strlen(server->buff);
 // 	if (!(node = server->graph_list))
 // 		return ;
 // 	while (node)

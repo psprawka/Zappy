@@ -3,73 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   queue.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-huu- <tle-huu-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/17 11:48:49 by tle-huu-          #+#    #+#             */
-/*   Updated: 2018/06/14 17:58:53 by tle-huu-         ###   ########.fr       */
+/*   Created: 2018/06/17 06:42:16 by psprawka          #+#    #+#             */
+/*   Updated: 2018/06/17 08:31:33 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "queue.h"
+#include "zappy.h"
 
-t_queue			*new_queue(void)
+/*
+**	In order to get rid of all the actions associated with dying player, 
+**	function clena_queue will go through pqueue of event and will remove
+**	all of player's events.
+*/
+void	clean_queue(int fd)
 {
-	t_queue		*queue;
-
-	if (!(queue = (t_queue *)ft_memalloc(sizeof(t_queue))))
+	t_node		*tmp;
+	t_node		*prev;
+	t_event		*event;
+	int 	i;
+	
+	tmp = g_server.events->first;
+	prev = NULL;
+	while (tmp)
 	{
-		printf("Error malloc new queue\n");
-		return (NULL);
-	}
-	queue->head = NULL;
-	queue->tail = NULL;
-	return (queue);
-}
-
-void			enqueue(t_queue *queue, t_list *node)
-{
-	if (queue && node)
-	{
-		if (!(queue->head))
-		{
-			queue->head = node;
-			queue->tail = node;
-		}
-		else if (!((queue->head)->next))
-		{
-			queue->tail = node;
-			queue->head->next = queue->tail;
-		}
+		event = tmp->data;
+		if (event && ((t_player *)event->entity)->fd == fd)
+			remove_node(&g_server.events, prev, tmp);
 		else
-		{
-			queue->tail->next = node;
-			queue->tail = node;
-		}
+			prev = tmp;
+		tmp = tmp->next;
 	}
-	else
-		printf("No queue pointer or NULL node in trying to enqueuing\n");
-}
-
-t_list			*queue_pop(t_queue *queue)
-{
-	t_list		*head;
-
-	if (queue && queue->head)
-	{
-		head = queue->head;
-		queue->head = head->next;
-		if (!head->next)
-			queue->tail = NULL;
-		return (head);
-	}
-	printf("Error while poping\n");
-	return (NULL);
-}
-
-int				queue_empty(t_queue *queue)
-{
-	if (queue)
-		return (!(queue->head));
-	printf("Error queue pointer null\n");
-	return (-2);
 }

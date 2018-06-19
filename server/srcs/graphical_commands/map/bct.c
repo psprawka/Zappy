@@ -6,63 +6,73 @@
 /*   By: tle-huu- <tle-huu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 17:00:56 by tle-huu-          #+#    #+#             */
-/*   Updated: 2018/06/14 15:00:28 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/16 19:59:44 by tle-huu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-void	send_block_contents(int x, int y, t_player *gclient, t_server *server)
+/*
+**	resources[7]:
+**	0 food;
+**	1 linemate;
+**	2 deraumere;
+**	3 sibur;
+**	4 mendiane;
+**	5 phiras;
+**	6 thystame;
+*/
+
+void	send_block_contents(int fd, int x, int y)
 {
 	int		len;
-	t_graphic_list	*node;
+	char	*freer;
 
-	strcpy(server->buff, "bct ");
-	strcat(server->buff, ft_itoa(x));
-	strcat(server->buff, " ");
-	strcat(server->buff, ft_itoa(y));
-	strcat(server->buff, " ");
-	strcat(server->buff, ft_itoa(server->map->squares[x][y].food));
-	strcat(server->buff, " ");
-	strcat(server->buff, ft_itoa(server->map->squares[x][y].linemate));
-	strcat(server->buff, " ");
-	strcat(server->buff, ft_itoa(server->map->squares[x][y].deraumere));
-	strcat(server->buff, " ");
-	strcat(server->buff, ft_itoa(server->map->squares[x][y].sibur));
-	strcat(server->buff, " ");
-	strcat(server->buff, ft_itoa(server->map->squares[x][y].mendiane));
-	strcat(server->buff, " ");
-	strcat(server->buff, ft_itoa(server->map->squares[x][y].phiras));
-	strcat(server->buff, " ");
-	strcat(server->buff, ft_itoa(server->map->squares[x][y].thystame));
-	strcat(server->buff, "\n");
-	len = ft_strlen(server->buff) + 1;
-	if (!(node = server->graph_list))
-		return ;
-	if (gclient)
-	{
-		send(gclient->fd, server->buff, len, 0);
-		return ;
-	}
-	while (node)
-	{
-		send(node->fd, server->buff, len, 0);
-		node = node->next;
-	}
+	strcpy(g_server.buff, "bct ");
+	strcat(g_server.buff, (freer = ft_itoa(x)));
+	free(freer);
+	strcat(g_server.buff, " ");
+	strcat(g_server.buff, (freer = ft_itoa(y)));
+	free(freer);
+	strcat(g_server.buff, " ");
+	strcat(g_server.buff, (freer = ft_itoa(g_server.map->squares[x][y]->ressources[0])));
+	free(freer);
+	strcat(g_server.buff, " ");
+	strcat(g_server.buff, (freer = ft_itoa(g_server.map->squares[x][y]->ressources[1])));
+	free(freer);
+	strcat(g_server.buff, " ");
+	strcat(g_server.buff, (freer = ft_itoa(g_server.map->squares[x][y]->ressources[2])));
+	free(freer);
+	strcat(g_server.buff, " ");
+	strcat(g_server.buff, (freer = ft_itoa(g_server.map->squares[x][y]->ressources[3])));
+	free(freer);
+	strcat(g_server.buff, " ");
+	strcat(g_server.buff, (freer = ft_itoa(g_server.map->squares[x][y]->ressources[4])));
+	free(freer);
+	strcat(g_server.buff, " ");
+	strcat(g_server.buff, (freer = ft_itoa(g_server.map->squares[x][y]->ressources[5])));
+	free(freer);
+	strcat(g_server.buff, " ");
+	strcat(g_server.buff, (freer = ft_itoa(g_server.map->squares[x][y]->ressources[6])));
+	free(freer);
+	strcat(g_server.buff, "\n");
+	len = strlen(g_server.buff);
+	if (send(fd, g_server.buff, len, 0) <= 0)
+		printf("PROBLEM\n");
 }
 
-void	send_mapcontents(t_player *player, t_server *server)
+void	send_mapcontents(int fd)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (i < server->map->width)
+	while (i < g_server.map->width)
 	{
 		j = 0;
-		while (j < server->map->height)
+		while (j < g_server.map->height)
 		{
-			send_block_contents(i, j, player, server);
+			send_block_contents(fd, i, j);
 			j++;
 		}
 		i++;
