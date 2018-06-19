@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:39:21 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/17 21:56:11 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 07:58:49 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,29 +44,11 @@ extern t_server		g_server;
 
 char	*g_ressources[8];
 
-typedef struct	s_vector
-{
-	int		x;
-	int		y;
-}				t_vector;
-
-
 typedef struct	s_opt
 {
 	char		opt;
 	int			(*fct)(char **av, int *i);
 }				t_opt;
-
-typedef struct	s_team
-{
-	char		*name;
-	int			hlvl;	//the highest lvl
-	int			max_players;
-	int			connected;
-	int			allowed_eggs;
-	t_queue		*egg_queue;
-
-}				t_team;
 
 //test to remove /////////////////////////////////////////////////
 void			print_map(t_server *server, int x, int y);

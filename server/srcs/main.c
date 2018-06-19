@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 21:18:48 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 03:52:38 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 07:43:03 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,20 +90,22 @@ int		main_game_loop(void)
 		while (++i < FD_SETSIZE + 1)
 		{
 			if (FD_ISSET(i, &select_fds))
-			{
-				if (i == g_server.serverfd)
-					new_client();
-				else
-					handle_recv(i);
-			}
+				i == g_server.serverfd ? new_client() : handle_recv(i);
 		}
 		generate_ressource(rand() % 7);
 		execute_events();
+		if (alarm)
+			free(alarm);
 		alarm = set_time_alarm();
 		select_fds = g_server.client_fds;
+		if (g_client_type[8] != 0)
+		 break;
 	}
-	// g_server = NULL;
-	// sleep(100);
+	free_server();
+	bzero(&g_server, sizeof(t_server));
+	printf("falling asleep\n");
+	sleep(100);
+	printf("awake\n");
 	return (error(0, "Select [main_game_loop]", true));
 }
 
@@ -132,9 +134,6 @@ int		main(int ac, char **av)
 		init_map() == EXIT_FAILURE ||
 		init_server_socket() == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	bzero(g_entity, FD_SETSIZE);
-	/*for testing*/print_map(&g_server, g_server.map->width, g_server.map->height);
-
 	if (listen(g_server.serverfd, FD_SETSIZE) == -1)
 		return (error(0, "Listen [main]", true));
 	ft_bzero(&g_server.client_fds, sizeof(fd_set));

@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 00:14:10 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 03:50:56 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 04:31:59 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ int			init_server_socket(void)
 	server_addr.sin_addr.s_addr = INADDR_ANY;
 	if (bind(g_server.serverfd, (struct sockaddr *)&server_addr, sizeof(struct sockaddr_in)) == -1)
 		return (error(0, "Bind [init_server_socket]", true));
+	printf("Server created succesfully!\n");
 	return (EXIT_SUCCESS);
 }

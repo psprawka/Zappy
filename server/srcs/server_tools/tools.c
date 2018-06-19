@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/31 13:23:45 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 03:51:36 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 04:34:54 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ int			error(int errnb, char *msg, bool ifailure)
 	else if (errnb == 6)
 		printf("Time unit has to be between 1 and 10000\n");
 	else if (errnb == 7)
-		printf("A Graphic client already watching\n");
+		printf("%sA graphic client already watching%s\n", RED, NORMAL);
 	else if (errnb == 8)
-		printf("Error resource number: resource doesn't exist\n");
+		printf("%sError resource number: resource doesn't exist\n%s", RED, NORMAL);
 	else
 		printf("%s%s: %s%s\n", RED, msg, strerror(errno), NORMAL);
 	return (ifailure == true ? EXIT_FAILURE : EXIT_SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 17:17:33 by tle-huu-          #+#    #+#             */
-/*   Updated: 2018/06/19 03:54:56 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 04:22:02 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ void	ressource_drop(int fd, t_player *player, uint8_t ressource)
 	strcat(g_server.buff, ft_itoa(ressource));
 	strcat(g_server.buff, "\n");
 	len = strlen(g_server.buff);
-	if (send(fd, g_server.buff, len, 0) == -1)
+	if (g_server.graphic_fd && send(fd, g_server.buff, len, 0) == -1)
 		error(0, "Send [g: pdr]", true);
 }

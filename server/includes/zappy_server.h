@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:30:53 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 00:53:52 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 07:59:12 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,23 @@
 
 #include "zappy.h"
 
-typedef struct s_team			t_team;
+typedef struct	s_team
+{
+	char		*name;
+	// int			hlvl;	//the highest lvl
+	int			max_players;
+	int			connected;
+	int			allowed_eggs;
+	t_queue		*egg_queue;
+
+}				t_team;
+
 
 typedef struct	s_server
 {
 	t_map			*map;				/* game map */
 	t_team			**teams;			/* set of all teams */
 	t_queue			*events;			/* priority queue of events */
-	t_queue			*deaths;			/* priority queue of deaths */
 	// t_queue			*graphics;		/* queue of graphical clients
 	int				graphic_fd;
 	fd_set			client_fds;			/* set of all clients fds */

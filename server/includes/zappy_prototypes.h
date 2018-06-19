@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 03:41:58 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 02:47:26 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 07:54:54 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@ int				execute_events(void);
 t_event			*init_event(void *entity, struct timeval *time, int (*fct)(void *, char *), char *msg);
 struct timeval	*event_time(void *entity, int type, int itable);
 int				add_event(void *entity, int type, int itable, char *msg);
+
+/*
+**	free.c
+*/
+void			free_event(void *event);
+void			free_player(int fd);
+void			free_server(void);
 
 /*
 **	handle/
@@ -103,10 +110,6 @@ void			*lookup_clients(int fd);
 uint32_t		ft_modulo(int k, int n);
 int				graphic_direction(int direction);
 
-/*
-**	free.c
-*/
-void			free_event(t_event *event);
-void			free_player(int fd);
+
 
 #endif

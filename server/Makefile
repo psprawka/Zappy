@@ -6,7 +6,7 @@
 #    By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/09 23:21:55 by psprawka          #+#    #+#              #
-#    Updated: 2018/06/18 16:23:13 by tle-huu-         ###   ########.fr        #
+#    Updated: 2018/06/19 04:08:21 by psprawka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRCS_CLIENT = $(SRCS_DIR)testing/clienttest.c
 
 SRCS_SERVER = $(SRCS_DIR)main.c \
 		$(SRCS_DIR)client.c \
+		$(SRCS_DIR)free.c \
 		$(SRCS_DIR)time.c \
 		$(SRCS_DIR)teams.c \
 		$(SRCS_DIR)queue.c \
@@ -49,11 +50,6 @@ SRCS_SERVER = $(SRCS_DIR)main.c \
 		$(SRCS_DIR)$(STRUCTS)init_map.c \
 		$(SRCS_DIR)$(STRUCTS)init_server.c \
 		$(SRCS_DIR)$(STRUCTS)init_player.c \
-		$(SRCS_DIR)$(COMMANDS)$(BROADCAST)broadcast.c \
-		$(SRCS_DIR)$(COMMANDS)$(BROADCAST)calcul_square.c \
-		$(SRCS_DIR)$(COMMANDS)$(FORK)fork.c \
-		$(SRCS_DIR)$(COMMANDS)$(FORK)egg.c \
-		$(SRCS_DIR)$(COMMANDS)$(FORK)hatch.c \
 		$(SRCS_DIR)$(COMMANDS)connect_nbr.c \
 		$(SRCS_DIR)$(COMMANDS)inventory.c \
 		$(SRCS_DIR)$(COMMANDS)advance.c \
@@ -65,38 +61,42 @@ SRCS_SERVER = $(SRCS_DIR)main.c \
 		$(SRCS_DIR)$(COMMANDS)kick.c \
 		$(SRCS_DIR)$(COMMANDS)take.c \
 		$(SRCS_DIR)$(COMMANDS)put.c \
+		$(SRCS_DIR)$(COMMANDS)eat.c \
+		$(SRCS_DIR)$(COMMANDS)egg_death.c \
+		$(SRCS_DIR)$(COMMANDS)$(BROADCAST)broadcast.c \
+		$(SRCS_DIR)$(COMMANDS)$(BROADCAST)calcul_square.c \
+		$(SRCS_DIR)$(COMMANDS)$(FORK)fork.c \
+		$(SRCS_DIR)$(COMMANDS)$(FORK)egg.c \
+		$(SRCS_DIR)$(COMMANDS)$(FORK)hatch.c \
 		$(SRCS_DIR)$(COMMANDS)$(SEE)see.c \
 		$(SRCS_DIR)$(COMMANDS)$(SEE)rotation.c \
 		$(SRCS_DIR)$(COMMANDS)$(SEE)put_in_buffer.c \
-		$(SRCS_DIR)$(COMMANDS)eat.c \
-		$(SRCS_DIR)$(COMMANDS)egg_death.c \
-		$(SRCS_DIR)testing/test.c	\
-		$(SRCS_DIR)free.c			\
-		$(SRCS_DIR)$(GRAPHICAL)egg/ebo.c		\
-		$(SRCS_DIR)$(GRAPHICAL)egg/edi.c		\
-		$(SRCS_DIR)$(GRAPHICAL)egg/eht.c		\
-		$(SRCS_DIR)$(GRAPHICAL)egg/enw.c		\
-		$(SRCS_DIR)$(GRAPHICAL)map/bct.c		\
-		$(SRCS_DIR)$(GRAPHICAL)map/msz.c		\
-		$(SRCS_DIR)$(GRAPHICAL)map/tna.c		\
-		$(SRCS_DIR)$(GRAPHICAL)player/pbc.c		\
-		$(SRCS_DIR)$(GRAPHICAL)player/pdi.c		\
-		$(SRCS_DIR)$(GRAPHICAL)player/pdr.c		\
-		$(SRCS_DIR)$(GRAPHICAL)player/pex.c		\
-		$(SRCS_DIR)$(GRAPHICAL)player/pfk.c		\
-		$(SRCS_DIR)$(GRAPHICAL)player/pgt.c		\
-		$(SRCS_DIR)$(GRAPHICAL)player/pic.c		\
-		$(SRCS_DIR)$(GRAPHICAL)player/pie.c		\
-		$(SRCS_DIR)$(GRAPHICAL)player/pin.c		\
-		$(SRCS_DIR)$(GRAPHICAL)player/plv.c		\
-		$(SRCS_DIR)$(GRAPHICAL)player/pnw.c		\
-		$(SRCS_DIR)$(GRAPHICAL)player/ppo.c		\
-		$(SRCS_DIR)$(GRAPHICAL)server_info/sbp.c		\
-		$(SRCS_DIR)$(GRAPHICAL)server_info/seg.c		\
-		$(SRCS_DIR)$(GRAPHICAL)server_info/sgt.c		\
-		$(SRCS_DIR)$(GRAPHICAL)server_info/smg.c		\
-		$(SRCS_DIR)$(GRAPHICAL)server_info/suc.c		\
-		$(SRCS_DIR)$(GRAPHICAL)graphic_greeting.c		\
+		$(SRCS_DIR)$(GRAPHICAL)egg/ebo.c \
+		$(SRCS_DIR)$(GRAPHICAL)egg/edi.c \
+		$(SRCS_DIR)$(GRAPHICAL)egg/eht.c \
+		$(SRCS_DIR)$(GRAPHICAL)egg/enw.c \
+		$(SRCS_DIR)$(GRAPHICAL)map/bct.c \
+		$(SRCS_DIR)$(GRAPHICAL)map/msz.c \
+		$(SRCS_DIR)$(GRAPHICAL)map/tna.c \
+		$(SRCS_DIR)$(GRAPHICAL)player/pbc.c \
+		$(SRCS_DIR)$(GRAPHICAL)player/pdi.c \
+		$(SRCS_DIR)$(GRAPHICAL)player/pdr.c \
+		$(SRCS_DIR)$(GRAPHICAL)player/pex.c \
+		$(SRCS_DIR)$(GRAPHICAL)player/pfk.c \
+		$(SRCS_DIR)$(GRAPHICAL)player/pgt.c \
+		$(SRCS_DIR)$(GRAPHICAL)player/pic.c \
+		$(SRCS_DIR)$(GRAPHICAL)player/pie.c \
+		$(SRCS_DIR)$(GRAPHICAL)player/pin.c \
+		$(SRCS_DIR)$(GRAPHICAL)player/plv.c \
+		$(SRCS_DIR)$(GRAPHICAL)player/pnw.c \
+		$(SRCS_DIR)$(GRAPHICAL)player/ppo.c \
+		$(SRCS_DIR)$(GRAPHICAL)server_info/sbp.c \
+		$(SRCS_DIR)$(GRAPHICAL)server_info/seg.c \
+		$(SRCS_DIR)$(GRAPHICAL)server_info/sgt.c \
+		$(SRCS_DIR)$(GRAPHICAL)server_info/smg.c \
+		$(SRCS_DIR)$(GRAPHICAL)server_info/suc.c \
+		$(SRCS_DIR)$(GRAPHICAL)graphic_greeting.c \
+		$(SRCS_DIR)testing/test.c \
 
 
 OBJS_CLIENT = $(SRCS_CLIENT:.c=.o)

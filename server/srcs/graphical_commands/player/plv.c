@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 16:55:08 by tle-huu-          #+#    #+#             */
-/*   Updated: 2018/06/19 03:55:15 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 04:22:25 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	player_level(int fd, t_player *player)
 	strcat(g_server.buff, ft_itoa(player->level));
 	strcat(g_server.buff, "\n");
 	len = strlen(g_server.buff);
-	if (send(fd, g_server.buff, len, 0) == -1)
+	if (g_server.graphic_fd && send(fd, g_server.buff, len, 0) == -1)
 		error(0, "Send [g: plv]", true);
 
 }

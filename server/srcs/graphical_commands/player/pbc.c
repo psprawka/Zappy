@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 17:16:50 by tle-huu-          #+#    #+#             */
-/*   Updated: 2018/06/19 03:54:50 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 04:21:31 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ void	notify_broadcast(int fd, t_player *player, char *msg)
 	strcat(g_server.buff, msg + strlen("broadcast "));
 	strcat(g_server.buff, "\n");
 	len = strlen(g_server.buff);
-	if (send(fd, g_server.buff, len, 0) == -1)
+	if (g_server.graphic_fd && send(fd, g_server.buff, len, 0) == -1)
 		error(0, "Send [g: pbc]", true);
 }

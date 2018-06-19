@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 17:29:03 by tle-huu-          #+#    #+#             */
-/*   Updated: 2018/06/19 03:55:06 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 04:22:14 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ void		start_incantation(int fd, t_player *player)
 	}
 	strcat(g_server.buff, "\n");
 	len = strlen(g_server.buff);
-	if (send(fd, g_server.buff, len, 0) == -1)
+	if (g_server.graphic_fd && send(fd, g_server.buff, len, 0) == -1)
 		error(0, "Send [g: pic]", true);
 }

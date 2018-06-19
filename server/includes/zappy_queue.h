@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/12 10:39:33 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/16 00:23:44 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 05:00:52 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,5 @@ typedef struct	s_event
 	void				*entity;
 	int					(*fct)(void *entity, char *msg);
 }				t_event;
-
-typedef struct	s_death
-{
-	struct timeval		*death_time;
-	void				*entity;
-}				t_death;
 
 #endif

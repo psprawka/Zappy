@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:49:59 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 03:39:01 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 07:31:19 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,11 @@ int				command_take(void *entity, char *msg)
 	printf("%sPlayer [%d] -> [take]%s\n", CYAN, P_ENTITY->fd, NORMAL);
 	ressource_nbr = parse_message(msg);
 	if (ressource_nbr < 0 || ressource_nbr > 6)
+	{
+		if (send(P_ENTITY->fd, MSG_KO, strlen(MSG_KO), 0) == -1)
+			return (error(0, "Send [take]", false));
 		return (error(8, NULL, true));
+	}
 	x = P_ENTITY->x;
 	y = P_ENTITY->y;
 	square = g_server.map->squares[x][y];
@@ -58,7 +62,7 @@ int				command_take(void *entity, char *msg)
 	}
 	else
 	{
-		if (send(P_ENTITY->fd, MSG_KO, strlen(MSG_OK), 0) == -1)
+		if (send(P_ENTITY->fd, MSG_KO, strlen(MSG_KO), 0) == -1)
 			return (error(0, "Send [take]", false));
 	}
 	ressource_pickup(g_server.graphic_fd, P_ENTITY, ressource_nbr);

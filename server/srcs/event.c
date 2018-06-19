@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 15:25:38 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 03:52:08 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 07:15:54 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ struct timeval	*event_time(void *entity, int type, int itable)
 	}
 	last_request = NULL;
 	if (type == T_PLAYER)
-		last_request = ((t_player *)entity)->last_request;
+		last_request = P_ENTITY->last_request;
 	if (!last_request || !time_compare(last_request, &curr))
 		last_request = &curr;
 	last_request->tv_sec += g_events_ai[itable].time * g_server.time.tv_sec;
@@ -79,9 +79,14 @@ int		add_event(void *entity, int type, int itable, char *msg)
 		return (EXIT_FAILURE);
 	exec_time = ft_memdup(event_time(entity, type, itable), sizeof(struct timeval));
 	if (!(new = init_event(entity, exec_time, g_events_ai[itable].fct, msg)))
+	{
+		free(exec_time);
 		return (EXIT_FAILURE);
+	}
 	if (type == T_PLAYER)
 	{
+		if (P_ENTITY->last_request)
+			free(P_ENTITY->last_request);
 		P_ENTITY->last_request = ft_memdup(new->event_time, sizeof(struct timeval));
 		P_ENTITY->requests_nb++;
 	}
