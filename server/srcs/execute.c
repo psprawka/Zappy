@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 20:55:18 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 02:19:01 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 03:52:19 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		execute_events(void)
 	while (g_server.events)
 	{
 		if (gettimeofday(&(curr), NULL) == EXIT_FAILURE)
-			return (error(0, "Gettimeofday", true));
+			return (error(0, "Gettimeofday [execute_events]", true));
 
 		event = (t_event *)ft_top_queue(g_server.events);
 		if (!event || time_compare(event->event_time, &curr))

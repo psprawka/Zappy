@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 00:14:10 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 02:29:31 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 03:50:56 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ int			init_server_socket(void)
 	struct sockaddr_in	server_addr;
 
 	if ((g_server.serverfd = socket(AF_INET, SOCK_STREAM, 6)) < 0)
-		return (error(0, "Socket", true));
+		return (error(0, "Socket [init_server_socket]", true));
 	ft_bzero(&server_addr, sizeof(server_addr));
 	server_addr.sin_family = AF_INET;
 	server_addr.sin_port = htons(g_server.port);
 	server_addr.sin_addr.s_addr = INADDR_ANY;
 	if (bind(g_server.serverfd, (struct sockaddr *)&server_addr, sizeof(struct sockaddr_in)) == -1)
-		return (error(0, "Bind", true));
+		return (error(0, "Bind [init_server_socket]", true));
 	return (EXIT_SUCCESS);
 }

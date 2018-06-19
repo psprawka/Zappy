@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 15:25:38 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 00:46:58 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 03:52:08 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ struct timeval	*event_time(void *entity, int type, int itable)
 
 	if (gettimeofday(&(curr), NULL) == EXIT_FAILURE)
 	{
-		error(0, "Gettimeofday", true);
+		error(0, "Gettimeofday [event_time]", true);
 		return (NULL);
 	}
 	last_request = NULL;

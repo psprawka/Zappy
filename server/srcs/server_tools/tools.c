@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/31 13:23:45 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 00:44:51 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 03:51:36 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int			tools_world_dimensions(t_player *player)
 	ft_strcat(g_server.buff, ft_itoa(g_server.map->height));
 	ft_strcat(g_server.buff, "\n");
 	if (send(player->fd, g_server.buff, ft_strlen(g_server.buff), 0) == -1)
-		return (error(0, "Send", true));
+		return (error(0, "Send [tools_world_dimensions]", true));
 	return (EXIT_SUCCESS);
 }
 

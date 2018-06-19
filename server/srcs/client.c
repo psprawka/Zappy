@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/31 12:03:58 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 02:21:25 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 03:51:59 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 */
 void	client_death(int clientfd)
 {
-	ft_printf("Player [%d] quit\n", clientfd);
+	printf("Player [%d] quit\n", clientfd);
 	if (g_client_type[clientfd] == T_PLAYER)
 	{
 		clean_queue(clientfd);
@@ -48,10 +48,10 @@ void	new_client(void)
 	socklen = sizeof(struct sockaddr_in);
 	ft_bzero(&temp, sizeof(struct sockaddr_in));
 	if ((connfd = accept(g_server.serverfd, (struct sockaddr *)&temp, &socklen)) == -1)
-		error(0, "Accept error", false);
+		error(0, "Accept [new_client]", false);
 	else
 	{
-		ft_printf("New client joined [%d]\n", connfd);
+		printf("New client joined [%d]\n", connfd);
 		FD_SET(connfd, &g_server.client_fds);
 		send(connfd, MSG_WELCOME, strlen(MSG_WELCOME), 0);
 	}

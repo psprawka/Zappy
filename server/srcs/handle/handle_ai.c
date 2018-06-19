@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 22:03:33 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 00:40:03 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 03:53:16 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int		handle_ai(int fd, char *msg)
 		}
 		i++;
 	}
-	send(fd, MSG_NOCOMMAND, ft_strlen(MSG_NOCOMMAND), 0);
+	if (send(fd, MSG_NOCOMMAND, ft_strlen(MSG_NOCOMMAND), 0) == -1)
+		error(0, "Send [handle_ai]", true);
 	return (EXIT_FAILURE);
 }

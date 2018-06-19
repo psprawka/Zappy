@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/02 01:46:46 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 00:43:40 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 03:22:12 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,19 +66,19 @@ void		init_map_ressource(void)
 // 	{
 // 		squere_nb = rand() % map->width * map->height + 1;
 // 		map->squeres[squere_nb]->linemate++;
-// 		ft_printf("squere [%d] line\n", squere_nb);
+// 		printf("squere [%d] line\n", squere_nb);
 // 	}
 // 	while (map->current_deraumere++ < map->max_deraumere)
 // 	{
 // 		squere_nb = rand() % map->width * map->height + 1;
 // 		map->squeres[squere_nb]->deraumere++;
-// 		ft_printf("squere [%d] dera\n", squere_nb);
+// 		printf("squere [%d] dera\n", squere_nb);
 // 	}
 // 	while (map->current_sibur++ < map->max_sibur)
 // 	{
 // 		squere_nb = rand() % map->width * map->height + 1;
 // 		map->squeres[squere_nb]->sibur++;
-// 		ft_printf("squere [%d] sibur\n", squere_nb);
+// 		printf("squere [%d] sibur\n", squere_nb);
 // 	}
 // }
 
@@ -90,19 +90,19 @@ void		init_map_ressource(void)
 // 	{
 // 		squere_nb = rand() % map->width * map->height + 1;
 // 		map->squeres[squere_nb]->mendiane++;
-// 		ft_printf("squere [%d] mendiane\n", squere_nb);
+// 		printf("squere [%d] mendiane\n", squere_nb);
 // 	}
 // 	while (map->current_phiras++ < map->phiras)
 // 	{
 // 		squere_nb = rand() % map->width * map->height + 1;
 // 		map->squeres[squere_nb]->phiras++;
-// 		ft_printf("squere [%d] phiras\n", squere_nb);
+// 		printf("squere [%d] phiras\n", squere_nb);
 // 	}
 // 	while (map->current_thystame++ < map->max_thystame)
 // 	{
 // 		squere_nb = rand() % map->width * map->height + 1;
 // 		map->squeres[squere_nb]->thystame++;
-// 		ft_printf("squere [%d] thystame\n", squere_nb);
+// 		printf("squere [%d] thystame\n", squere_nb);
 // 	}
 // }
 

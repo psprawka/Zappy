@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 03:41:58 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 02:15:35 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 02:47:26 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,6 @@ struct timeval	*set_time_alarm(void);
 */
 void			generate_ressource(int ressource);
 void			init_map_ressource(void);
-
-/*
-**	fork/eggs.c
-*/
-t_egg			*new_egg(t_player *player);
-int				add_egg_team(t_egg *egg, t_team *team);
-int				handle_egg(t_player *player);
 
 /*
 **	tools/

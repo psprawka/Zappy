@@ -6,18 +6,18 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 22:08:23 by tle-huu-          #+#    #+#             */
-/*   Updated: 2018/06/19 00:03:36 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 02:45:26 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-static	int		absol(int a)
+static int	absol(int a)
 {
 	return (a < 0 ? -a : a);
 }
 
-int				calcul_square(t_vector *direction)
+int			calcul_square(t_vector *direction)
 {
 	int		square;
 	int		x;

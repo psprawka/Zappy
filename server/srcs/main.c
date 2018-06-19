@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 21:18:48 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 02:29:00 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 03:52:38 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int		main_game_loop(void)
 	}
 	// g_server = NULL;
 	// sleep(100);
-	return (error(0, "Select", true));
+	return (error(0, "Select [main_game_loop]", true));
 }
 
 /*
@@ -136,7 +136,7 @@ int		main(int ac, char **av)
 	/*for testing*/print_map(&g_server, g_server.map->width, g_server.map->height);
 
 	if (listen(g_server.serverfd, FD_SETSIZE) == -1)
-		return (error(0, "Listen", true));
+		return (error(0, "Listen [main]", true));
 	ft_bzero(&g_server.client_fds, sizeof(fd_set));
 	FD_SET(g_server.serverfd, &g_server.client_fds);
 	return (main_game_loop());

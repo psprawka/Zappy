@@ -6,13 +6,13 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/16 12:25:34 by tle-huu-          #+#    #+#             */
-/*   Updated: 2018/06/19 00:38:47 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 02:45:17 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-t_egg		*new_egg(t_player *player)
+static t_egg	*new_egg(t_player *player)
 {
 	t_egg		*egg;
 
@@ -29,7 +29,7 @@ t_egg		*new_egg(t_player *player)
 	return (egg);
 }
 
-int			add_egg_team(t_egg *egg, t_team *team)
+static int		add_egg_team(t_egg *egg, t_team *team)
 {
 	t_node		*node;
 
@@ -42,7 +42,7 @@ int			add_egg_team(t_egg *egg, t_team *team)
 	return (EXIT_SUCCESS);
 }
 
-int			handle_egg(t_player *player)
+int				handle_egg(t_player *player)
 {
 	t_egg		*egg;
 

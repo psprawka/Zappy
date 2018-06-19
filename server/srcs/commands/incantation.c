@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:50:35 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 00:26:46 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 03:55:52 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_level		g_level[] =
 	{0, 0, {0, 0, 0, 0, 0, 0, 0}},
 };
 
-int		require_players(void *entity, int *players_required)
+static int	require_players(void *entity, int *players_required)
 {
 	int		i;
 	int		itable;
@@ -45,33 +45,33 @@ int		require_players(void *entity, int *players_required)
 	return (itable >= g_level[P_ENTITY->level].players_nb ? EXIT_SUCCESS : EXIT_FAILURE);
 }
 
-int		require_resources(void *entity, int *players_required)
-{
-	int		itable;
-	int		iresource;
-	int		allowed_players;
-	t_level	level;
+// static int	require_resources(void *entity, int *players_required)
+// {
+// 	int		itable;
+// 	int		iresource;
+// 	int		allowed_players;
+// 	t_level	level;
 
-	itable = 0;
-	level = g_level[P_ENTITY->level];
-	allowed_players = 0;
-	while (itable < MAX_INCANTATION)
-	{
-		iresource = 0;
-		while (players_required[itable] && iresource < 7)
-		{
-			if (((t_player *)g_entity[players_required[itable]])->inventory[iresource] < level.resources[iresource])
-			{
-				players_required[itable] = 0;
-				break ;
-			}
-			iresource++;
-		}
-		allowed_players++;
-		itable++;
-	}
-	return (allowed_players < level.players_nb ? EXIT_FAILURE : EXIT_SUCCESS);
-}
+// 	itable = 0;
+// 	level = g_level[P_ENTITY->level];
+// 	allowed_players = 0;
+// 	while (itable < MAX_INCANTATION)
+// 	{
+// 		iresource = 0;
+// 		while (players_required[itable] && iresource < 7)
+// 		{
+// 			if (((t_player *)g_entity[players_required[itable]])->inventory[iresource] < level.resources[iresource])
+// 			{
+// 				players_required[itable] = 0;
+// 				break ;
+// 			}
+// 			iresource++;
+// 		}
+// 		allowed_players++;
+// 		itable++;
+// 	}
+// 	return (allowed_players < level.players_nb ? EXIT_FAILURE : EXIT_SUCCESS);
+// }
 
 int		command_incantation(void *entity, char *msg)
 {
@@ -79,7 +79,7 @@ int		command_incantation(void *entity, char *msg)
 	int		i;
 
 	i = 0;
-    printf("%sPlayer %d -> [incantation]%s\n", CYAN, P_ENTITY->fd, NORMAL);
+    printf("%sPlayer [%d] -> [incantation]%s\n", CYAN, P_ENTITY->fd, NORMAL);
 	ft_bzero(players_required, sizeof(players_required));
 	if (send(P_ENTITY->fd, MSG_EVALUATION, ft_strlen(MSG_EVALUATION), 0) < 0 ||
 		P_ENTITY->level > 7 ||
@@ -89,7 +89,8 @@ int		command_incantation(void *entity, char *msg)
 			ft_strcpy(g_server.buff, "current level: ");
 			ft_strcat(g_server.buff, ft_itoa(P_ENTITY->level));
 			ft_strcat(g_server.buff, "\n");
-			send(P_ENTITY->fd, g_server.buff, ft_strlen(g_server.buff), 0);
+			if (send(P_ENTITY->fd, g_server.buff, ft_strlen(g_server.buff), 0) == -1)
+				error(0, "Send [incantation]", true);
 			return (EXIT_FAILURE);
 		}
 	while (i < MAX_INCANTATION)

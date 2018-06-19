@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:49:05 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 00:25:45 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 03:36:59 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 #define WIDTH g_server.map->width
 #define HEIGHT g_server.map->height
 
-int				command_advance(void *entity, char *msg)
+int		command_advance(void *entity, char *msg)
 {
-	printf("%sPlayer %d -> [advance]%s\n", CYAN, P_ENTITY->fd, NORMAL);
+	printf("%sPlayer [%d] -> [advance]%s\n", CYAN, P_ENTITY->fd, NORMAL);
 	if (P_ENTITY->direction & NORTH)
 		P_ENTITY->y = ft_modulo((P_ENTITY->y + 1), HEIGHT);
 	if (P_ENTITY->direction & EAST)
@@ -28,7 +28,7 @@ int				command_advance(void *entity, char *msg)
 		P_ENTITY->x = ft_modulo(P_ENTITY->x - 1, WIDTH);
 	P_ENTITY->requests_nb--;
 	if (send(P_ENTITY->fd, MSG_OK, strlen(MSG_OK), 0) == -1)
-		return (error(0, "Send", false));
+		return (error(0, "Send advance", false));
 	player_position(g_server.graphic_fd, P_ENTITY);
 	return (EXIT_SUCCESS);
 }

@@ -6,18 +6,18 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:49:36 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 00:38:32 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 03:40:33 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-static int			calcul_far_right(int level)
+static int		calcul_far_right(int level)
 {
 	return (level * level + 2 * level);
 }
 
-static int			nbr_player_square(int x, int y, int current_fd)
+static int		nbr_player_square(int x, int y, int current_fd)
 {
 	int			i;
 	int			nbr;
@@ -35,7 +35,7 @@ static int			nbr_player_square(int x, int y, int current_fd)
 	return (nbr);
 }
 
-static void			put_in_buffer(t_square *square, int x, int y, int current_fd)
+static void		put_in_buffer(t_square *square, int x, int y, int current_fd)
 {
 	int		nbr_players;
 	int		first;
@@ -46,7 +46,7 @@ static void			put_in_buffer(t_square *square, int x, int y, int current_fd)
 	put_ressources_buffer(square, nbr_players, first);
 }
 
-static void			process_square(int x, int y, t_player *player)
+static void		process_square(int x, int y, t_player *player)
 {
 	t_square		*square;
 
@@ -62,7 +62,7 @@ static void			process_square(int x, int y, t_player *player)
 	put_in_buffer(square, x, y, player->fd);
 }
 
-int					command_see(void *entity, char *msg)
+int				command_see(void *entity, char *msg)
 {
 	int		y;
 	int		x;
@@ -85,6 +85,6 @@ int					command_see(void *entity, char *msg)
 	strcat(g_server.buff, "}\n");
 	P_ENTITY->requests_nb--;
 	if (send(P_ENTITY->fd, g_server.buff, strlen(g_server.buff), 0) == -1)
-		return (error(0, "Send", false));
+		return (error(0, "Send [see]", false));
 	return (EXIT_SUCCESS);
 }

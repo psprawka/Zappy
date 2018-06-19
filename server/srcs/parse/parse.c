@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/20 17:24:12 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 01:51:15 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 03:22:19 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		parse_args(int ac, char **av)
 	{
 		if (!ft_strcmp(av[i], "-q") && opt_print_queue(av, &i))
 			continue ;
-		ft_printf("[%s]\n", av[i]);
+		printf("[%s]\n", av[i]);
 		if (av[i][0] != '-' || ft_strlen(av[i]) != 2 || !av[i + 1])
 			return (error(1, NULL, true));
 		j = -1;

@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/20 17:26:09 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 00:40:48 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 03:49:55 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ int		handle_recv(int fd)
 			handle_graphic(fd, buff);
 	}
 	else
-		ret == 0 ? client_death(fd) : error(0, "Ret", false);
+		ret == 0 ? client_death(fd) : error(0, "Ret [handle_recv]", false);
 	return (EXIT_SUCCESS);
 }

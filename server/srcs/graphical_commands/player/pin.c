@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pin.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-huu- <tle-huu-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 17:16:02 by tle-huu-          #+#    #+#             */
-/*   Updated: 2018/06/18 00:34:35 by tle-huu-         ###   ########.fr       */
+/*   Updated: 2018/06/19 03:55:11 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,40 +27,23 @@
 void	send_inventory(int fd, t_player *player)
 {
 	int		len;
-	char	*freer;
+	int		i;
 
+	i = 0;
 	strcpy(g_server.buff, "pin ");
-	strcat(g_server.buff, (freer = ft_itoa(player->fd)));
-	free(freer);
+	strcat(g_server.buff, ft_itoa(player->fd));
 	strcat(g_server.buff, " ");
-	strcat(g_server.buff, (freer = ft_itoa(player->x)));
-	free(freer);
+	strcat(g_server.buff, ft_itoa(player->x));
 	strcat(g_server.buff, " ");
-	strcat(g_server.buff, (freer = ft_itoa(player->y)));
-	free(freer);
-	strcat(g_server.buff, " ");
-	strcat(g_server.buff, (freer = ft_itoa(player->inventory[0])));
-	free(freer);
-	strcat(g_server.buff, " ");
-	strcat(g_server.buff, (freer = ft_itoa(player->inventory[1])));
-	free(freer);
-	strcat(g_server.buff, " ");
-	strcat(g_server.buff, (freer = ft_itoa(player->inventory[2])));
-	free(freer);
-	strcat(g_server.buff, " ");
-	strcat(g_server.buff, (freer = ft_itoa(player->inventory[3])));
-	free(freer);
-	strcat(g_server.buff, " ");
-	strcat(g_server.buff, (freer = ft_itoa(player->inventory[4])));
-	free(freer);
-	strcat(g_server.buff, " ");
-	strcat(g_server.buff, (freer = ft_itoa(player->inventory[5])));
-	free(freer);
-	strcat(g_server.buff, " ");
-	strcat(g_server.buff, (freer = ft_itoa(player->inventory[6])));
-	free(freer);
+	strcat(g_server.buff, ft_itoa(player->y));
+	while (i < 7)
+	{
+		strcat(g_server.buff, " ");
+		strcat(g_server.buff, ft_itoa(player->inventory[i]));
+		i++;
+	}
 	strcat(g_server.buff, "\n");
 	len = strlen(g_server.buff);
-	send(fd, g_server.buff, len, 0);
-
+	if (send(fd, g_server.buff, len, 0) == -1)
+		error(0, "Send [g: pin]", true);
 }

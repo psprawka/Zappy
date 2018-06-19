@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 00:04:41 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 00:42:29 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 03:50:09 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ int		init_square(t_square **square)
 	i = 0;
 	if (!((*square) = ft_memalloc(sizeof(t_square))) ||
 		!((*square)->players = ft_memalloc(sizeof(t_player) * FD_SETSIZE)))
-		return (error(0, "Memalloc", true));
-	while (i < 7)//
-		(*square)->ressources[i++] = 0;//
-	i = 0;//
+		return (error(0, "Memalloc [init_square]", true));
 	while (i < FD_SETSIZE)
 		(*square)->players[i++] = NULL;
 	return (EXIT_SUCCESS);

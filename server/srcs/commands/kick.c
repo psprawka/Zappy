@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 18:03:33 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 00:26:57 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 03:37:48 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,9 @@
 #define WIDTH g_server.map->width
 #define HEIGHT g_server.map->height
 
-void	send_kick_message(t_player *player, int kicked_from, int facing)
+static void	send_kick_message(t_player *player, int kicked_from, int facing)
 {
 	int		k;
-	char	*freer;
 
 	k = 1;
 	while (facing != kicked_from)
@@ -34,14 +33,13 @@ void	send_kick_message(t_player *player, int kicked_from, int facing)
 			facing = WEST;
 	}
 	strcpy(g_server.buff, "moving ");
-	strcat(g_server.buff, (freer = ft_itoa(k)));
-	free(freer);
+	strcat(g_server.buff, ft_itoa(k));
 	strcpy(g_server.buff, "\n");
 	if (send(player->fd, g_server.buff, strlen(g_server.buff), 0) == -1)
-		error(0, "Send", false);
+		error(0, "Send [kick_message]", false);
 }
 
-void	kick_player(t_player *kicker, t_player *to_kick)
+static void	kick_player(t_player *kicker, t_player *to_kick)
 {
 	if (kicker->direction & NORTH)
 	{
@@ -65,13 +63,13 @@ void	kick_player(t_player *kicker, t_player *to_kick)
 	}
 }
 
-int		command_kick(void *entity, char *msg)
+int			command_kick(void *entity, char *msg)
 {
 	int	i;
 	int	tmp;
 
 	i = 0;
-	printf("%sPlayer %d -> [kick]%s\n", CYAN, P_ENTITY->fd, NORMAL);
+	printf("%sPlayer [%d] -> [kick]%s\n", CYAN, P_ENTITY->fd, NORMAL);
 	while (i < FD_SETSIZE)
 	{
 		if ((g_client_type[i] != T_PLAYER) && ++i)
@@ -86,7 +84,7 @@ int		command_kick(void *entity, char *msg)
 	}
 	P_ENTITY->requests_nb--;
 	if (send(P_ENTITY->fd, MSG_OK, sizeof(MSG_OK), 0) == -1)
-		return(error(0, "Send", false));
+		return(error(0, "Send [kick]", false));
 	notify_kick(g_server.graphic_fd, P_ENTITY);
 	return (EXIT_SUCCESS);
 }

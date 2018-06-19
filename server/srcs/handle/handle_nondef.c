@@ -6,13 +6,11 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 22:03:48 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 00:41:54 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 03:53:23 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
-
-# define GRAPHICERROR "Sorry, a graphical client is already watching the game\n"
 
 /*
 **	Function handle_nondef determines whether client is an ai (PLAYER)
@@ -29,10 +27,7 @@ int 	handle_nondef(int fd, char *msg)
 	if (!ft_strcmp(msg, "GRAPHIC"))
 	{
 		if (g_server.graphic_fd)
-		{
-			send(fd, GRAPHICERROR, strlen(GRAPHICERROR), 0);
 			return (error(7, NULL, true));
-		}
 		g_client_type[fd] = T_GRAPHIC;
 		g_server.graphic_fd = fd;
 		send_graphic_greeting(fd);
@@ -54,7 +49,8 @@ int 	handle_nondef(int fd, char *msg)
 				notify_connectegg(g_server.graphic_fd, ((t_egg *)(ft_top_queue(g_server.teams[team_number]->egg_queue))));
 				notify_new_player(g_server.graphic_fd, ((t_player *)(g_entity[fd])));
 			}
-			send(fd, MSG_FULLTEAM, strlen(MSG_FULLTEAM), 0);
+			if (send(fd, MSG_FULLTEAM, strlen(MSG_FULLTEAM), 0) == -1)
+				error(0, "Send [handle_nondef]", true);
 			return (-1);
 		}
 		notify_new_player(g_server.graphic_fd, g_entity[fd]);

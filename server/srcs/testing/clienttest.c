@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:29:16 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/17 01:45:16 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 03:22:03 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,17 @@ typedef struct	s_client
 int		errorcli(int errnb, char *msg, bool ifexit)
 {
 	if (errnb == 1)
-		ft_printf("Usage: server -p <port> -x <width> -y <height> -n <team> [<team>] [<team>] ... -c <nb> -t <t>\n");
+		printf("Usage: server -p <port> -x <width> -y <height> -n <team> [<team>] [<team>] ... -c <nb> -t <t>\n");
 	else if (errnb == 2)
-		ft_printf("Port number has to be between 1024 and 65535!\n");
+		printf("Port number has to be between 1024 and 65535!\n");
 	else if (errnb == 3)
-		ft_printf("x and y have to be between 2 and 100\n");
+		printf("x and y have to be between 2 and 100\n");
 	else if (errnb == 4)
-		ft_printf("At least one team required\n");
+		printf("At least one team required\n");
 	else if (errnb == 5)
-		ft_printf("Number of clients authorized at the beginning of the game has to be grater than 5 and less than %d.\n", FD_SETSIZE);
+		printf("Number of clients authorized at the beginning of the game has to be grater than 5 and less than %d.\n", FD_SETSIZE);
 	else 
-		ft_printf("%s%s: %s%s\n", RED, msg, strerror(errno), NORMAL);	
+		printf("%s%s: %s%s\n", RED, msg, strerror(errno), NORMAL);	
 	return (ifexit == true ? EXIT_FAILURE : EXIT_SUCCESS);
 }
 

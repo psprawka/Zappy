@@ -6,20 +6,20 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 18:04:46 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 00:39:43 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 03:39:48 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
 
-static int				terence_modulo(int square)
+static int		terence_modulo(int square)
 {
 	if (square >= 9)
 		square = (square % 9) + 1;
 	return (square);
 }
 
-static int				square_orientation(t_player *receiver, int square)
+static int		square_orientation(t_player *receiver, int square)
 {
 	int		direction;
 
@@ -35,7 +35,7 @@ static int				square_orientation(t_player *receiver, int square)
 	return (square);
 }
 
-static int				message_from(t_map *map, t_player *sender, t_player *receiver)
+static int		message_from(t_map *map, t_player *sender, t_player *receiver)
 {
 	t_vector		translation;
 	t_vector		center;
@@ -56,7 +56,7 @@ static int				message_from(t_map *map, t_player *sender, t_player *receiver)
 	return (calcul_square(&direction));
 }
 
-static void				send_message_to_others(t_player *sender, t_player *receiver, char *msg)
+static void		send_message_to_others(t_player *sender, t_player *receiver, char *msg)
 {
 	int		i;
 	int		square;
@@ -71,14 +71,14 @@ static void				send_message_to_others(t_player *sender, t_player *receiver, char
 	if (msg[strlen(msg) - 1] != '\n')
 		strcat(g_server.buff, "\n");
 	if (send(receiver->fd, g_server.buff, strlen(g_server.buff), 0) == -1)
-		error(0, "Send", false);
+		error(0, "Send [broadcast_message]", false);
 
 }
 int				command_broadcast(void *entity, char *msg)
 {
 	int		i;
 
-	printf("%sPlayer %d -> [broadcast]: [%s]%s\n", CYAN, P_ENTITY->fd, msg, NORMAL);
+	printf("%sPlayer [%d] -> [broadcast]: [%s]%s\n", CYAN, P_ENTITY->fd, msg, NORMAL);
 	i = 0;
 	msg += ft_strlen("broadcast ");
 	while (i < FD_SETSIZE)
@@ -89,7 +89,7 @@ int				command_broadcast(void *entity, char *msg)
 	}
 	P_ENTITY->requests_nb--;
 	if (send(P_ENTITY->fd, MSG_OK, strlen(MSG_OK), 0) == -1)
-		return (error(0, "Send", false));
+		return (error(0, "Send [broadcast]", false));
 	notify_broadcast(g_server.graphic_fd, P_ENTITY, msg);
 	return (EXIT_SUCCESS);
 }

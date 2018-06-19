@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 18:04:32 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 00:27:04 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 03:38:44 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		command_put(void *entity, char *msg)
 	int			y;
 	int			ressource_nbr;
 
-	printf("%sPlayer %d -> [put]%s\n", CYAN, P_ENTITY->fd, NORMAL);
+	printf("%sPlayer [%d] -> [put]%s\n", CYAN, P_ENTITY->fd, NORMAL);
 	ressource_nbr = parse_message(msg);
 	if (ressource_nbr < 0 || ressource_nbr > 6)
 		return (error(8, NULL, true));
@@ -50,12 +50,12 @@ int		command_put(void *entity, char *msg)
 		P_ENTITY->inventory[ressource_nbr]--;
 		square->ressources[ressource_nbr]++;
 		if (send(P_ENTITY->fd, MSG_OK, strlen(MSG_OK), 0) == -1)
-			return (error(0, "Send", false));
+			return (error(0, "Send [put]", false));
 	}
 	else
 	{
 		if (send(P_ENTITY->fd, MSG_KO, strlen(MSG_KO), 0) == -1)
-			return (error(0, "Send", false));
+			return (error(0, "Send [put]", false));
 	}
 	ressource_drop(g_server.graphic_fd, P_ENTITY, ressource_nbr);
 	send_inventory(g_server.graphic_fd, P_ENTITY);

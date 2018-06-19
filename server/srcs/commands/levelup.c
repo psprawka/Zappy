@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/17 21:36:42 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 00:20:25 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 03:38:29 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		command_levelup(void *entity, char *msg)
 	P_ENTITY->requests_nb--;
 	P_ENTITY->incantation = false;
 	if (send(P_ENTITY->fd, g_server.buff, ft_strlen(g_server.buff), 0) == -1)
-		return (EXIT_FAILURE);
+		return (error(0, "Send [levelup]", true));
 	player_level(g_server.graphic_fd, P_ENTITY);
 	return (EXIT_SUCCESS);
 }
