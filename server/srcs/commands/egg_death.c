@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/17 08:09:30 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 00:16:18 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/21 05:34:27 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int		command_egg_death(void *entity, char *msg)
 		egg = (t_egg *)egg_node->data;
 		if (egg && egg == entity)
 		{
-			notify_starve_egg(g_server.graphic_fd, egg);
-			E_ENTITY->team->allowed_eggs--;///
+			notify_starve_egg(egg);
+			E_ENTITY->team->allowed_eggs--;
 			remove_node(&E_ENTITY->team->egg_queue, prev_egg_node, egg_node);
 			return (EXIT_SUCCESS);
 		}

@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/18 18:30:53 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 07:59:12 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/21 04:39:15 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,19 @@
 
 #include "zappy.h"
 
+typedef struct	s_egg
+{
+	t_team		*team;
+	int			x;
+	int			y;
+	int			father_fd;
+	int			hatched;
+	int			number;
+}				t_egg;
+
 typedef struct	s_team
 {
 	char		*name;
-	// int			hlvl;	//the highest lvl
 	int			max_players;
 	int			connected;
 	int			allowed_eggs;
@@ -26,14 +35,12 @@ typedef struct	s_team
 
 }				t_team;
 
-
 typedef struct	s_server
 {
 	t_map			*map;				/* game map */
 	t_team			**teams;			/* set of all teams */
 	t_queue			*events;			/* priority queue of events */
-	// t_queue			*graphics;		/* queue of graphical clients
-	int				graphic_fd;
+	t_list			*graphics;			/* a list of graphical clients */
 	fd_set			client_fds;			/* set of all clients fds */
 	char			*buff;				/* buff used to send messages to clients in order to reduce malloc usage */
 	struct timeval	time;				/* "actual" game time */

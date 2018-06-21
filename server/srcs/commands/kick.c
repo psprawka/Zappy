@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 18:03:33 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 03:37:48 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/21 06:16:26 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,13 @@ int			command_kick(void *entity, char *msg)
 			&& ((t_player *)g_entity[i])->fd != P_ENTITY->fd)
 			{
 				kick_player(P_ENTITY, g_entity[i]);
-				player_position(g_server.graphic_fd, g_entity[i]);
+				notify_player_position(0, g_entity[i]);
 			}
 		i++;
 	}
 	P_ENTITY->requests_nb--;
 	if (send(P_ENTITY->fd, MSG_OK, sizeof(MSG_OK), 0) == -1)
 		return(error(0, "Send [kick]", false));
-	notify_kick(g_server.graphic_fd, P_ENTITY);
+	notify_kick(P_ENTITY);
 	return (EXIT_SUCCESS);
 }

@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pie.c                                              :+:      :+:    :+:   */
+/*   print_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/13 17:34:18 by tle-huu-          #+#    #+#             */
-/*   Updated: 2018/06/21 06:04:09 by psprawka         ###   ########.fr       */
+/*   Created: 2018/06/21 04:24:22 by psprawka          #+#    #+#             */
+/*   Updated: 2018/06/21 04:27:31 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "zappy.h"
+#include "libft.h"
 
-void	notify_end_incantation(t_player *player, int result)
+void	print_list(t_list *list)
 {
-	strcpy(g_server.buff, "pie ");
-	strcat(g_server.buff, ft_itoa(player->x));
-	strcat(g_server.buff, " ");
-	strcat(g_server.buff, ft_itoa(player->y));
-	strcat(g_server.buff, " ");
-	strcat(g_server.buff, ft_itoa(result));
-	strcat(g_server.buff, "\n");
-	if (notify_graphics(0) == EXIT_FAILURE)
-		error(0, "Send [g: pie]", true);
+	int		i;
+	t_list	*tmp;
+
+	i = 1;
+	tmp = list;
+	printf("%s\nLIST:\n", YELLOW);
+	while (tmp)
+	{
+		printf("%d. p:[%p], k:[%d]\n", i++, tmp, tmp->key);
+		tmp = tmp->next;
+	}
+	printf("%s\n", NORMAL);
 }

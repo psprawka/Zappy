@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 17:00:56 by tle-huu-          #+#    #+#             */
-/*   Updated: 2018/06/19 04:22:46 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/21 06:14:09 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@
 
 void	send_block_contents(int fd, int x, int y)
 {
-	int		len;
-
 	strcpy(g_server.buff, "bct ");
 	strcat(g_server.buff, ft_itoa(x));
 	strcat(g_server.buff, " ");
@@ -46,8 +44,7 @@ void	send_block_contents(int fd, int x, int y)
 	strcat(g_server.buff, " ");
 	strcat(g_server.buff, ft_itoa(g_server.map->squares[x][y]->ressources[6]));
 	strcat(g_server.buff, "\n");
-	len = strlen(g_server.buff);
-	if (g_server.graphic_fd && send(fd, g_server.buff, len, 0) == -1)
+	if (notify_graphics(fd) == EXIT_FAILURE)
 		error(0, "Send [g: bct]", true);
 }
 

@@ -6,12 +6,11 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 17:29:03 by tle-huu-          #+#    #+#             */
-/*   Updated: 2018/06/19 04:22:14 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/21 06:04:04 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zappy.h"
-
 
 static void	start_incantation_buff(t_player *player)
 {
@@ -25,9 +24,8 @@ static void	start_incantation_buff(t_player *player)
 	strcat(g_server.buff, " ");
 }
 
-void		start_incantation(int fd, t_player *player)
+void	notify_start_incantation(t_player *player)
 {
-	int			len;
 	int			x;
 	int			y;
 	int			i;
@@ -47,7 +45,6 @@ void		start_incantation(int fd, t_player *player)
 		i++;
 	}
 	strcat(g_server.buff, "\n");
-	len = strlen(g_server.buff);
-	if (g_server.graphic_fd && send(fd, g_server.buff, len, 0) == -1)
+	if (notify_graphics(0) == EXIT_FAILURE)
 		error(0, "Send [g: pic]", true);
 }

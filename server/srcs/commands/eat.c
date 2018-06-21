@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/16 22:49:02 by tle-huu-          #+#    #+#             */
-/*   Updated: 2018/06/19 06:49:00 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/21 06:17:13 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		command_eat(void *entity, char *msg)
 		printf("%sPlayer [%d]-> [EATING]%s\n", ORANGE, P_ENTITY->fd, NORMAL);
 		P_ENTITY->inventory[0]--;
 		add_event(entity, T_NONDEF, 13, "eat");
-		send_inventory(g_server.graphic_fd, P_ENTITY);
+		send_inventory(0, P_ENTITY);
 	}
 	else
 	{

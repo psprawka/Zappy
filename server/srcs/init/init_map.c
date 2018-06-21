@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 00:04:41 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 03:50:09 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 08:18:06 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,37 @@ int		init_square(t_square **square)
 	while (i < FD_SETSIZE)
 		(*square)->players[i++] = NULL;
 	return (EXIT_SUCCESS);
+}
+
+/////////////////////////////////////////
+static void		init_map_ressource(void)
+{
+	int		i;
+	int		k;
+	int		ressource;
+	int		nbr_team;
+	int		map_size;
+
+	i = 0;
+	k = 0;
+	ressource = 0;
+	map_size = g_server.map->width;
+	nbr_team = sizeof(g_server.teams) / sizeof(t_team);
+	while (k < 10)
+	{
+		i = 0;
+		while (i < map_size)
+		{
+			ressource = 0;
+			while (ressource < 7)
+			{
+				generate_ressource(ressource);
+				ressource++;
+			}
+			i++;
+		}
+		k++;
+	}
 }
 
 /*

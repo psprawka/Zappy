@@ -6,7 +6,7 @@
 #    By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/09 23:21:55 by psprawka          #+#    #+#              #
-#    Updated: 2018/06/19 04:08:21 by psprawka         ###   ########.fr        #
+#    Updated: 2018/06/21 04:49:25 by psprawka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS_SERVER = $(SRCS_DIR)main.c \
 		$(SRCS_DIR)queue.c \
 		$(SRCS_DIR)event.c \
 		$(SRCS_DIR)execute.c \
+		$(SRCS_DIR)graphical.c \
 		$(SRCS_DIR)$(PARSE)opt.c \
 		$(SRCS_DIR)$(PARSE)parse.c \
 		$(SRCS_DIR)$(TOOLS)tools.c \

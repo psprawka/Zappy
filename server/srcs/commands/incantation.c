@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:50:35 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 03:55:52 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/21 05:28:29 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,6 @@ int		command_incantation(void *entity, char *msg)
 		}
 		i++;
 	}
-	start_incantation(g_server.graphic_fd, P_ENTITY);
+	notify_start_incantation(P_ENTITY);
 	return (EXIT_FAILURE);
 }

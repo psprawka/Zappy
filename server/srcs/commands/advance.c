@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 21:49:05 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 03:36:59 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/21 06:15:19 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ int		command_advance(void *entity, char *msg)
 	P_ENTITY->requests_nb--;
 	if (send(P_ENTITY->fd, MSG_OK, strlen(MSG_OK), 0) == -1)
 		return (error(0, "Send advance", false));
-	player_position(g_server.graphic_fd, P_ENTITY);
+	notify_player_position(0, P_ENTITY);
 	return (EXIT_SUCCESS);
 }

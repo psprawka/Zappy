@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 05:34:17 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/16 04:48:12 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/21 04:31:02 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,28 @@
 # define MAROON			"\033[38;5;88m"
 # define GREY			"\033[38;5;246m"
 
-typedef struct	s_node
-{
-	void			*data;
-	size_t			dsize;
-	struct s_node	*next;
+// typedef struct	s_node
+// {
+// 	void			*data;
+// 	size_t			dsize;
+// 	struct s_node	*next;
 	
-}				t_node;
+// }				t_node;
 
-typedef struct	s_queue
-{
-	t_node		*first;
-	t_node		*last;
+
+
+// typedef struct	s_queue
+// {
+// 	t_node		*first;
+// 	t_node		*last;
 	
-}				t_queue;
+// }				t_queue;
 
-typedef struct	s_event
-{
-	struct timeval		*event_time;
-	char				*msg;
-}				t_event;
+// typedef struct	s_event
+// {
+// 	struct timeval		*event_time;
+// 	char				*msg;
+// }				t_event;
 
 
 // ---------- help ---------
@@ -246,29 +248,80 @@ typedef struct	s_event
 // 	print_queue(myqueue, YELLOW);
 // }
 
-int main(void)
-{
-	t_queue	*myqueue;
+// int main(void)
+// {
+// 	t_queue	*myqueue;
 
-	int		i = 1;
+// 	int		i = 1;
 
-	// srand(time(NULL));
-	// myqueue = create_queue();
-	// add_queue(myqueue, "kick");
-	// add_queue(myqueue, "see");
-	// add_queue(myqueue, "inventory");
-	// remove_queue(myqueue);
-	// get_top(myqueue);
-	// remove_queue(myqueue);
-	// add_queue(myqueue, "right");
-	// get_top(myqueue);
-	// add_queue(myqueue, "left");
-	// add_queue(myqueue, "advance");
-	// remove_queue(myqueue);
-	// remove_queue(myqueue);
-	// add_queue(myqueue, "kick2");
-	// add_queue(myqueue, "see2");
-	// get_top(myqueue);
-	// add_queue(myqueue, "inventory2");
-	// remove_queue(myqueue);
-}
+// 	// srand(time(NULL));
+// 	// myqueue = create_queue();
+// 	// add_queue(myqueue, "kick");
+// 	// add_queue(myqueue, "see");
+// 	// add_queue(myqueue, "inventory");
+// 	// remove_queue(myqueue);
+// 	// get_top(myqueue);
+// 	// remove_queue(myqueue);
+// 	// add_queue(myqueue, "right");
+// 	// get_top(myqueue);
+// 	// add_queue(myqueue, "left");
+// 	// add_queue(myqueue, "advance");
+// 	// remove_queue(myqueue);
+// 	// remove_queue(myqueue);
+// 	// add_queue(myqueue, "kick2");
+// 	// add_queue(myqueue, "see2");
+// 	// get_top(myqueue);
+// 	// add_queue(myqueue, "inventory2");
+// 	// remove_queue(myqueue);
+// }
+
+
+
+// t_list	*find_dlist(t_list *list, int key)
+// {
+// 	t_list	*tmp;
+
+// 	i = 1;
+// 	tmp = list;
+
+// 	while (tmp)
+// 	{
+// 		if (tmp->key == key)
+// 			return (tmp);
+// 		tmp = tmp->next;
+// 	}
+// 	return (NULL);	
+// }
+
+
+
+
+
+// int main(void)
+// {
+// 	t_list *list = NULL;
+
+// 	add_list(&list, 5);
+// 	print_list(list);
+// 	add_list(&list, 8);
+// 	add_list(&list, 1);
+// 	add_list(&list, -1);
+// 	remove_list(&list, 8);
+// 	remove_list(&list, 8);
+// 	add_list(&list, 0);
+// 	print_list(list);
+// 	remove_list(&list, 1);
+// 	print_list(list);
+// 	add_list(&list, 20);
+// 	print_list(list);
+// 	add_list(&list, 5);
+// 	add_list(&list, 8);
+// 	add_list(&list, 1);
+// 	add_list(&list, -1);
+// 	print_list(list);
+// 	free_list(&list);
+// 	printf("wut\n");
+// 	print_list(list);
+// 	list = NULL;
+// 	sleep(10);
+// }

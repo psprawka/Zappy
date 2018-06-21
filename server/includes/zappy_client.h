@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 03:41:46 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/18 03:57:09 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 08:46:38 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,5 @@ typedef struct	s_player
 	bool			incantation;
 
 }				t_player;
-
-typedef struct	s_egg
-{
-	t_team		*team;
-	int			x;
-	int			y;
-	int			father_fd;
-	int			hatched;
-	int			number;
-}				t_egg;
 
 #endif

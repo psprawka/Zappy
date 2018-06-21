@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 16:55:29 by tle-huu-          #+#    #+#             */
-/*   Updated: 2018/06/19 04:22:53 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/21 06:14:25 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	send_teams(int fd)
 {
-	int					i;
-	int					len;
+	int		i;
 
 	i = 0;
 	while (g_server.teams && g_server.teams[i])
@@ -23,8 +22,7 @@ void	send_teams(int fd)
 		strcpy(g_server.buff, "tna ");
 		strcat(g_server.buff, g_server.teams[i]->name);
 		strcat(g_server.buff, "\n");
-		len = strlen(g_server.buff);
-		if (g_server.graphic_fd && send(fd, g_server.buff, len, 0) == -1)
+		if (notify_graphics(fd) == EXIT_FAILURE)
 			error(0, "Send [g: tna]", true);
 		i++;
 	}

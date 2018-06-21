@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 03:41:58 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 07:54:54 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/21 06:13:43 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,16 @@ int				add_event(void *entity, int type, int itable, char *msg);
 /*
 **	free.c
 */
+void			free_queue(t_queue *queue, void (*fct)(void *));
 void			free_event(void *event);
 void			free_player(int fd);
 void			free_server(void);
+
+
+/*
+**	graphical.c
+*/
+int				notify_graphics(int fd);
 
 /*
 **	handle/
@@ -97,7 +104,6 @@ struct timeval	*set_time_alarm(void);
 **	generator.c
 */
 void			generate_ressource(int ressource);
-void			init_map_ressource(void);
 
 /*
 **	tools/

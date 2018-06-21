@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 22:04:09 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/15 22:11:32 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/21 04:47:56 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int 	handle_graphic(int fd, char *msg)
 {
-	
+	printf("handle graphics\n");
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/31 12:03:58 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 03:51:59 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/21 04:41:31 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ void	client_death(int clientfd)
 	if (g_client_type[clientfd] == T_PLAYER)
 	{
 		clean_queue(clientfd);
-		notify_starve(g_server.graphic_fd, g_entity[clientfd]);
+		notify_starve(g_entity[clientfd]);
 		free_player(clientfd);
 	}
-	if (g_client_type[clientfd] == T_GRAPHIC)
-		g_server.graphic_fd = 0;
+	else if (g_client_type[clientfd] == T_GRAPHIC)
+		remove_list(&g_server.graphics, clientfd);
 	FD_CLR(clientfd, &g_server.client_fds);
 	close(clientfd);
-	g_client_type[clientfd] = 0;
+	g_client_type[clientfd] = T_NONDEF;
 	g_entity[clientfd] = NULL;
 }
 

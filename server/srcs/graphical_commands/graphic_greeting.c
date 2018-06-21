@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/16 18:22:11 by tle-huu-          #+#    #+#             */
-/*   Updated: 2018/06/19 03:09:58 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/21 07:10:05 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void		enw_greeting(int fd)
 		while (node)
 		{
 			egg = ((t_egg *)(node->data));
-			notify_egg_laid(fd, g_entity[egg->father_fd], egg);
+			notify_egg_laid(g_entity[egg->father_fd], egg);
 			node = node->next;
 		}
 		i++;
@@ -40,7 +40,7 @@ static void		send_players(int fd)
 	while (i < FD_SETSIZE)
 	{
 		if (g_client_type[i] == T_PLAYER)
-			notify_new_player(g_server.graphic_fd, g_entity[i]);
+			notify_new_player(fd, g_entity[i]);
 		i++;
 	}
 

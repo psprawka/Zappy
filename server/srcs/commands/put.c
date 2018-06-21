@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 18:04:32 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 07:31:38 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/21 06:17:05 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ int		command_put(void *entity, char *msg)
 		if (send(P_ENTITY->fd, MSG_KO, strlen(MSG_KO), 0) == -1)
 			return (error(0, "Send [put]", false));
 	}
-	ressource_drop(g_server.graphic_fd, P_ENTITY, ressource_nbr);
-	send_inventory(g_server.graphic_fd, P_ENTITY);
-	send_block_contents(g_server.graphic_fd, x, y);
+	notify_ressource_drop(P_ENTITY, ressource_nbr);
+	send_inventory(0, P_ENTITY);
+	send_block_contents(0, x, y);
 	P_ENTITY->requests_nb--;
 	return (EXIT_SUCCESS);
 }

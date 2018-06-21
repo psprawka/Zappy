@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 21:18:48 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 07:43:03 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/21 05:38:50 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,14 +98,18 @@ int		main_game_loop(void)
 			free(alarm);
 		alarm = set_time_alarm();
 		select_fds = g_server.client_fds;
-		if (g_client_type[8] != 0)
-		 break;
+
+		// if (g_client_type[5] != 0)
+		//  break;
 	}
+	if (alarm)
+		free(alarm);
+		
+	// bzero(&g_server, sizeof(t_server));
 	free_server();
-	bzero(&g_server, sizeof(t_server));
-	printf("falling asleep\n");
-	sleep(100);
-	printf("awake\n");
+	// printf("falling asleep\n");
+	// sleep(100);
+	// free(g_entity);
 	return (error(0, "Select [main_game_loop]", true));
 }
 

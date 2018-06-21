@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 18:08:13 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 07:59:02 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/19 08:52:46 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ typedef struct	s_vector
 	int		x;
 	int		y;
 }				t_vector;
-
 
 /*
 **	fork/eggs.c

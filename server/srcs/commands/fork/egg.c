@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/16 12:25:34 by tle-huu-          #+#    #+#             */
-/*   Updated: 2018/06/19 02:45:17 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/21 05:31:52 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ int				handle_egg(t_player *player)
 		add_event(egg, T_EGG, 12, "hatch") ||
 		add_event(egg, T_EGG, 14, "egg_death"))
 		return (EXIT_FAILURE);
-	notify_egg_laid(g_server.graphic_fd, player, egg);
+	notify_egg_laid(player, egg);
 	return (EXIT_SUCCESS);
 }

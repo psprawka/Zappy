@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 18:04:46 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 03:39:48 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/21 05:32:16 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,6 @@ int				command_broadcast(void *entity, char *msg)
 	P_ENTITY->requests_nb--;
 	if (send(P_ENTITY->fd, MSG_OK, strlen(MSG_OK), 0) == -1)
 		return (error(0, "Send [broadcast]", false));
-	notify_broadcast(g_server.graphic_fd, P_ENTITY, msg);
+	notify_broadcast(P_ENTITY, msg);
 	return (EXIT_SUCCESS);
 }

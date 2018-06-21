@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 22:03:33 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 03:53:16 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/21 05:26:21 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		handle_ai(int fd, char *msg)
 		if (!ft_strcmp(g_events_ai[i].msg, msg) || strstr(msg, g_events_ai[i].msg))
 		{
 			if (strstr(msg, "fork"))
-				lay_egg(g_server.graphic_fd, g_entity[fd]);
+				notify_lay_egg(g_entity[fd]);
 			add_event(g_entity[fd], T_PLAYER, i, msg);
 			return (EXIT_SUCCESS);
 		}

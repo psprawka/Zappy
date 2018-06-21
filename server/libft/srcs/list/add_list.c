@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pie.c                                              :+:      :+:    :+:   */
+/*   add_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/13 17:34:18 by tle-huu-          #+#    #+#             */
-/*   Updated: 2018/06/21 06:04:09 by psprawka         ###   ########.fr       */
+/*   Created: 2018/06/21 03:35:23 by psprawka          #+#    #+#             */
+/*   Updated: 2018/06/21 04:27:18 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "zappy.h"
+#include "libft.h"
 
-void	notify_end_incantation(t_player *player, int result)
+int		add_list(t_list **list, int key)
 {
-	strcpy(g_server.buff, "pie ");
-	strcat(g_server.buff, ft_itoa(player->x));
-	strcat(g_server.buff, " ");
-	strcat(g_server.buff, ft_itoa(player->y));
-	strcat(g_server.buff, " ");
-	strcat(g_server.buff, ft_itoa(result));
-	strcat(g_server.buff, "\n");
-	if (notify_graphics(0) == EXIT_FAILURE)
-		error(0, "Send [g: pie]", true);
+	t_list *tmp;
+
+	tmp = *list;
+	if (!tmp)
+	{
+		*list = create_list(key);
+		return (EXIT_SUCCESS);
+	}
+	while (tmp->next)
+		tmp = tmp->next;
+
+	tmp->next = create_list(key);
+	return (EXIT_SUCCESS);
 }
+
+
