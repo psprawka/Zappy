@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/16 18:22:11 by tle-huu-          #+#    #+#             */
-/*   Updated: 2018/06/21 07:10:05 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/21 07:47:27 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static void		send_players(int fd)
 			notify_new_player(fd, g_entity[i]);
 		i++;
 	}
-
 }
 
 void			send_graphic_greeting(int fd)

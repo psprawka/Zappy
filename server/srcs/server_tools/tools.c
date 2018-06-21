@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/31 13:23:45 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 04:34:54 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/21 08:15:48 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,25 @@ int			error(int errnb, char *msg, bool ifailure)
 	else
 		printf("%s%s: %s%s\n", RED, msg, strerror(errno), NORMAL);
 	return (ifailure == true ? EXIT_FAILURE : EXIT_SUCCESS);
+}
+
+
+void	print_queue(void)
+{
+	t_node		*node = g_server.events->first;
+	t_event		*event;
+	int 	i;
+
+	i = 1;
+	while (node)
+	{
+		event = node->data;
+		if (event && g_server.entity[((t_player *)event->entity)->fd] == T_PLAYER)
+			printf("%s%d [%d][%s][%ld][%d] requests: [%d]%s\n", PINK, i++, ((t_player *)event->entity)->fd,
+				event->msg, event->event_time->tv_sec, event->event_time->tv_usec, ((t_player *)event->entity)->requests_nb, NORMAL);
+		else
+		printf("%s%d [%d][%s][%ld][%d]%s\n", PINK, i++, ((t_egg *)event->entity)->number,
+				event->msg, event->event_time->tv_sec, event->event_time->tv_usec, NORMAL);
+		node = node->next;
+	}
 }

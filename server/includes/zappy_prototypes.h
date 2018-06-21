@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 03:41:58 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/21 06:13:43 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/06/21 08:16:20 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void			rand_position(t_player *player);
 void			*lookup_clients(int fd);
 uint32_t		ft_modulo(int k, int n);
 int				graphic_direction(int direction);
-
+void			print_queue(void);
 
 
 #endif
