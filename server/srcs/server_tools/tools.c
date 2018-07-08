@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/31 13:23:45 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/21 08:15:48 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/07/08 15:34:09 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	print_queue(void)
 	while (node)
 	{
 		event = node->data;
-		if (event && g_server.entity[((t_player *)event->entity)->fd] == T_PLAYER)
+		if (event && g_client_type[((t_player *)event->entity)->fd] == T_PLAYER)
 			printf("%s%d [%d][%s][%ld][%d] requests: [%d]%s\n", PINK, i++, ((t_player *)event->entity)->fd,
 				event->msg, event->event_time->tv_sec, event->event_time->tv_usec, ((t_player *)event->entity)->requests_nb, NORMAL);
 		else

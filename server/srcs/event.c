@@ -6,7 +6,7 @@
 /*   By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/13 15:25:38 by psprawka          #+#    #+#             */
-/*   Updated: 2018/06/19 07:15:54 by psprawka         ###   ########.fr       */
+/*   Updated: 2018/07/08 15:34:55 by psprawka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,6 @@ int		add_event(void *entity, int type, int itable, char *msg)
 	}
 	ft_push_pqueue(&(g_server.events), node, time_compare_events);
 	if (g_server.print_queue == true)
-		printqueue();
+		print_queue();
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 #    By: psprawka <psprawka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/09 23:21:55 by psprawka          #+#    #+#              #
-#    Updated: 2018/06/21 08:10:45 by psprawka         ###   ########.fr        #
+#    Updated: 2018/07/08 15:35:50 by psprawka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,7 +94,6 @@ SRCS_SERVER = $(SRCS_DIR)main.c \
 		$(SRCS_DIR)$(GRAPHICAL)server_info/smg.c \
 		$(SRCS_DIR)$(GRAPHICAL)server_info/suc.c \
 		$(SRCS_DIR)$(GRAPHICAL)graphic_greeting.c \
-		$(SRCS_DIR)testing/test.c \
 
 
 OBJS_SERVER = $(SRCS_SERVER:.c=.o)
