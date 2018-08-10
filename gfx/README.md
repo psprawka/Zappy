@@ -11,7 +11,7 @@ First, you need to run `make deps` to install all the dependencies needed. It mi
 <img src="resources/objects_outline.png" width="600" />
 
 ## Made by
-* 🇫🇷[Terrance Huu-Luu](https://github.com/tle-huu)
+* 🇫🇷[Terence Le Huu Phuong](https://github.com/tle-huu)
 * 🇵🇱[Paulina Sprawka](https://github.com/spraweczga)
 * 🇯🇴[Zeid Tisnes](https://github.com/zedin27)
 * 🇬🇧[Theodore Walton](https://github.com/theo-walton)
