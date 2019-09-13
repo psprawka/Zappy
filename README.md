@@ -2,13 +2,13 @@
 
 A multi-players, single process and single thread game within a TCP/IP network 🤖
 * **Techinal part**: Zappy is a team project consisting of 4 people creating a world with resources (**the server** written in C) with complex AIs (**the clients** written in Python) that have personalities and actions. Server-client and client-client interactions happen through the server on a TCP/IP network which is displayed on **a graphical interface** (written in C++). The game servers may only utilize **a SINGLE PROCCESS within a SINGLE THREAD**. Cool stuff about Zappy's technical part I'd like to mention about:
-  * Along with my Starfleet Potatoes 🥔 ([@nkouris](https://github.com/nkouris) and [@tle-huu](https://github.com/tle-huu)) we came up with **SUPER GENERALIZED SERVER** (i.e. `void *` accepting **all** types of data, even those we don't know about yet; using of generalized libft function for queues, lists, etc.) therefore the server is easily adaptable to the other games.
+  * Along with ([@nkouris](https://github.com/nkouris) and [@tle-huu](https://github.com/tle-huu)) we came up with **SUPER GENERALIZED SERVER** (i.e. `void *` accepting **all** types of data, even those we don't know about yet; using of generalized libft function for queues, lists, etc.) therefore the server is easily adaptable to the other games.
   * We **MAXIMALLY REDUCED MALLOC CALLS** by initializing one global buffer capable enought to hold all required data within entire game, from the beginning till the end.
   * A time unit taken into consideration in **event driven engine** allows to choose game speed (`-t <timeunit>` while executing server binary). The greater time unit, the faster game goes, and everything happens in real time... it's... just... AMAZING! (`select()`, you're the best!).
   * Thanks to the use of `void *g_entity[]`'s array and player's assagnition based on its fd, we guarantee **O(1) access to all players' data** (We could use linked list instead, but it's slow and lame 🐑).
   * **Multiple graphical clients** are allowed, thus you can watch a game from as many computers/windows as you want, again in the real time! Cool, isn't it?
   </br>
-* **Fun part**: Zappy is about creating families, surviving by eating food and collecting stones in order to level up. Each level has different requirements for a ritual, which makes the adventure more and more difficult for AI players, which play on their own, without any help form their creator. The game is over once 6 members of one family reach the highest possible level (8).
+* **Fun part**: Zappy is about creating families, surviving by eating food and collecting stones in order to level up. Each level has different requirements for a ritual, which makes the adventure more and more difficult for AI players. They play on their own, without any help form their creator. The game is over once 6 members of one family reach the highest possible level (8).
 </br></br>
 
 ![](imgs/zappy1.png)
@@ -104,8 +104,8 @@ Each level has different ritual requirements:
 ## Made by
 | | |
 |:-:|:-:|
-| 🇫🇷[Terence Le Huu Phuong](https://github.com/tle-huu) | server/ai |
 | 🇵🇱[Paulina Sprawka](https://github.com/psprawka) | server |
+| 🇫🇷[Terence Le Huu Phuong](https://github.com/tle-huu) | server/ai |
 | 🇯🇴[Zeid Tisnes](https://github.com/zedin27) | gui |
 | 🇬🇧[Theodore Walton](https://github.com/theo-walton)| gui |
 | | |
